@@ -3,6 +3,11 @@ function [Func, Type, f_lim, A_lim, x] = MakeTestFile(t, cfg)
 if nargin < 2
     cfg = SignalConfig();
 end;
+if ~isnumeric(t) || ~isvector(t) || any(~isfinite(t))
+    error('SignalProcessing:InvalidTestTime', ...
+        'Time input must be a finite numeric vector.');
+end;
+t = t(:);
 Len = length(t);
 x = zeros(Len, 1);
 Func = cfg.testFilterFunction;
