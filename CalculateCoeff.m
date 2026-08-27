@@ -39,6 +39,6 @@ B( Start ) = 0;
 Coeff(1, :) =  A(Start:1:N_max + Start);
 Coeff(2, :) = -B(Start:1:N_max + Start);
 
-% Find the normilizing factor and scale the coefficients accordingly:
-NormFactor = Normilize(Func, Type, N, w_c, Eps, Coeff);
+% Find the normalization factor and scale the coefficients accordingly:
+NormFactor = Normalize(Func, Type, N, w_c, Eps, Coeff);
 Coeff(1, :) = Coeff(1, :) * NormFactor;

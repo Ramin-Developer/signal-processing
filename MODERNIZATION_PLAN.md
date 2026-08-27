@@ -53,7 +53,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Identify all shared file-based state and isolate it behind explicit config objects or helpers
 
 ### Phase 2 — Reliability and readability
-- [ ] Rename ambiguous or misspelled functions and variables where safe
+- [x] Rename ambiguous or misspelled functions and variables where safe
 - [ ] Replace repeated magic numbers with named constants or configuration structures
 - [x] Fix inconsistent file I/O patterns and status/error handling
 - [ ] Centralize MATLAB path assumptions and file naming conventions
