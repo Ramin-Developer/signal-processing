@@ -58,6 +58,17 @@ end;
 assert(invalidTestConfigErrorRaised, 'Invalid test configuration should raise a clear error.');
 
 invalidTestConfig = cfg;
+invalidTestConfig.testFilterFunction = 'a';
+invalidTestConfigErrorRaised = false;
+try
+	MakeTestFile(sampleTime, invalidTestConfig);
+catch exception
+	invalidTestConfigErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidTestConfiguration');
+end;
+assert(invalidTestConfigErrorRaised, 'Nonnumeric test configuration should raise a clear error.');
+
+invalidTestConfig = cfg;
 invalidTestConfig.lowPassFrequencyLimits = 0.01;
 invalidTestConfigErrorRaised = false;
 try

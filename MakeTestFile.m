@@ -12,11 +12,13 @@ Len = length(t);
 x = zeros(Len, 1);
 Func = cfg.testFilterFunction;
 Type = cfg.testFilterType;
-if ~isscalar(Func) || Func ~= floor(Func) || Func < 0 || Func > 3
+if ~isnumeric(Func) || ~isscalar(Func) || ~isfinite(Func) || ...
+    Func ~= floor(Func) || Func < 0 || Func > 3
     error('SignalProcessing:InvalidTestConfiguration', ...
         'testFilterFunction must be an integer from 0 through 3.');
 end;
-if ~isscalar(Type) || Type ~= floor(Type) || Type < 0 || Type > 1
+if ~isnumeric(Type) || ~isscalar(Type) || ~isfinite(Type) || ...
+    Type ~= floor(Type) || Type < 0 || Type > 1
     error('SignalProcessing:InvalidTestConfiguration', ...
         'testFilterType must be 0 or 1.');
 end;
