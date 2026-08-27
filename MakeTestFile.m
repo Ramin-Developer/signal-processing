@@ -3,22 +3,22 @@ function [Func, Type, f_lim, A_lim, x] = MakeTestFile(t)
 cfg = SignalConfig();
 Len = length(t);
 x = zeros(Len, 1);
-Func = 0;
-Type = 0;
+Func = cfg.testFilterFunction;
+Type = cfg.testFilterType;
 
 % Make critical frequencies and attenuations:
 if (Func == 0)
-    f_lim = [0.01   0.02];
-    A_lim = [0.1       20];
+    f_lim = cfg.lowPassFrequencyLimits;
+    A_lim = cfg.lowPassAttenuationLimits;
 elseif (Func == 1)
-    f_lim = [0.01   0.024];
-    A_lim = [20     0.1];
+    f_lim = cfg.highPassFrequencyLimits;
+    A_lim = cfg.highPassAttenuationLimits;
 elseif (Func == 2)
-    f_lim = [0.01   0.02   0.03   0.049];
-    A_lim = [20     0.5    0.5      20];
+    f_lim = cfg.bandPassFrequencyLimits;
+    A_lim = cfg.bandPassAttenuationLimits;
 elseif (Func == 3)
-    f_lim = [0.01   0.02   0.03   0.049];
-    A_lim = [0.01     20      20     0.01];
+    f_lim = cfg.bandStopFrequencyLimits;
+    A_lim = cfg.bandStopAttenuationLimits;
 end;
 
 % Generate the input signal based on the value of Choice:

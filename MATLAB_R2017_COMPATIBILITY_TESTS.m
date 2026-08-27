@@ -12,6 +12,8 @@ assert(isfield(cfg, 'alpha'), 'SignalConfig missing alpha.');
 assert(isfield(cfg, 'signalOmega'), 'SignalConfig missing signalOmega.');
 assert(isfield(cfg, 'lastInputSignalPath'), 'SignalConfig missing lastInputSignalPath.');
 assert(isfield(cfg, 'lastOutputSignalPath'), 'SignalConfig missing lastOutputSignalPath.');
+assert(isfield(cfg, 'testFilterFunction'), 'SignalConfig missing testFilterFunction.');
+assert(isfield(cfg, 'lowPassFrequencyLimits'), 'SignalConfig missing lowPassFrequencyLimits.');
 assert(cfg.filterOrderMax > 0, 'filterOrderMax should be positive.');
 
 [InputFile, LastInSignal, LastOutSignal, LogFile, N_max, f_n, Alpha] = Initialize();
@@ -29,6 +31,8 @@ assert(isnumeric(x), 'MakeTestFile should return numeric signal data.');
 assert(length(x) == length(sampleTime), 'Signal length should match the input vector length.');
 assert(isnumeric(f_lim), 'Filter limits should be numeric.');
 assert(isnumeric(A_lim), 'Attenuation limits should be numeric.');
+assert(isequal(f_lim, cfg.lowPassFrequencyLimits), 'Unexpected default filter limits.');
+assert(isequal(A_lim, cfg.lowPassAttenuationLimits), 'Unexpected default attenuation limits.');
 
 w_lim = 2 * pi * f_lim(1:2);
 A_lim_short = A_lim(1:2);
