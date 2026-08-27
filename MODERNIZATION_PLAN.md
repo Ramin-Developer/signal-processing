@@ -57,6 +57,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Replace repeated magic numbers with named constants or configuration structures
 - [x] Fix inconsistent file I/O patterns and status/error handling
 - [x] Centralize MATLAB path assumptions and file naming conventions
+- [x] Validate persisted filter state before later-period processing
 
 ### Phase 3 — Performance improvement
 - [x] Replace repeated nested loops with vectorized MATLAB patterns where practical

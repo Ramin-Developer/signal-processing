@@ -65,5 +65,20 @@ delete(inputPath);
 delete(outputPath);
 delete(stateLogPath);
 
+shortInputPath = [tempname '.txt'];
+shortOutputPath = [tempname '.txt'];
+shortLogPath = [tempname '.txt'];
+WriteFilterState(shortInputPath, shortOutputPath, 0, 0);
+shortStateErrorRaised = false;
+try
+	ApplyNext(Func, testOrder, A, B, x(1:2), shortInputPath, shortOutputPath, shortLogPath);
+catch exception
+	shortStateErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InsufficientFilterState');
+end;
+assert(shortStateErrorRaised, 'Short filter state should raise a clear error.');
+delete(shortInputPath);
+delete(shortOutputPath);
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
