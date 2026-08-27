@@ -42,6 +42,12 @@ end;
 % Generate the input signal based on the value of Choice:
 Omega = cfg.signalOmega;
 Amp   = cfg.signalAmplitude;
+if ~isnumeric(Omega) || ~isvector(Omega) || any(~isfinite(Omega)) || ...
+        ~isnumeric(Amp) || ~isvector(Amp) || any(~isfinite(Amp)) || ...
+        numel(Omega) ~= numel(Amp)
+    error('SignalProcessing:InvalidTestConfiguration', ...
+        'signalOmega and signalAmplitude must be finite numeric vectors of matching length.');
+end;
 for k = 1:1:length(Omega)
     x = x + Amp(k) * sin( Omega(k)*t );
 end;

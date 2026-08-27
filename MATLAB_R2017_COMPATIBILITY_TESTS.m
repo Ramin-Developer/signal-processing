@@ -56,6 +56,17 @@ catch exception
 end;
 assert(invalidTestConfigErrorRaised, 'Malformed test filter limits should raise a clear error.');
 
+invalidTestConfig = cfg;
+invalidTestConfig.signalAmplitude = cfg.signalAmplitude(1:2);
+invalidTestConfigErrorRaised = false;
+try
+	MakeTestFile(sampleTime, invalidTestConfig);
+catch exception
+	invalidTestConfigErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidTestConfiguration');
+end;
+assert(invalidTestConfigErrorRaised, 'Mismatched waveform configuration should raise a clear error.');
+
 w_lim = 2 * pi * f_lim(1:2);
 A_lim_short = A_lim(1:2);
 [N, w_c, Eps] = DecideParam(Func, Type, N_max, Alpha, w_lim, A_lim_short);
