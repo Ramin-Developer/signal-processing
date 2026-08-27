@@ -1,8 +1,9 @@
 function [y, Status] = ApplyFirst(Func, N, A, B, x, LogFile)
 
+cfg = SignalConfig();
 Lx = length(x);     % Initial length of the input.
 Aver_x = mean(x);
-LenMin = 1000;
+LenMin = cfg.minPeriodicSignalLength;
 
 % Generate a periodic input signal as a result of discrete property of frequency domain.
 if Lx >= LenMin
@@ -52,7 +53,7 @@ while (Status ~= 0) && (Status ~= 1)
     Max_yOld = max( abs(yOld) );
     if Max_yNew > 10 * Max_yOld
         Status = 1;     % Status is set to Warning.
-    elseif norm(yNew - yOld, 2) <= 0.01 || (Iter_no > 10)
+    elseif norm(yNew - yOld, 2) <= 0.01 || (Iter_no > cfg.maxIterations)
         Status = 0;
     end;
     yOld = yNew;

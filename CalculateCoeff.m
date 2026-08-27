@@ -6,7 +6,8 @@ function Coeff = CalculateCoeff(Func, Type, N_max, N, Alpha, w_c, Eps)
 % The filter order N must be an even integer,  2 <= N <= N_max.
 % "Alpha" is the constant in the bilinear transformation.
 
-Start = 5;
+cfg = SignalConfig();
+Start = cfg.coefficientStartIndex;
 % Obtain the order of a corresponding low-pass filter, N_lp:
 if (Func == 0 | Func == 1)
     N_lp = N;
