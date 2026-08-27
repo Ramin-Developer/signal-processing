@@ -14,6 +14,8 @@ assert(isfield(cfg, 'lastInputSignalPath'), 'SignalConfig missing lastInputSigna
 assert(isfield(cfg, 'lastOutputSignalPath'), 'SignalConfig missing lastOutputSignalPath.');
 assert(isfield(cfg, 'testFilterFunction'), 'SignalConfig missing testFilterFunction.');
 assert(isfield(cfg, 'lowPassFrequencyLimits'), 'SignalConfig missing lowPassFrequencyLimits.');
+assert(isfield(cfg, 'legacyInputFilterFunction'), ...
+	'SignalConfig missing legacyInputFilterFunction.');
 assert(cfg.filterOrderMax > 0, 'filterOrderMax should be positive.');
 
 [InputFile, LastInSignal, LastOutSignal, LogFile, N_max, f_n, Alpha] = Initialize();
@@ -45,6 +47,19 @@ catch exception
 	invalidTestTimeErrorRaised = strcmp(exception.identifier, 'SignalProcessing:InvalidTestTime');
 end;
 assert(invalidTestTimeErrorRaised, 'Invalid test time input should raise a clear error.');
+
+legacyInputPath = [tempname '.txt'];
+MakeInputFile(legacyInputPath, 1);
+legacyInputHandle = fopen(legacyInputPath, 'rt');
+legacyInputValues = fscanf(legacyInputHandle, '%g');
+fclose(legacyInputHandle);
+assert(length(legacyInputValues) == cfg.defaultSignalLength + 11, ...
+	'Legacy input file should contain its header and the complete signal.');
+assert(all(legacyInputValues(12:10 + cfg.defaultSignalLength / 2) == 0), ...
+	'Legacy step input should begin with zero values.');
+assert(all(legacyInputValues(11 + cfg.defaultSignalLength / 2:end) == 1), ...
+	'Legacy step input should end with one values.');
+delete(legacyInputPath);
 
 invalidTestConfig = cfg;
 invalidTestConfig.testFilterFunction = 4;
