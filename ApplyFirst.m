@@ -40,8 +40,10 @@ while (Status ~= 0) && (Status ~= 1)
     Max_yOld = max( abs(yOld) );
     if Max_yNew > 10 * Max_yOld
         Status = 1;     % Status is set to Warning.
-    elseif norm(yNew - yOld, 2) <= 0.01 || (Iter_no > cfg.maxIterations)
+    elseif norm(yNew - yOld, 2) <= 0.01
         Status = 0;
+    elseif Iter_no >= cfg.maxIterations
+        Status = 1;     % State initialization did not converge in time.
     end;
     yOld = yNew;
 end;
