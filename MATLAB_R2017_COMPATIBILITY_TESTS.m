@@ -110,6 +110,13 @@ assert(isnumeric(y), 'ApplyFirst should return numeric output.');
 assert(isscalar(status), 'ApplyFirst status should be scalar.');
 delete(logPath);
 
+slowConvergenceLogPath = [tempname '.txt'];
+[~, slowConvergenceStatus] = ApplyFirst(1, 1, [1 0], [0 0.999], ...
+	ones(cfg.minPeriodicSignalLength, 1), slowConvergenceLogPath);
+assert(slowConvergenceStatus == 1, ...
+	'Initialization that exceeds the iteration limit should return a warning.');
+delete(slowConvergenceLogPath);
+
 inputPath = [tempname '.txt'];
 outputPath = [tempname '.txt'];
 stateLogPath = [tempname '.txt'];
