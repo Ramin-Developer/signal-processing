@@ -19,9 +19,4 @@ else
     [y, Status] = ApplyNext(Func, N, A, B, x, LastInSignal, LastOutSignal, LogFile);
 end;
 
-% Write the input and output signal into the text files:
-h_in   = fopen(LastInSignal,  'wt');         % Open the input file for overwriting.
-h_out  = fopen(LastOutSignal, 'wt');         % Open the output file for overwriting.
-SzIn =  fprintf(h_in,  '%-16.12g\n', x);     % Write the new input signal to the file.
-SzOut = fprintf(h_out,  '%-16.12g\n', y);    % Write the new output signal to the file.
-SavedRes = fclose('all');
+WriteFilterState(LastInSignal, LastOutSignal, x, y);
