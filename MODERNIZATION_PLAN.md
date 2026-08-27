@@ -48,8 +48,8 @@ This plan covers the current script collection under the repository root, with f
 ## Refactoring tasks
 
 ### Phase 1 — Baseline and structure
-- [ ] Document the project entry points and expected data flow
-- [ ] Capture the current execution path for the main filter pipeline
+- [x] Document the project entry points and expected data flow
+- [x] Capture the current execution path for the main filter pipeline
 - [x] Identify all shared file-based state and isolate it behind explicit config objects or helpers
 
 ### Phase 2 — Reliability and readability
@@ -65,7 +65,7 @@ This plan covers the current script collection under the repository root, with f
 
 ### Phase 4 — Maintainability and validation
 - [x] Add small smoke tests or script-level validation for core DSP routines
-- [ ] Add a basic documentation section for expected inputs, outputs, and assumptions
+- [x] Add a basic documentation section for expected inputs, outputs, and assumptions
 - [ ] Establish a simple validation checklist before future refactors
 
 ## Planned implementation order
