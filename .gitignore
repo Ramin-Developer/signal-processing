@@ -1,0 +1,47 @@
+# MATLAB / Octave
+*.asv
+*.m~
+*.autosave
+*.slx.r2018a
+*.mlapp
+*.p
+*.mex*
+*.mat
+*.fig
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.pdf
+
+# MATLAB generated directories
+results/
+output/
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# LaTeX / TeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.pdf
+*.xdv
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.tmp
+*.temp
+*~
