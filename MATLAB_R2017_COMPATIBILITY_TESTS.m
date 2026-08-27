@@ -97,6 +97,20 @@ assert(isnumeric(N), 'DecideParam should return numeric order.');
 assert(isnumeric(w_c), 'DecideParam should return numeric cutoff.');
 assert(isnumeric(Eps), 'DecideParam should return numeric epsilon.');
 
+invalidDesignLogPath = [tempname '.txt'];
+invalidSpecificationErrorRaised = false;
+try
+	DesignParam(Func, Type, [f_lim(2) f_lim(1)], A_lim, N_max, Alpha, ...
+		invalidDesignLogPath);
+catch exception
+	invalidSpecificationErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterSpecification');
+end;
+assert(invalidSpecificationErrorRaised, 'Invalid filter limits should raise a clear error.');
+assert(ReadFilterStatus(invalidDesignLogPath) == 2, ...
+	'Invalid filter limits should persist an alarm status before design.');
+delete(invalidDesignLogPath);
+
 Coeff = CalculateCoeff(Func, Type, N_max, N, Alpha, w_c, Eps);
 assert(size(Coeff, 1) == 2, 'Coefficient matrix should have 2 rows.');
 assert(size(Coeff, 2) >= 2, 'Coefficient matrix should contain at least 2 coefficients.');

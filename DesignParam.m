@@ -9,6 +9,13 @@ function [N, w_c, Eps] = DesignParam(Func, Type, f_lim, A_lim, ...
 % digital frequency vector. If N >= N_max, an error status of value 2 is
 % written to the LogFile and the program terminates with an error message. 
 
+try
+    ValidateFilterSpecification(Func, Type, f_lim, A_lim);
+catch exception
+    WriteFilterStatus(LogFile, 2);
+    rethrow(exception);
+end;
+
 w_lim = 2*pi*f_lim;
 
 % Transform limiting frequencies and db_amplitudes to a LP filter:
