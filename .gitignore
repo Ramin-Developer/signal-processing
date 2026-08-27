@@ -20,6 +20,12 @@ results/
 output/
 logs/
 
+# MATLAB runtime state and logs
+LastInSignal.txt
+LastOutSignal.txt
+LogFile.txt
+TestLog.txt
+
 # OS files
 .DS_Store
 Thumbs.db
