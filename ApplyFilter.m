@@ -11,7 +11,6 @@ function [y, Status] = ApplyFilter(Func, N, Coeff, x, LastInSignal, LastOutSigna
 
 A = Coeff(1, :);
 B = Coeff(2, :);
-Lx = length(x);     % Initial length of the input.
 
 if (FirstPeriod == 1)
     [y, Status] = ApplyFirst(Func, N, A, B, x, LogFile);
