@@ -1,0 +1,1921 @@
+
+\documentclass{sebase}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{MIROSREPORT}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2606}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Thu Aug 09 10:55:09 2001}
+%TCIDATA{LastRevised=Tuesday, November 22, 2005 23:55:23}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Style Editor\MIROSREPORT">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=selart.cst}
+
+\input{tcilatex}
+
+\begin{document}
+
+\SetTitle{1300/TN/007 rev. 02}
+
+%TCIMACRO{\TeXButton{frontPageMiros}{\frontPageMiros{}}}%
+%BeginExpansion
+\frontPageMiros{}%
+%EndExpansion
+\begin{tabular}{p{3cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}}
+\hline\hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][10mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][10mm]{}%
+%EndExpansion
+\emph{Supplier}} & \multicolumn{6}{|c||}{\FRAME{itbpF}{7.5542cm}{2.201cm}{0cm%
+}{}{}{miroslogo.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "USEDEF";valid_file "F";width
+7.5542cm;height 2.201cm;depth 0cm;original-width 15.8823in;original-height
+4.6293in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'MIROSLOGO.eps';file-properties "XNPEU";}}} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Document No.}} & \multicolumn{6}{|l||}{1300/TN/007} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[7mm][4mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[7mm][4mm]{}%
+%EndExpansion
+\emph{Document Title}} & \multicolumn{6}{|l||}{Design of IIR Filters Using
+Bilinear Transformation Method} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Project}} & \multicolumn{6}{|l||}{1300-100} \\ \hline\hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Revision No.}} & \multicolumn{1}{|c}{\emph{1}} & \multicolumn{1}{|c}{%
+\emph{2}} & \multicolumn{1}{|c}{\emph{3}} & \multicolumn{1}{|c}{\emph{4}} & 
+\multicolumn{1}{|c}{\emph{5}} & \multicolumn{1}{|c||}{\emph{6}} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Date}} & \multicolumn{1}{|c}{02.04.02} & \multicolumn{1}{|c}{23.05.02}
+& \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & 
+\multicolumn{1}{|c||}{} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Prepared By}} & \multicolumn{1}{|c}{RA} & \multicolumn{1}{|c}{RA} & 
+\multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & 
+\multicolumn{1}{|c||}{} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Checked By}} & \multicolumn{1}{|c}{\O G} & \multicolumn{1}{|c}{\O G} & 
+\multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & 
+\multicolumn{1}{|c||}{} \\ \hline
+\multicolumn{1}{||l}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Approved By}} & \multicolumn{1}{|c}{\O G} & \multicolumn{1}{|c}{\O G}
+& \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & \multicolumn{1}{|c}{} & 
+\multicolumn{1}{|c||}{} \\ \hline\hline
+&  &  &  &  &  &  \\ \hline\hline
+\multicolumn{7}{||l||}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Abstract:}} \\ 
+\multicolumn{7}{||l||}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[1cm][4cm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[1cm][4cm]{}%
+%EndExpansion
+%TCIMACRO{%
+%\TeXButton{AbstractBox}{\parbox{14.5cm}{The primary object of this report is to describe how a digital, causal,
+%IIR, low-pass, high-pass, band-pass and band-stop filter may be designed from a set of
+%specifications. As filter types, Butterworth and Chebyshev-1 are chosen.
+%The design process is accomplished in three steps. First the parameters for an analog
+%profile are deduced, then an analog profile with unity as the cut-off frequency
+%calculated. Finally the decimal coefficients of a digital filter are obtained by mapping
+%back this profile. In steps 1 and 3, the famous Bilinear Transformation is applied,
+%and the method called Direct Calculations.
+%
+%Often, the efficiency of a microprocessor may be increased by restricting calculations
+%on integer numbers. To obtain integer coefficients the above results are scaled
+%properly and both the decimal and integer coefficients saved into text files. The integer
+%coefficients are then used to construct a truncated impulse-response and the metod
+%called Backward Calculations.
+%
+%The magnitude response of both methods may then be obtained and compared.
+%We test the Direct against the Backward method for all filter functions and both
+%filter types, i.e., low-pass, high-pass, band-pass and bans-stop as well as for the
+%Butterworth and Chebyshev-1 types.
+%
+%The report then concludes with some comments on the results.}}}%
+%BeginExpansion
+\parbox{14.5cm}{The primary object of this report is to describe how a digital, causal,
+IIR, low-pass, high-pass, band-pass and band-stop filter may be designed from a set of
+specifications. As filter types, Butterworth and Chebyshev-1 are chosen.
+The design process is accomplished in three steps. First the parameters for an analog
+profile are deduced, then an analog profile with unity as the cut-off frequency
+calculated. Finally the decimal coefficients of a digital filter are obtained by mapping
+back this profile. In steps 1 and 3, the famous Bilinear Transformation is applied,
+and the method called Direct Calculations.
+
+Often, the efficiency of a microprocessor may be increased by restricting calculations
+on integer numbers. To obtain integer coefficients the above results are scaled
+properly and both the decimal and integer coefficients saved into text files. The integer
+coefficients are then used to construct a truncated impulse-response and the metod
+called Backward Calculations.
+
+The magnitude response of both methods may then be obtained and compared.
+We test the Direct against the Backward method for all filter functions and both
+filter types, i.e., low-pass, high-pass, band-pass and bans-stop as well as for the
+Butterworth and Chebyshev-1 types.
+
+The report then concludes with some comments on the results.}%
+%EndExpansion
+} \\ \hline\hline
+\end{tabular}
+
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+
+\begin{tabular}{||p{0.8cm}|p{13.5cm}||}
+\hline\hline
+\multicolumn{2}{||c||}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+REVISION\ RECORD} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[5mm][2mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[5mm][2mm]{}%
+%EndExpansion
+\emph{Rev}} & \multicolumn{1}{|c||}{\emph{Description}} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{1}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{Original issue}}}%
+%BeginExpansion
+\parbox{13cm}{Original issue}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{2}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{3}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{4}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{5}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{6}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{7}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{8}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{9}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{10}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+\multicolumn{1}{||c|}{%
+%TCIMACRO{\TeXButton{Box}{\raisebox{0pt}[10mm][7mm]{}}}%
+%BeginExpansion
+\raisebox{0pt}[10mm][7mm]{}%
+%EndExpansion
+\emph{11}} & \multicolumn{1}{|c||}{%
+%TCIMACRO{\TeXButton{parbox}{\parbox{13cm}{}}}%
+%BeginExpansion
+\parbox{13cm}{}%
+%EndExpansion
+} \\ \hline
+&  \\ \hline\hline
+\end{tabular}
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+
+\QTP{contents}
+TABLE\ OF\ CONTENTS
+
+%TCIMACRO{\TeXButton{TableOfContents}{\TableOfContents} }%
+%BeginExpansion
+\TableOfContents
+%EndExpansion
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+
+\section{INTRODUCTION\label{Introduction}\protect\ref{Introduction}}
+
+In this article we describe in detail the mathematical background of digital
+IIR filter design. As filter types Butterworth and Chebyshev-1 analog
+filters are chosen. To make the process more specific we design first a
+digital low-pass filter and show that a high-pass, band-pass and band-stop
+filter may be deduced by a frequency transformation. Then we normalize the
+filter coefficients such that the magnitude response is in the interval $%
+[0,\,1]$. To increase the efficiency of some microprocessors the decimal
+integers are scaled properly to integers. By using these coefficients in a
+method called Backward Calculations, we may then compare the magnitude
+responses.
+
+Denote the input, output and impulse-response of a linear, time-invariant
+system, abbreviated LTI, by $x\left[ n\right] $, $y\left[ n\right] $ and $h%
+\left[ n\right] $. Then the convolution relates these variables as 
+\begin{gather}
+y=h\ast x=x\ast h, \\
+y\left[ n\right] =\sum_{k=-\infty }^{\infty }h\left[ k\right] x\left[ n-k%
+\right] =\sum_{k=-\infty }^{\infty }x\left[ k\right] h\left[ n-k\right] .
+\end{gather}
+
+Denote by $x_{a}(t)$ a continuous function and construct a discrete function 
+$x[n]$ by sampling $x_{a}(t)$ with sampling period $T$. Thus 
+\begin{equation}
+x\left[ n\right] =x_{a}\left( n\,T\right) .
+\end{equation}
+Denote by $\mathcal{L}$, $\mathcal{Z}$ and $\mathcal{F}$ the operations of 
+\textit{Laplace, }$Z$ and \textit{Fourier-}transformations given by 
+\begin{gather}
+X_{a}\left( s\right) =\mathcal{L}\left\{ x_{a}\left( t\right) \right\}
+=\int_{-\infty }^{\infty }x_{a}\left( t\right) \,e^{-s\,t}\,dt,
+\label{Laplace_Transform} \\
+X\left( z\right) =\mathcal{Z}\left\{ \,x\left[ n\right] \,\right\}
+=\sum_{k=-\infty }^{\infty }x\left[ k\right] z^{-k},  \label{Z_Transform} \\
+X\left( e^{j\,\omega }\right) =\mathcal{F}\left\{ \,x\left[ n\right]
+\,\right\} =\sum_{k=-\infty }^{\infty }x\left[ k\right] e^{-j\,\omega \,k}.
+\label{Fourier_Transform}
+\end{gather}
+Comparing Eqs. (\ref{Z_Transform}) and (\ref{Fourier_Transform}) we see that
+the $\mathcal{F}$-transform of a sequence is obtained from its $\mathcal{Z}$%
+-transform by replacing the complex variable $z$ with $e^{j\,\omega }$. In a
+linear, time-invariant system the input and output variables are related by 
+\begin{gather}
+Y\left( z\right) =H\left( z\right) X\left( z\right) , \\
+Y\left( e^{j\,\omega }\right) =H\left( e^{j\,\omega }\right) X\left(
+e^{j\,\omega }\right) ,
+\end{gather}
+where $H\left( z\right) $ and $Y\left( z\right) $ are $\mathcal{Z}$%
+-transforms of $h\left[ n\right] $, while $H\left( e^{jw}\right) $ and $%
+Y\left( e^{jw}\right) $ are $\mathcal{F}$-transforms of $h\left[ n\right] $
+and $y\left[ n\right] $, respectively. From Eqs. (\ref{Laplace_Transform}), (%
+\ref{Z_Transform}) and (\ref{Fourier_Transform}) we see that for a
+continuous or discrete, real function in the time domain, the complex
+conjugate transform is obtained by replacing the independent variable with
+its complex conjugate counterpart, 
+\begin{eqnarray}
+x_{a}\left( t\right) \;\func{real} &\leftrightarrow &\left| X_{a}\left(
+\sigma +j\,\omega \right) \right| ^{2}=X_{a}\left( \sigma +j\,\omega \right)
+X_{a}\left( \sigma -j\,\omega \right) , \\
+x\left[ n\right] \;\func{real} &\leftrightarrow &\left| X\left(
+r\,e^{j\,\omega }\right) \right| ^{2}=X\left( r\,e^{j\,\omega }\right)
+X\left( r\,e^{-j\,\omega }\right) .
+\end{eqnarray}
+
+An Infinite Impulse-Response, abbreviated IIR, causal filter of order $N$
+may be realized as an $N$th order difference Eq. of the form 
+\begin{equation}
+y\left[ n\right] =\sum_{k=0}^{N}a_{k}x\left[ n-k\right] +\sum_{k=1}^{N}b_{k}y%
+\left[ n-k\right] .  \label{LTI_Causal_Filter}
+\end{equation}
+
+Thus, to completely determine an $N$th order IIR filter, we have to
+calculate two vectors $\vec{a}$ and $\vec{b}$ of length $N+1$, with $b_{0}=0$%
+. Applying the $\mathcal{Z}$ and $\mathcal{F}$-transformations to Eq. (\ref%
+{LTI_Causal_Filter}), its system function and frequency-response can be
+obtained as 
+\begin{gather}
+H\left( z\right) =\frac{Y\left( z\right) }{X\left( z\right) }=\frac{%
+\sum_{k=0}^{N}a_{k}\,z^{-k}}{1-\sum_{k=1}^{N}b_{k}\,z^{-k}},
+\label{System_Function} \\
+H\left( e^{j\,\omega }\right) =\frac{Y\left( e^{j\,\omega }\right) }{X\left(
+e^{j\,\omega }\right) }=\frac{\sum_{k=0}^{N}a_{k}\,e^{-j\,\omega \,k}}{%
+1-\sum_{k=1}^{N}b_{k}\,e^{-j\,\omega \,k}}.  \label{Freq_Resp}
+\end{gather}
+It is customary to use $dB$-scale when attenuation of a frequency-response
+variable is concerned, i.e. 
+\begin{equation}
+dB\text{-amplitude of }H\left( e^{j\,\omega }\right) =10\,\log _{10}\left|
+H\left( e^{j\,\omega }\right) \right| ^{2}=20\,\log _{10}\left| H\left(
+e^{j\,\omega }\right) \right| .
+\end{equation}
+\FRAME{ftbphFU}{12.2769cm}{9.228cm}{0pt}{\Qcb{Specification of a digital
+low-pass filter.}}{\Qlb{Gen_LowPass}}{general_lowpass.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 12.2769cm;height 9.228cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"0.9996";cropright "1.0007";cropbottom "0";filename
+'General_LowPass.eps';file-properties "XNPEU";}}
+
+\begin{center}
+\FRAME{ftbphFU}{12.2681cm}{9.2324cm}{0pt}{\Qcb{Specification of a digital
+high-pass filter.}}{\Qlb{Gen_HighPass}}{general_highpass.eps}{\special%
+{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio
+TRUE;display "ICON";valid_file "F";width 12.2681cm;height 9.2324cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'General_HighPass.eps';file-properties "XNPEU";}}
+
+\FRAME{ftbphFU}{12.2681cm}{9.2302cm}{0pt}{\Qcb{Specification of a digital
+band-pass filter.}}{\Qlb{Gen_BandPass}}{general_bandpass.eps}{\special%
+{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio
+TRUE;display "ICON";valid_file "F";width 12.2681cm;height 9.2302cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'General_BandPass.eps';file-properties "XNPEU";}}
+
+\FRAME{ftbphFU}{12.2681cm}{9.2302cm}{0pt}{\Qcb{Specification of a digital
+band-stop filter.}}{\Qlb{Gen_BandStop}}{general_bandstop.eps}{\special%
+{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio
+TRUE;display "ICON";valid_file "F";width 12.2681cm;height 9.2302cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'General_BandStop.eps';file-properties "XNPEU";}}A digital low-pass filter,
+may then be specified by demanding that the frequencies lower than $\omega
+_{1}$ must be attenuated by a factor $0\leq A\leq A_{1}$, while frequencies
+higher than $\omega _{2}$ is attenuated by $A_{2}\leq A$. Thus, the design
+specifications for a normalized, digital, low-pass filter are of the form 
+\begin{gather}
+0<\omega _{1}<\omega _{2}<\pi ,  \label{Spec_1_low} \\
+0<A_{1}<A_{2},  \label{Spec_2_low} \\
+-A_{1}\leq 20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq 0,\text{ \ \ \
+\ }0\leq \omega \leq \omega _{1},  \label{Spec_3_low} \\
+-\infty <20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq -A_{2},\text{ \
+\ \ \ }\omega _{2}\leq \omega \leq \pi .  \label{Spec_4_low}
+\end{gather}
+\end{center}
+
+A high-pass filter may be specified by requiring that frequencies up to $%
+\omega _{1}$ is attenuated by $A_{1}\leq A$, and frequencies higher than $%
+\omega _{2}$ is attenuated by $0\leq A\leq A_{2}$. Thus, a normalized
+high-pass filter may be specified by design specifications of the form 
+\begin{gather}
+0<\omega _{1}<\omega _{2}<\pi ,  \label{Spec_1_high} \\
+0<A_{2}<A_{1},  \label{Spec_2_high} \\
+-\infty <20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq -A_{1},\text{ \
+\ \ \ }0\leq \omega \leq \omega _{1}.  \label{Spec_3_high} \\
+-A_{2}\leq 20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq 0,\text{ \ \ \
+\ }\omega _{2}\leq \omega \leq \pi .  \label{Spec_4_high}
+\end{gather}
+A band-pass filter may be specified by requiring that frequencies up to $%
+\omega _{1}$ is attenuated by $A_{1}\leq A$, frequencies between $\omega
+_{2} $ and $\omega _{3}$ by $A\leq \min \left( A_{2},\,A_{3}\right) $ and
+frequencies higher than $\omega _{4}$ by $A_{4}\leq A.$ Thus, a normalized
+band-pass filter may be specified by design specifications of the form 
+\begin{gather}
+0<\omega _{1}<\omega _{2}<\omega _{3}<\omega _{4}<\pi ,
+\label{Spec_1_BandPass} \\
+0<A_{2}<A_{1},  \label{Spec_2_BandPass} \\
+0<A_{3}<A_{4},  \label{Spec_3_BandPass} \\
+-\infty <20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq -A_{1},\text{ \
+\ \ \ }0\leq \omega \leq \omega _{1},  \label{Spec_4_BandPass} \\
+-\min \left( A_{2},\,A_{3}\right) \leq 20\,\log _{10}\left| H(e^{j\,\omega
+})\right| \leq 0,\text{ \ \ \ \ }\omega _{2}\leq \omega \leq \omega _{3},
+\label{Spec_5_BandPass} \\
+-\infty <20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq -A_{4},\text{ \
+\ \ \ }\omega _{4}\leq \omega \leq \pi .  \label{Spec_6_BandPass}
+\end{gather}
+Finally, a band-stop filter may be specified by requiring that frequencies
+up to $\omega _{1}$ is attenuated by $A\leq A_{1}$, frequencies between $%
+\omega _{2}$ and $\omega _{3}$ by $\max \left( A_{2},\,A_{3}\right) \leq A$
+and frequencies higher than $\omega _{4}$ by $A\leq A_{4}.$ Thus, a
+normalized band-stop filter may be specified by design specifications of the
+form 
+\begin{gather}
+0<\omega _{1}<\omega _{2}<\omega _{3}<\omega _{4}<\pi ,
+\label{Spec_1_BandStop} \\
+0<A_{1}<A_{2},  \label{Spec_2_BandStop} \\
+0<A_{4}<A_{3},  \label{Spec_3_BandStop} \\
+-A_{1}\leq 20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq 0,\text{ \ \ \
+\ }0\leq \omega \leq \omega _{1},  \label{Spec_4_BandStop} \\
+-\infty \leq 20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq -\max \left(
+A_{2},\,A_{3}\right) ,\text{ \ \ \ \ }\omega _{2}\leq \omega \leq \omega
+_{3},  \label{Spec_5_BandStop} \\
+-A_{4}\leq 20\,\log _{10}\left| H(e^{j\,\omega })\right| \leq 0,\text{ \ \ \
+\ }\omega _{4}\leq \omega \leq \pi .  \label{Spec_6_BandStop}
+\end{gather}
+Figs. \ref{Gen_LowPass} , \ref{Gen_HighPass}, \ref{Gen_BandPass} and \ref%
+{Gen_BandStop} illustrate design specifications for low-pass, high-pass,
+band-pass and a band-stop digital filters. Note that we have normalized the
+frequency variable $f=\frac{\omega }{2\,\pi }$, with respect to the sampling
+frequency. Furthermore, we have the following relations between values of $%
+A_{i}$, $i=1,\ldots ,\,4$ and $\varepsilon _{i}$, $i=1,\,2,\,3$:
+
+\begin{itemize}
+\item For a low-pass filter 
+\begin{eqnarray}
+A_{1} &=&-20\,\log _{10}\left( 1-\varepsilon _{1}\right) , \\
+A_{2} &=&-20\,\log _{10}\left( \varepsilon _{2}\right) .
+\end{eqnarray}
+
+\item For a high-pass filter 
+\begin{eqnarray}
+A_{1} &=&-20\,\log _{10}\left( \varepsilon _{2}\right) , \\
+A_{2} &=&-20\,\log _{10}\left( 1-\varepsilon _{1}\right) .
+\end{eqnarray}
+
+\item For a band-pass filter 
+\begin{eqnarray}
+A_{1} &=&-20\,\log _{10}\left( \varepsilon _{2}\right) , \\
+A_{2},\,A_{3} &\leq &-20\,\log _{10}\left( 1-\varepsilon _{1}\right) , \\
+A_{4} &=&-20\,\log _{10}\left( \varepsilon _{3}\right) .
+\end{eqnarray}
+
+\item For a band-stop filter 
+\begin{eqnarray}
+A_{1},\,A_{4} &\leq &-20\,\log _{10}\left( 1-\varepsilon _{1}\right) , \\
+A_{2} &=&-20\,\log _{10}\left( \varepsilon _{2}\right) , \\
+A_{3} &=&-20\,\log _{10}\left( \varepsilon _{3}\right) .
+\end{eqnarray}
+\end{itemize}
+
+\begin{remark}
+By comparing the low-pass with high-pass specifications, Eqs. (\ref%
+{Spec_1_low}) through (\ref{Spec_4_low}) with (\ref{Spec_1_high}) through (%
+\ref{Spec_4_high}) or Fig \ref{Gen_LowPass} with \ref{Gen_HighPass}, we
+observe that a low-pass filter may be derived from a high-pass filter by
+changing the frequency variable from $\omega _{hp}$ to $\omega _{lp}=\pi
+-\omega _{hp}.$ Specifically, 
+\begin{eqnarray}
+\omega _{1,\,lp} &=&\pi -\omega _{2,\,hp}, \\
+\omega _{2,\,lp} &=&\pi -\omega _{1,\,hp}, \\
+A_{2,\,lp} &=&A_{1,\,hp}, \\
+A_{1,\,lp} &=&A_{2,\,hp}.
+\end{eqnarray}
+\end{remark}
+
+\begin{remark}
+The band-pass and band-stop specifications in Eqs. (\ref{Spec_1_BandPass})
+through (\ref{Spec_6_BandStop}) do not need to be symmetrical. This is
+clearly seen for example in the specification of the form 
+\begin{gather}
+\omega _{2}-\omega _{1}=\omega _{4}-\omega _{3}, \\
+\begin{array}{ll}
+A_{1}\neq A_{4}, & \text{for a band-pass filter,} \\ 
+A_{2}\neq A_{3}. & \text{for a band-stop filter,}%
+\end{array}%
+\end{gather}
+or from Figs. \ref{Gen_BandPass} and \ref{Gen_BandStop}.
+\end{remark}
+
+\begin{remark}
+By comparing the low-pass and high-pass specifications with band-pass
+specifications, Eqs. (\ref{Spec_1_low}) through (\ref{Spec_4_high}) with (%
+\ref{Spec_1_BandPass}) through (\ref{Spec_4_BandPass}) or Fig \ref%
+{Gen_LowPass} and \ref{Gen_HighPass} with \ref{Gen_BandPass}, we observe
+that a band-pass filter may be derived by cascading a low-pass and a
+high-pass filter. As we see later in this report we will not apply this
+approach to implement a band-pass filter.
+\end{remark}
+
+\begin{remark}
+A band-pass filter specification may be thought as a combination of a
+high-pass and a low-pass specification. Specifically 
+\begin{equation}
+\begin{array}{ll}
+\omega _{i,\,bp}=\omega _{i,\,hp}, & i=1,2, \\ 
+\omega _{i,\,bp}=\omega _{i-2,\,lp}, & i=3,4, \\ 
+A_{i,\,bp}=A_{i,\,hp}, & i=1,2, \\ 
+A_{i,\,bp}=A_{i-2,\,lp}, & i=3,4.%
+\end{array}%
+\end{equation}
+\end{remark}
+
+\begin{remark}
+Compare now low-pass and high-pass specifications with band-stop
+specifications, Eqs. (\ref{Spec_1_low}) through (\ref{Spec_4_high}) with (%
+\ref{Spec_1_BandStop}) through (\ref{Spec_4_BandStop}) or Fig \ref%
+{Gen_LowPass} and \ref{Gen_HighPass} with \ref{Gen_BandStop}. Observe that a
+band-stop filter specification is composed of first a low-pass then a
+high-pass filter specification. Specifically 
+\begin{equation}
+\begin{array}{ll}
+\omega _{i,\,bp}=\omega _{i,\,lp}, & i=1,2, \\ 
+\omega _{i,\,bp}=\omega _{i-2,\,hp}, & i=3,4, \\ 
+A_{i,\,bp}=A_{i,\,lp}, & i=1,2, \\ 
+A_{i,\,bp}=A_{i-2,\,hp}, & i=3,4.%
+\end{array}%
+\end{equation}
+\end{remark}
+
+We take advantage of \ these properties later to determine the high-pass,
+band-pass and band-stop filter parameters.
+
+For a detailed discussion of the above matters, consult Chapters 2, 3, 4 5,
+7 and 8 of \cite{Oppenheim}.
+
+\section{ANALOG FILTER TYPES\protect\nolinebreak}
+
+\subsection{\protect\nolinebreak BUTTERWORTH}
+
+The squared response of an analog, $N$th order, low-pass, Butterworth filter
+is defined by 
+\begin{equation}
+\left| H_{a}\left( j\,\Omega \right) \right| ^{2}=H_{a}\left( s\right)
+H_{a}\left( -s\right) =\frac{1}{1+\left( -s^{2}\right) ^{N}}.
+\label{Butterworth}
+\end{equation}
+By analytic continuation Eq. (\ref{Butterworth}) can be extended to the
+complex $s$-domain giving 
+\begin{equation}
+\left| H_{a}\left( j\,\Omega \right) \right| ^{2}=H_{a}\left( j\,\Omega
+\right) H_{a}\left( -j\,\Omega \right) =\frac{1}{1+\left( \Omega /\Omega
+_{c}\right) ^{2\,N}}.  \label{Butterworth2}
+\end{equation}
+Poles of the squared magnitude response may thus be found as 
+\begin{equation}
+s_{k}=\Omega _{c}\,e^{j\,\pi \left[ \frac{1}{2}+\frac{2\,k+1}{2\,N}\right] },%
+\text{ \ \ \ \ }k=0,\,1,\,\ldots ,\,2N-1.
+\end{equation}
+The poles lie equally spaced on a circle of radius $\Omega _{c}$ centered
+about $s=0$. Thus 
+\begin{gather}
+s_{k}=\sigma _{k}+j\,\Omega _{k},\text{ \ \ \ \ }k=0,\,1,\,2,\,\ldots
+,\,2N-1,  \label{Butter_Poles} \\
+\sigma _{k}=-\Omega _{c}\sin \left[ \frac{\left( 2k+1\right) \pi }{2N}\right]
+,  \label{Butter_Real_Part} \\
+\Omega _{k}=-\Omega _{c}\cos \left[ \frac{\left( 2k+1\right) \pi }{2N}\right]
+.  \label{Butter_Imag_Part}
+\end{gather}
+A Butterworth low-pass filter is maximally flat at $\Omega =0$; that is the
+first $2N-1$ derivatives of $\left| H_{a}\left( j\,\Omega \right) \right|
+^{2}$ at $\Omega =0$ are equal to zero. Note that $\left| H_{a}(j\,\Omega
+)\right| _{\Omega =\Omega _{c}}^{2}=\frac{1}{2}$, regardless of order $N$,
+so the magnitude is down by $3\,dB$ at $\Omega =\Omega _{c}$. Also the
+magnitude is a monotonically decreasing function of $\left| \Omega \right| $%
+. It can be seen from Figs. \ref{Low_Butter_Plot} that as $N$ increases the
+following changes occur in the magnitude characteristics:
+
+\begin{enumerate}
+\item The transition from the pass-band to the stop-band becomes more rapid.
+
+\item The magnitude $\left| H_{a}\left( j\,\Omega \right) \right| \approx 1$
+for more of the pass-band.
+
+\item The magnitude $\left| H_{a}\left( j\,\Omega \right) \right| \approx 0$
+for more of the stop-band.
+\end{enumerate}
+
+\subsection{CHEBYSHEV}
+
+Chebyshev filters relax the constraint of monotonicity over either the
+pass-band or the stop-band. For a given filter order $N$, the Chebyshev
+filter gives
+
+\begin{itemize}
+\item minimum equiripple deviation of the magnitude characteristic over one
+prescribed band of frequencies and
+
+\item monotonic behavior over the remaining band of frequencies.
+\end{itemize}
+
+Depending on the design choice, the minimum equiripple error property can be
+associated with either the pass-band (Chebyshev-1 filter) or the stop-band
+(Chebyshev-2 filter). For a given set of filter specifications, this
+concession of allowing ripple in a band of frequencies leads to lower-order
+than the Butterworth design choice. Chebyshev-2 filters are rarely used and
+therefore not included here.
+
+\subsubsection{CHEBYSHEV-1 Filters}
+
+An analog, $N$th order, low-pass, Chebyshev-1 filter exhibits equiripple
+error in the pass-band and a monotonically decreasing response in the
+stop-band. It is specified by the squared-magnitude function 
+\begin{equation}
+\left| H_{a}\left( j\,\Omega \right) \right| ^{2}=\frac{1}{1+\epsilon
+^{2}T_{N}^{2}\left( \Omega /\Omega _{1}\right) },  \label{Cheb1_Low_Filter}
+\end{equation}
+where $T_{n}\left( x\right) $, $n=0,\,1,\,2,\,\ldots $ is the $n$th order
+Chebyshev polynomial given by 
+\begin{equation}
+T_{n}\left( x\right) =\left\{ 
+\begin{array}{c}
+\cos \left( n\,\cos ^{-1}x\right) ,\text{ \ \ \ \ }\left| x\right| \leq 1,
+\\ 
+\cosh \left( n\,\cosh ^{-1}x\right) ,\text{ \ \ \ \ }\left| x\right| \geq 1.%
+\end{array}
+\right.
+\end{equation}
+This polynomial can be derived from the recurrence relation 
+\begin{eqnarray}
+T_{0}\left( x\right) &=&1, \\
+T_{1}\left( x\right) &=&x, \\
+T_{n+1}\left( x\right) &=&2x\,T_{n}\left( x\right) -T_{n-1}\left( x\right) ,%
+\text{ \ \ \ \ }n=1,2,\,\ldots .
+\end{eqnarray}
+From the Chebyshev polynomials definition we see that 
+\begin{eqnarray}
+\left| T_{n}\left( x\right) \right| &\leq &1,\text{ \ \ \ \ }\left| x\right|
+\leq 1,  \label{ChebProp1} \\
+\left| T_{n}\left( x\right) \right| &\geq &1,\text{ \ \ \ \ }\left| x\right|
+\geq 1.  \label{ChebProp2}
+\end{eqnarray}
+Furthermore, the $N$th order Chebyshev polynomial gives the smallest maximum
+value of all $N$th order polynomials. In particular, observe from Eq. (\ref%
+{Cheb1_Low_Filter}) that $\frac{1}{1+\epsilon ^{2}}$ $\leq \left|
+H_{a}\left( j\,\Omega \right) \right| ^{2}\leq 1$ within the pass-band,
+where it will have a total of $N$ local maxima and local minima. Observe
+from Eq. (\ref{Cheb1_Low_Filter}) that Chebyshev-1 low-pass filters with odd 
+$N$ has $\left| H\left( j\,\Omega \right) \right| _{\Omega =0}^{2}=1$, while
+Chebyshev-1 low-pass filters with even $N$ has $\left| H\left( j\,\Omega
+\right) \right| _{\Omega =0}^{2}=\frac{1}{1+\epsilon ^{2}}$. As we see
+later, this value is used to normalize the digital low-pass filters. All
+Chebyshev-1 low-pass filters has $\left| H\left( j\,\Omega \right) \right|
+_{_{\Omega =\Omega _{p}}}^{2}=\frac{1}{1+\epsilon ^{2}}$. The location of
+the poles are obtained from Eq. (\ref{Cheb1_Low_Filter}) as 
+\begin{gather}
+s_{k}=\sigma _{k}+j\,\Omega _{k},\text{ \ \ \ \ }k=0,\,1,\,2,\,\ldots
+,\,2N-1,  \label{Cheb_Poles} \\
+\sigma _{k}=-\mu \,\Omega _{1}\sin \left[ \frac{\left( 2k+1\right) \pi }{2N}%
+\right] ,  \label{Cheb_Real_Part} \\
+\Omega _{k}=\nu \,\Omega _{1}\cos \left[ \frac{\left( 2k+1\right) \pi }{2N}%
+\right] ,  \label{Cheb_Imag_Part} \\
+\mu =\frac{1}{2}\left( \gamma -\gamma ^{-1}\right) ,  \label{Minor_Axis} \\
+\nu =\frac{1}{2}\left( \gamma +\gamma ^{-1}\right) ,  \label{Major_Axis} \\
+\gamma =\left( \frac{1+\sqrt{1+\epsilon ^{2}}}{\epsilon }\right) ^{1/N}.
+\label{Gamma}
+\end{gather}
+As we see from Eqs. (\ref{Cheb_Real_Part}) through (\ref{Gamma}) these poles
+are equally spaced about the origin on an ellipse with minor-axis length $%
+\mu \,\Omega _{1}$ and major-axis length $\nu \,\Omega _{1}$ in the $s$%
+-plane. Thus 
+\begin{equation}
+\frac{\sigma _{k}^{2}}{\left( \mu \,\Omega _{1}\right) ^{2}}+\frac{\Omega
+_{k}^{2}}{\left( \nu \,\Omega _{1}\right) ^{2}}=1.
+\end{equation}
+Fig.\ref{Low_Butter_Plot} and \ref{Low_Cheb_Plot} show squared responses of
+analog low-pass Butterworth and Chebyshev-1 filters.
+
+\begin{center}
+\FRAME{ftbphFU}{11.2489cm}{8.468cm}{0pt}{\Qcb{Squared magnitude responses
+for analog low-pass Butterworth filters with $\Omega _{c}=2$.}}{\Qlb{%
+Low_Butter_Plot}}{low_butter.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2489cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'Low_Butter.eps';file-properties "XNPEU";}}
+
+\FRAME{ftbphFU}{11.2445cm}{8.468cm}{0pt}{\Qcb{Squared magnitude responses of
+analog low-pass Chebyshev-1 filters with $\Omega _{1}=2$ and $\Omega _{2}=3$.%
+}}{\Qlb{Low_Cheb_Plot}}{low_cheb.eps}{\special{language "Scientific
+Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file
+"F";width 11.2445cm;height 8.468cm;depth 0pt;original-width
+8.003in;original-height 6.0105in;cropleft "0";croptop "1.0001";cropright
+"0.9996";cropbottom "0";filename 'Low_Cheb.eps';file-properties "XNPEU";}}
+\end{center}
+
+For further details on these filter types \cite{Mitra}, sections 5-3-1 and
+5-3-2 may be consulted.
+
+\section{METHOD}
+
+To design an IIR digital filter we begin by an analog profile and then map
+it to a digital system function. This is because the theory of analog filter
+design is well established and many closed-form design formulas exist. Given
+the design specifications of a digital filter, the derivation of the digital
+filter system function requires three steps:
+
+\begin{itemize}
+\item Map the desired digital filter specifications into those for an
+equivalent analog filter.
+
+\item Derive a corresponding analog filter transfer function for the analog
+prototype.
+
+\item Convert the transfer function of the analog prototype into an
+equivalent digital filter system function.
+\end{itemize}
+
+\begin{remark}
+Note that the above steps are not independent. Specifically, step 1
+transforms the digital specifications to an analog counterpart, while step 3
+converts the resulting analog prototype to a digital system function.\label%
+{DigAnalDig}
+\end{remark}
+
+\subsection{BILINEAR TRANSFORMATION}
+
+To transform an analog to a digital profile or vice versa, we use the most
+popular method, namely the \textit{Bilinear Transformation}. It relates the
+two prototypes through the following relations 
+\begin{eqnarray}
+H\left( z\right) &=&H_{a}\left( s\right) \left| _{s=\alpha \frac{1-z^{-1}}{%
+1+z^{-1}}}\right. ,  \label{Bilinear_Trans} \\
+H_{a}\left( s\right) &=&H\left( z\right) \left| _{z=\frac{1+s/\alpha }{%
+1-s/\alpha }}\right. .  \label{Bilinear_Inverse_Trans}
+\end{eqnarray}
+The digital system function is independent of the value of $\alpha $, so it
+may be chosen arbitrary. This is because step 3 is the inverse of step 1 in
+the design procedure, see Remark (\ref{DigAnalDig}). The transformation in
+Eq. (\ref{Bilinear_Trans}) maps the $s$-plane into the $z-$plane as follows:
+
+\begin{enumerate}
+\item Left-half $s$-plane\bigskip\ $\longrightarrow $ interior of $z-$plane
+unit circle.
+
+\item Right-half $s$-plane\bigskip\ $\longrightarrow $ exterior of $z-$plane
+unit circle.
+
+\item Imaginary axis, $s=j\,\Omega \longrightarrow $ $z-$plane unit circle, $%
+z=e^{j\,\omega }$.
+\end{enumerate}
+
+Furthermore, the mapping in step 3 above is non-linear. Substituting $%
+z=e^{j\,\omega }$ into Eq. (\ref{Bilinear_Trans}) results in 
+\begin{equation}
+H\left( e^{j\,\omega }\right) =H_{a}\left( j\,\alpha \,\tan \frac{\omega }{2}%
+\right) ,
+\end{equation}
+which gives the relation between the frequency variables as 
+\begin{eqnarray}
+\Omega &=&\alpha \,\tan \left( \frac{\omega }{2}\right) ,
+\label{Dig_2_Analog_Freq} \\
+\omega &=&2\,\tan ^{-1}\left( \frac{\Omega }{\alpha }\right) .
+\label{Anal_2_Dig_Freq}
+\end{eqnarray}
+For further details on the Bilinear transformation, refer to \cite{Smith},
+pages 626-628 and \cite{Mitra}, section 5-4-1. To normalize the
+transformation we have chosen $\alpha $ as 
+\begin{equation}
+\alpha =\frac{1}{\tan \left( \frac{1}{2}\right) },
+\end{equation}
+which maps $\Omega =1\longleftrightarrow \omega =1$. Eq. (\ref%
+{Dig_2_Analog_Freq}) is commonly referred to as frequency prewarping. Thus
+the entire Bilinear Transformation Method is as follows:
+
+\begin{enumerate}
+\item Apply Eq. (\ref{Dig_2_Analog_Freq}) to prewarp all critical digital
+frequencies given in the filter specifications, i.e. $\omega _{1}$ and $%
+\omega _{2}$.
+
+\item Given the prewarped analog critical frequencies, derive appropriate
+analog transfer function $H_{a}\left( s\right) $.
+
+\item Apply the bilinear transformation, Eq. (\ref{Bilinear_Trans}), to
+obtain the desired digital system function $H\left( z\right) $.
+\end{enumerate}
+
+\subsection{MAPPING DESIGN\ SPECIFICATIONS}
+
+Remember that a low-pass and high-pass filter had 2 critical frequencies and
+2 critical attenuations, while in the band-pass and band-stop case we need 4
+critical frequencies and 4 critical attenuations. The analog critical
+frequencies may be obtained from Eq. (\ref{Dig_2_Analog_Freq}).
+
+\begin{itemize}
+\item Design specifications for a low-pass filter, Eqs. (\ref{Spec_1_low})
+through (\ref{Spec_4_low}) may be mapped as 
+\begin{eqnarray}
+\Omega _{i} &=&\alpha \,\tan \left( \omega _{i}/2\right) ,\;\;\;\;\;i=1,\,2,
+\label{Analog_Spec_0_low} \\
+0 &<&\Omega _{1}<\Omega _{2}<\infty ,  \label{Analog_Spec_1_low} \\
+0 &<&A_{1}<A_{2}<\infty ,  \label{Analog_Spec_2_low} \\
+-A_{1} &\leq &10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq 0,\text{ \
+\ \ \ }0\leq \Omega \leq \Omega _{1},  \label{Analog_Spec_3_low} \\
+-\infty &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq -A_{2},\text{
+\ \ \ \ }\Omega _{2}\leq \Omega <\infty .  \label{Analog_Spec_4_low}
+\end{eqnarray}
+
+\item An analog high-pass filter is specified by mapping Eqs. (\ref%
+{Spec_1_high}) through (\ref{Spec_4_high}). Thus 
+\begin{eqnarray}
+\Omega _{i} &=&\alpha \,\tan \left( \omega _{i}/2\right) ,\;\;\;\;\;i=1,\,2,
+\label{Analog_Spec_0_high} \\
+0 &<&\Omega _{1}<\Omega _{2}<\infty ,  \label{Analog_Spec_1_high} \\
+0 &<&A_{2}<A_{1}<\infty ,  \label{Analog_Spec_2_high} \\
+-\infty &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq -A_{1},\text{
+\ \ \ \ }0\leq \Omega \leq \Omega _{1},  \label{Analog_Spec_3_high} \\
+-A_{2} &\leq &10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq 0,\text{ \
+\ \ \ }\Omega _{2}\leq \Omega <\infty .  \label{Analog_Spec_4_high}
+\end{eqnarray}
+
+\item An analog band-pass filter is specified by mapping Eqs. (\ref%
+{Spec_1_BandPass}) through (\ref{Spec_5_BandPass}). Thus 
+\begin{eqnarray}
+\Omega _{i} &=&\alpha \,\tan \left( \omega _{i}/2\right)
+,\;\;\;\;\;i=1,\,\ldots ,\,4,  \label{Analog_Spec_0_BandPass} \\
+0 &<&\Omega _{1}<\Omega _{2}<\Omega _{3}<\Omega _{4}<\infty ,
+\label{Analog_Spec_1_BandPass} \\
+0 &<&A_{2}<A_{1}<\infty ,  \label{Analog_Spec_2_BandPass} \\
+0 &<&A_{3}<A_{4}<\infty ,  \label{Analog_Spec_3_BandPass} \\
+-\infty &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq -A_{1},\text{
+\ \ \ \ }0\leq \Omega \leq \Omega _{1},  \label{Analog_Spec_4_BandPass} \\
+-\min \left( A_{2},\,A_{3}\right) &\leq &10\,\log _{10}\left| H(j\,\Omega
+)\right| ^{2}\leq 0,\text{ \ \ \ \ }\Omega _{2}\leq \Omega \leq \Omega _{3},
+\label{Analog_Spec_5_BandPass} \\
+-\infty &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq -A_{4},\text{
+\ \ \ \ }\Omega _{4}\leq \Omega <\infty .  \label{Analog_Spec_6_BandPass}
+\end{eqnarray}
+
+\item An analog band-stop filter is specified by mapping Eqs. (\ref%
+{Spec_1_BandStop}) through (\ref{Spec_5_BandStop}). Thus 
+\begin{eqnarray}
+\Omega _{i} &=&\alpha \,\tan \left( \omega _{i}/2\right)
+,\;\;\;\;\;i=1,\,\ldots ,\,4,  \label{Analog_Spec_0_BandStop} \\
+0 &<&\Omega _{1}<\Omega _{2}<\Omega _{3}<\Omega _{4}<\infty ,
+\label{Analog_Spec_1_BandStop} \\
+0 &<&A_{1}<A_{2}<\infty ,  \label{Analog_Spec_2_BandStop} \\
+0 &<&A_{4}<A_{3}<\infty ,  \label{Analog_Spec_3_BandStop} \\
+-A_{1} &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq 0,\text{ \ \ \
+\ }0\leq \Omega \leq \Omega _{1},  \label{Analog_Spec_4_BandStop} \\
+-\infty &<&10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq -\max \left(
+A_{2},\,A_{3}\right) ,\text{ \ \ \ \ }\Omega _{2}\leq \Omega \leq \Omega
+_{3},  \label{Analog_Spec_5_BandStop} \\
+-A_{4} &\leq &10\,\log _{10}\left| H(j\,\Omega )\right| ^{2}\leq 0,\text{ \
+\ \ \ }\Omega _{4}\leq \Omega <\infty .  \label{Analog_Spec_6_BandStop}
+\end{eqnarray}
+\end{itemize}
+
+\subsubsection{BUTTERWORTH}
+
+From Eq. (\ref{Butterworth2}), we observe that to fully determine an analog,
+low-pass, Butterworth filter we need to specify $\Omega _{c}$ and $N$.
+Inserting Eq. (\ref{Butterworth2}) into Eqs. (\ref{Analog_Spec_3_low}) and (%
+\ref{Analog_Spec_4_low}), we get 
+\begin{eqnarray}
+-A_{1} &\leq &-10\,\log _{10}\left[ 1+\left( \frac{\Omega }{\Omega _{c}}%
+\right) ^{2\,N}\right] \leq 0,\text{ \ \ \ \ }0\leq \Omega \leq \Omega _{1},
+\label{Butter_Analog_Pass} \\
+-\infty &<&-10\,\log _{10}\left[ 1+\left( \frac{\Omega }{\Omega _{c}}\right)
+^{2\,N}\right] \leq -A_{2},\text{ \ \ \ \ }\Omega _{2}\leq \Omega \leq
+\infty ,  \label{Butter_Analog_Stop}
+\end{eqnarray}
+Observe that the right side of Eq. (\ref{Butter_Analog_Pass}) and left side
+of Eq. (\ref{Butter_Analog_Stop}) are automatically satisfied. Solving the
+left side of Eq. (\ref{Butter_Analog_Pass}) and the right side of Eq. (\ref%
+{Butter_Analog_Stop}) for design parameters $N$ and $\Omega _{c}$ we obtain 
+\begin{eqnarray}
+N &=&\frac{\log _{10}\left( C_{2}/C_{1}\right) }{2\,\log _{10}\left( \Omega
+_{2}/\Omega _{1}\right) },  \label{N_Butter} \\
+\Omega _{c} &=&\Omega _{1}\,C_{1}^{-1/\left( 2N\right) },
+\label{Omega_C_Butter} \\
+C_{1} &=&10^{A_{1}/10}-1, \\
+C_{2} &=&10^{A_{2}/10}-1.
+\end{eqnarray}
+
+\begin{remark}
+Filter order $N$ must be chosen as an even integer greater than or equal to
+the value given by Eq. (\ref{N_Butter}). With the choice of $\Omega _{c}$
+given by Eq. (\ref{Omega_C_Butter}), we satisfy the pass-band requirement of
+Eq. (\ref{Analog_Spec_3_low}), while the stop-band requirement of Eq. (\ref%
+{Analog_Spec_4_low}) is exceeded. This comes from the choice of $N$ which is
+greater than the value specified by Eq. (\ref{N_Butter}).
+\end{remark}
+
+\begin{remark}
+Because of the analogy mentioned at the end of Section \ref{Introduction},
+the parameters of a high-pass Butterworth filter may be derived by first
+transforming it to a corresponding low-pass filter and then calculate $N$
+and $\Omega _{c}$. The order is the same for the high-pass filter, while $%
+\Omega _{c}$ found in this way must be mapped back. Specifically, the
+Butterworth parameters of a high-pass filter may be derived in the following
+order: Transform the limiting frequencies such that 
+\begin{eqnarray}
+\Omega _{1,\,lp} &=&\pi -\Omega _{1,\,hp}, \\
+\Omega _{2,\,lp} &=&\pi -\Omega _{1,\,hp}, \\
+A_{1,\,lp} &=&A_{2,\,hp}, \\
+A_{2,\,lp} &=&A_{1,\,hp}.
+\end{eqnarray}
+Then calculate $N$ and $\Omega _{c,\,lp}$ as explained above. Finally
+determine 
+\begin{equation}
+\Omega _{c,\,hp}=\pi -\Omega _{c,\,lp}.
+\end{equation}
+\end{remark}
+
+\begin{remark}
+Our knowledge of determining the low-pass and high-pass filter parameters
+may now be applied to the band-pass and band-stop parameters determination.
+The process may be summarized as follows: Divide the specification to
+corresponding high-pass and low-pass requirements, as explained at the end
+of Section \ref{Introduction}. Then obtain the corresponding filter
+parameters as explained above. This gives two even filter orders $N_{1}$ and 
+$N_{2}$ as well as two cut-off frequencies $\Omega _{c_{1}}$and $\Omega
+_{c_{2}}$. Band-pass or band-stop filter parameters are given by 
+\begin{eqnarray}
+N &=&2\times \max \left( N_{1},\,N_{2}\right) ,  \label{N_Butter_BP_BS} \\
+\Omega _{c} &=&\left[ \Omega _{c_{1}},\,\Omega _{c_{2}}\right] .
+\label{Omega_c_Butter_BP_BS}
+\end{eqnarray}
+Note that we calculate $\Omega _{c_{1}}$ and $\Omega _{c_{2}}$ based on an
+even integer found for the low-pass or high-pass requirements. Since the
+actual order is twice the maximum of $N_{1}$ and $N_{2}$, both the pass-band
+and the stop-band requirements will be exceeded.
+\end{remark}
+
+\subsubsection{CHEBYSHEV-1}
+
+An analog, low-pass, Chebyshev-1 filter has parameters $N$ and $\epsilon $.
+Inserting Eq. (\ref{Cheb1_Low_Filter}) into Eqs. (\ref{Analog_Spec_3_low})
+and (\ref{Analog_Spec_4_low}) we get 
+\begin{gather}
+-A_{1}\leq -10\,\log _{10}\left[ 1+\epsilon ^{2}T_{N}^{2}\left( \Omega
+/\Omega _{1}\right) \right] \leq 0,\text{ \ \ \ \ }0\leq \Omega \leq \Omega
+_{1},  \label{Cheb_Analog_Pass} \\
+-\infty <-10\,\log _{10}\left[ 1+\epsilon ^{2}T_{N}^{2}\left( \Omega /\Omega
+_{1}\right) \right] \leq -A_{2},\text{ \ \ \ \ }\Omega _{2}\leq \Omega
+<\infty .  \label{Cheb_Analog_Stop}
+\end{gather}
+Observe from the properties of Chebyshev polynomials, Eqs. (\ref{ChebProp1})
+and (\ref{ChebProp2}), that the right side of Eq. (\ref{Cheb_Analog_Pass})
+and the left side of Eq. (\ref{Cheb_Analog_Stop}) are automatically
+satisfied. Solving the left side of Eq. (\ref{Cheb_Analog_Pass}) and the
+right side of Eq. (\ref{Cheb_Analog_Stop}) for $N$ and $\epsilon $, we
+obtain 
+\begin{eqnarray}
+\epsilon &=&C_{1}^{1/2},  \label{epsilon_Cheb} \\
+N &=&\frac{\cosh ^{-1}\left( C_{2}^{1/2}/\epsilon \right) }{\cosh
+^{-1}\left( \Omega _{2}/\Omega _{1}\right) },  \label{N_Low_Cheb1}
+\end{eqnarray}
+where 
+\begin{eqnarray}
+C_{1} &=&10^{A_{1}/10}-1, \\
+\cosh ^{-1}x &=&\ln \left( x+\sqrt{x^{2}-1}\right) .
+\end{eqnarray}
+
+\begin{remark}
+Again, $N$ must be chosen as the nearest even integer greater than or equal
+to the value given by Eq. (\ref{N_Low_Cheb1}). With the choice of $\epsilon $
+given by Eq. (\ref{epsilon_Cheb}) the pass-band requirement of Eq. (\ref%
+{Analog_Spec_3_low}) is exactly satisfied, while the stop-band requirement
+of Eq. (\ref{Analog_Spec_4_low}) is exceeded.
+\end{remark}
+
+\begin{remark}
+There is a subtle difference between Butterworth and Chebyshev-1 analog
+low-pass filters. While cut-off frequency $\Omega _{c},$ in a Butterworth
+filter must be calculated from the specifications in Eq. (\ref%
+{Omega_C_Butter}), its counterpart $\Omega _{1},$ in a Chebyshev-1 filter is
+directly found by frequency prewarping of Eq. (\ref{Dig_2_Analog_Freq}).
+\end{remark}
+
+\begin{remark}
+Referring to the end of section \ref{Introduction} again, observe that the
+mapping of a low-pass to a high-pass Chebyshev-1 does not change $N$ and $%
+\epsilon $. Thus the parameters of a digital high-pass filter may be derived
+as following: First, set 
+\begin{eqnarray}
+\Omega _{1,\,lp} &=&\pi -\Omega _{1,\,hp}, \\
+\Omega _{2,\,lp} &=&\pi -\Omega _{2,\,hp}, \\
+A_{1,\,lp} &=&A_{2,\,hp}, \\
+A_{2,\,lp} &=&A_{1,\,hp}.
+\end{eqnarray}
+Then Determine $N$ and $\epsilon $ as explained above.
+\end{remark}
+
+\begin{remark}
+Again, we use our knowledge of determining the low-pass and high-pass filter
+parameters for the band-pass and band-stop cases. The process is as follows:
+Divide the specification to corresponding high-pass and low-pass
+requirements, as explained at the end of Section \ref{Introduction}. Then
+obtain the corresponding filter parameters for each case as explained above.
+This gives two even filter orders $N_{1}$ and $N_{2}$ as well as $%
+\varepsilon _{1}$and $\varepsilon _{2}$. Band-pass and band-stop filter
+parameters are then obtained by 
+\begin{eqnarray}
+N &=&2\times \max \left( N_{1},\,N_{2}\right) ,  \label{N_Cheb1_BP_BS} \\
+\varepsilon &=&\min \left( \varepsilon _{1},\text{ }\varepsilon _{2}\right) .
+\label{Epsilon_Cheb1_BP_BS}
+\end{eqnarray}
+Since the cut-off frequencies for a band-pass and band-stop Chebyshev filter
+are found directly from the filter specifications, Eq. (\ref{N_Cheb1_BP_BS})
+has no effect in the pass-band and stop-band values. Thus, as it was the
+case for the low-pass and high-pass Chebyshev-1 filters, the pass-band
+requirements are exactly satisfied, while the stop-band requirements will be
+exceeded.
+\end{remark}
+
+\subsection{ANALOG TRANSFER FUNCTION}
+
+To determine the analog, low-pass transfer function, we note from Eqs. (\ref%
+{Butter_Real_Part}) and (\ref{Butter_Imag_Part}) that the $2N$ poles of $%
+\left| H_{a}\left( s\right) \right| ^{2}$ are complex conjugate pairs and
+may be separated to $N$ poles for $H_{a}\left( \sigma +j\,\omega \right) $
+and $N$ poles for $H_{a}\left( \sigma -j\,\omega \right) $. Since we are
+interested in a stable transfer function, we may choose those poles with
+negative real parts, i.e. the poles of \ $H_{a}\left( s\right) $ are found
+from 
+\begin{equation}
+s_{k}=\sigma _{k}+j\,\Omega _{k},\text{ \ \ \ \ }k=0,\,1\,,\,\ldots ,\,N-1,
+\end{equation}
+where $\sigma _{k}$ and $\Omega _{k}$ are calculated from Eqs. (\ref%
+{Butter_Real_Part}), (\ref{Butter_Imag_Part}) for a Butterworth low-pass
+filter and from Eqs. (\ref{Cheb_Real_Part}) through (\ref{Gamma}) for a
+Chebyshev-1 low-pass filter. Suppose that we have chosen poles $s_{k}$ for $%
+k=0,\,1,$\thinspace $\ldots ,\,N/2-1$ such that the complex parts $\Omega
+_{k}$ have the same sign. Then $H_{a}\left( s\right) $ may be thought of as
+a cascade of $N/2$ transfer functions each of order $2$, so that 
+\begin{equation}
+H_{a}\left( s\right) =\prod_{k=0}^{N/2-1}\frac{d_{k}}{s^{2}+c_{k}s+d_{k}},
+\label{Cascade_Analog}
+\end{equation}
+where $c_{k}$ and $d_{k}$ are real. This is also a numerically advantageous
+approach because it reduces the error associated with the value of
+coefficients.
+
+\subsection{DIGITAL SYSTEM FUNCTION}
+
+Each second order factor in Eq. (\ref{Cascade_Analog}) is obtained by
+multiplying two complex conjugate poles together. Suppose that the complex
+conjugate pair 
+\begin{eqnarray}
+s_{k} &=&\sigma _{k}+j\,\Omega , \\
+s_{k}^{\ast } &=&\sigma _{k}-j\,\Omega ,
+\end{eqnarray}
+are poles of a transfer function. Then the normalized transfer function may
+be expressed as 
+\begin{gather}
+H_{k}(s)=\frac{r_{k}^{2}}{\left[ s-\left( \sigma _{k}+j\,\Omega _{k}\right) %
+\right] \,\left[ s-\left( \sigma _{k}-j\,\Omega _{k}\right) \right] \,}=%
+\frac{r_{k}^{2}}{s^{2}-2\,\sigma _{k}s+r_{k}^{2}},  \label{H_2_dim_analog} \\
+r_{k}^{2}=\sigma _{k}^{2}+\Omega _{k}^{2}.
+\end{gather}
+To determine the corresponding system function by the Bilinear
+Transformation we substitute $s=\alpha \frac{1-z^{-1}}{1+z^{-1}}$ into Eq. (%
+\ref{H_2_dim_analog}) and simplify to get 
+\begin{gather}
+H\left( z\right) =\frac{x_{0}+x_{1}z^{-1}+x_{2}z^{-2}}{1-\left(
+y_{1}z^{-1}+y_{2}z^{-2}\right) },  \label{System_Func_2d} \\
+x_{0}=\frac{1}{2}x_{1}=x_{2}=\frac{1}{E}, \\
+y_{1}=\frac{2\,r_{k}^{2}-2\,\alpha ^{2}}{E}, \\
+y_{2}=-\frac{\alpha ^{2}+2\,\alpha \,\sigma _{k}+r_{k}^{2}}{E}, \\
+E=\alpha ^{2}-2\,\sigma _{k}+r_{k}^{2}.
+\end{gather}
+
+\subsubsection{FREQUENCY TRANSFORMATIONS}
+
+The digital filter with Eq. (\ref{System_Func_2d}) as its system function is
+a low-pass filter with cut-off frequency at $\omega _{c}^{^{\prime }}=1$. To
+design a low-pass or high-pass filter with another cut-off frequency, we
+need two different kind of mappings, i.e. low-pass to low-pass and low-pass
+to high-pass frequency transformations:
+
+\begin{itemize}
+\item \textit{Low-pass to low-pass mapping} 
+\begin{eqnarray}
+Z^{-1} &\rightarrow &\frac{z^{-1}-\beta }{1-\beta \,z^{-1}},
+\label{Z_low2low} \\
+\beta &=&\frac{\sin \left( \frac{1}{2}-\frac{\omega _{c}}{2}\right) }{\sin
+\left( \frac{1}{2}+\frac{\omega _{c}}{2}\right) }.  \label{Beta_low2low}
+\end{eqnarray}
+The new coefficients may be obtained by 
+\begin{gather}
+H_{lp}\left( z^{-1}\right) =\frac{\Sigma _{k=0}^{2}a_{k}z^{-k}}{1-\Sigma
+_{k=1}^{2}b_{k}z^{-k}}, \\
+a_{0}=\frac{x_{0}-x_{1}\beta +x_{2}\beta ^{2}}{D},  \label{a0_Low_Pass} \\
+a_{1}=\frac{-2\,x_{0}\beta +x_{1}+x_{1}\beta ^{2}-2\,x_{2}\beta }{D},
+\label{a1_Low_Pass} \\
+a_{2}=\frac{x_{0}\beta ^{2}-x_{1}\beta +x_{2}}{D}  \label{a2_Low_Pass} \\
+b_{1}=\frac{2\,\beta +y_{1}+y_{1}\beta ^{2}-2\,y_{2}\beta }{D},
+\label{b1_Low_Pass} \\
+b_{2}=\frac{-\beta ^{2}-y_{1}\beta +y_{2}}{D},  \label{b2_Low_Pass} \\
+D=1+y_{1}\beta +y_{2}\beta ^{2}.  \label{D_Low_Pass}
+\end{gather}
+
+\item \textit{Low-pass to high-pass mapping} 
+\begin{eqnarray}
+Z^{-1} &\rightarrow &\frac{-z^{-1}-\beta }{1+\beta \,z^{-1}},
+\label{Z_low2high} \\
+\beta &=&-\frac{\cos \left( \frac{1}{2}+\frac{\omega _{c}}{2}\right) }{\cos
+\left( \frac{1}{2}-\frac{\omega _{c}}{2}\right) }.  \label{Beta_low2high}
+\end{eqnarray}
+The new coefficients may be obtained by 
+\begin{gather}
+H_{hp}\left( z^{-1}\right) =\frac{\Sigma _{k=0}^{2}a_{k}z^{-k}}{1-\Sigma
+_{k=1}^{2}b_{k}z^{-k}},  \label{a0_High_Pass} \\
+a_{0}=\frac{x_{0}-x_{1}\beta +x_{2}\beta ^{2}}{D}, \\
+a_{1}=-\frac{-2\,x_{0}\beta +x_{1}+x_{1}\beta ^{2}-2\,x_{2}\beta }{D},
+\label{a1_High_Pass} \\
+a_{2}=\frac{x_{0}\beta ^{2}-x_{1}\beta +x_{2}}{D}  \label{a2_High_Pass} \\
+b_{1}=-\frac{2\,\beta +y_{1}+y_{1}\beta ^{2}-2\,y_{2}\beta }{D},
+\label{b1_High_Pass} \\
+b_{2}=\frac{-\beta ^{2}-y_{1}\beta +y_{2}}{D},  \label{b2_High_Pass} \\
+D=1+y_{1}\beta +y_{2}\beta ^{2},  \label{D_High_Pass}
+\end{gather}
+where $\omega _{c}$ in both cases is the desired digital cut-off frequency.
+
+\item \textit{Low-pass to band-pass mapping} 
+\begin{eqnarray}
+Z^{-1} &=&-\frac{z^{-2}+\delta \,z^{-1}+\beta }{\beta \,z^{-2}+\delta
+\,z^{-1}+1},  \label{Z_low2BandPass} \\
+\beta &=&\frac{\zeta -1}{\zeta +1},  \label{Beta_low2BandPass} \\
+\delta &=&-\frac{2\,\eta \,\zeta }{\zeta +1},  \label{Eta_low2BandPass} \\
+\eta &=&\frac{\cos \left( \frac{\omega _{u}+\omega _{l}}{2}\right) }{\cos
+\left( \frac{\omega _{u}-\omega _{l}}{2}\right) },  \label{Ksi_low2BandPass}
+\\
+\zeta &=&\cot \left( \frac{\omega _{u}-\omega _{l}}{2}\right) \tan \left( 
+\frac{1}{2}\right) ,
+\end{eqnarray}
+where $\omega _{u}$ and $\omega _{l}$ are upper and lower cut-off
+frequencies. The new coefficients may be obtained by 
+\begin{gather}
+H_{bp}\left( z^{-1}\right) =\frac{\Sigma _{k=0}^{4}a_{k}z^{-k}}{1-\Sigma
+_{k=1}^{4}b_{k}z^{-k}}, \\
+a_{0}=\frac{x_{0}-\beta \,x_{1}+\beta ^{2}x_{2}}{D},  \label{a0_Band_Pass} \\
+a_{1}=\frac{2\,\delta \,x_{0}-\left( 1+\beta \right) \,\delta
+\,x_{1}+2\,\beta \,\delta \,x_{2}}{D},  \label{a1_Band_Pass} \\
+a_{2}=\frac{\left( 2\,\beta +\delta ^{2}\right) \left( x_{0}+x_{2}\right)
+-\left( 1+\beta ^{2}+\delta ^{2}\right) x_{1}}{D},  \label{a2_Band_Pass} \\
+a_{3}=\frac{2\,\beta \,\delta \,x_{0}-\left( 1+\beta \right) \,\delta
+\,x_{1}+2\,\delta \,x_{2}}{D},  \label{a3_Band_Pass} \\
+a_{4}=\frac{\beta ^{2}\,x_{0}-\beta \,x_{1}+x_{2}}{D},  \label{a4_Band_Pass}
+\\
+\,b_{1}=-\frac{2\,\delta +\left( 1+\beta \right) \,\delta \,y_{1}-2\,\beta
+\,\delta \,\,y_{2}}{D},  \label{b1_Band_Pass} \\
+b_{2}=-\frac{\left( 2\,\beta +\delta ^{2}\right) \left( 1-y_{2}\right)
++\left( 1+\beta ^{2}+\delta ^{2}\right) y_{1}}{D},  \label{b2_Band_Pass} \\
+b_{3}=-\frac{2\,\beta \,\delta +\left( 1+\beta \right) \,\delta
+\,y_{1}-2\,\delta \,y_{2}}{D},  \label{b3_Band_Pass} \\
+b_{4}=-\frac{\beta ^{2}+\beta \,y_{1}-y_{2}}{D},  \label{b4_Band_Pass} \\
+D=1+\beta \,y_{1}-\beta ^{2}y_{2}.  \label{D_Band_Pass}
+\end{gather}
+
+\item \textit{Low-pass to band-stop mapping} 
+\begin{eqnarray}
+Z^{-1} &=&\frac{z^{-2}+\delta \,z^{-1}+\beta }{\beta \,z^{-2}+\delta
+\,z^{-1}+1},  \label{Z_low2BandStop} \\
+\beta &=&\frac{1-\zeta }{1+\zeta },  \label{Beta_low2BandStop} \\
+\delta &=&-\frac{2\,\eta }{1+\zeta },  \label{Delta_low2BandStop} \\
+\eta &=&\frac{\cos \left( \frac{\omega _{u}+\omega _{l}}{2}\right) }{\cos
+\left( \frac{\omega _{u}-\omega _{l}}{2}\right) },  \label{Eta_low2BandStop}
+\\
+\zeta &=&\tan \left( \frac{\omega _{u}-\omega _{l}}{2}\right) \tan \left( 
+\frac{1}{2}\right) .  \label{Ksi_low2BandStop}
+\end{eqnarray}
+where $\omega _{u}$ and $\omega _{l}$ are upper and lower cut-off
+frequencies. The new coefficients may be obtained by 
+\begin{gather}
+H_{bp}\left( z^{-1}\right) =\frac{\Sigma _{k=0}^{4}a_{k}z^{-k}}{1-\Sigma
+_{k=1}^{4}b_{k}z^{-k}}, \\
+a_{0}=\frac{x_{0}+\beta \,x_{1}+\beta ^{2}x_{2}}{D},  \label{a0_Band_Stop} \\
+a_{1}=\frac{2\,\delta \,x_{0}+\left( 1+\beta \right) \,\delta
+\,x_{1}+2\,\beta \,\delta \,x_{2}}{D},  \label{a1_Band_Stop} \\
+a_{2}=\frac{\left( 2\,\beta +\delta ^{2}\right) \left( x_{0}+x_{2}\right)
++\left( 1+\beta ^{2}+\delta ^{2}\right) x_{1}}{D},  \label{a2_Band_Stop} \\
+a_{3}=\frac{2\,\beta \,\delta \,x_{0}+\left( 1+\beta \right) \,\delta
+\,x_{1}+2\,\delta \,x_{2}}{D},  \label{a3_Band_Stop} \\
+a_{4}=\frac{\beta ^{2}\,x_{0}+\beta \,x_{1}+x_{2}}{D},  \label{a4_Band_Stop}
+\\
+\,b_{1}=-\frac{2\,\delta -\left( 1+\beta \right) \,\delta \,y_{1}-2\,\beta
+\,\delta \,\,y_{2}}{D},  \label{b1_Band_Stop} \\
+b_{2}=-\frac{\left( 2\,\beta +\delta ^{2}\right) \left( 1-y_{2}\right)
+-\left( 1+\beta ^{2}+\delta ^{2}\right) y_{1}}{D},  \label{b2_Band_Stop} \\
+b_{3}=-\frac{2\,\beta \,\delta -\left( 1+\beta \right) \,\delta
+\,y_{1}-2\,\delta \,y_{2}}{D},  \label{b3_Band_Stop} \\
+b_{4}=-\frac{\beta ^{2}-\beta \,y_{1}-y_{2}}{D},  \label{b4_Band_Stop} \\
+D=1-\beta \,y_{1}-\beta ^{2}y_{2}.  \label{D_Band_Stop}
+\end{gather}
+\end{itemize}
+
+\begin{remark}
+The transformation given by Eqs. (\ref{Z_low2low}) just changes the
+frequency from $1$ to $\omega _{c}$, while the frequency mapping of Eq. (\ref%
+{Beta_low2high}), (\ref{Beta_low2BandPass}) or (\ref{Beta_low2BandStop}) not
+only changes the filter property from low-pass to high-pass, band-pass or
+band-stop, but also the cut-off frequency from $1$ to $\omega _{c}$ for a
+high-pass and from 1 to $\omega _{u}$ and $\omega _{l}$ for a band-pass or
+band-stop filter.
+\end{remark}
+
+\begin{remark}
+By comparing Eqs. (\ref{a0_Low_Pass}) through (\ref{D_Low_Pass}) with Eqs. (%
+\ref{a0_High_Pass}) through (\ref{D_High_Pass}), we see that by applying the
+correct value of $\beta $, high-pass coefficients may be obtained just by
+changing the signs of low-pass coefficients $a_{1}$ and $b_{1}$.
+\end{remark}
+
+\begin{remark}
+By comparing Eqs. (\ref{Z_low2low}) and (\ref{Z_low2high}) with (\ref%
+{Z_low2BandPass}) and (\ref{Z_low2BandStop}), it is clear that the first two
+transformations keep the filter order, while the last two doubles it. This
+is the reason for doubling maximum $N$ to determine the band-pass and
+band-stop filter order in Eq. (\ref{N_Butter_BP_BS}) and (\ref{N_Cheb1_BP_BS}%
+).
+\end{remark}
+
+Frequency transformations are also discussed in \cite{Smith} pages 628-630
+and in \cite{Mitra}, section 5-6.
+
+\subsubsection{CASCADING SYSTEM FUNCTIONS}
+
+Remember that we calculate coefficients of a second order system function in
+each step and then put it in series with the result of previous system by
+integrating the new coefficients into global vectors $\vec{a}$ and $\vec{b}$%
+. Suppose now that two second order system functions are defined by 
+\begin{eqnarray}
+H_{1}\left( z\right) &=&\frac{\sum_{k=0}^{4}\alpha _{k}z^{-k}}{%
+1-\sum_{k=1}^{4}\beta _{k}z^{-k}},  \label{H_1} \\
+H_{2}\left( z\right) &=&\frac{\sum_{k=0}^{n}\delta _{k}z^{-k}}{%
+1-\sum_{k=1}^{n}\eta _{k}z^{-k}},  \label{H_2}
+\end{eqnarray}
+and define the third system function by cascading $H_{1}\left( z\right) $
+and $H_{2}\left( z\right) $ such that 
+\begin{equation}
+H\left( z\right) =H_{1}\left( z\right) \times H_{2}\left( z\right) =\frac{%
+\sum_{k=0}^{n+4}c_{k}z^{-k}}{1-\sum_{k=1}^{n+2}d_{k}z^{-k}}.
+\label{Cascade_Digital}
+\end{equation}
+
+Fortunately, multiplication of two polynomials is accomplished efficiently
+just by convolving their corresponding coefficients. Define now two
+polynomials of orders $m$ and $n$ by $P_{1}=\sum_{k=0}^{m}\theta _{k}z^{-k}$
+and $P_{2}=\sum_{k=0}^{n}\lambda _{k}z^{-k}$. Then, it may be verified that
+the coefficients of polynomial $P_{3}=P_{1}\times P_{2}=$ $%
+\sum_{k=0}^{m+n}\varphi _{k}z^{-k}$ are obtained by 
+\begin{eqnarray}
+\vec{\varphi} &=&\vec{\theta}\ast \vec{\lambda}, \\
+\varphi _{k} &=&\sum_{i=0}^{m+n}\theta _{i}\lambda _{k-i},\text{ \ \ \ \ }%
+k=0,\,1,\,\ldots ,\,m+n.
+\end{eqnarray}
+
+This result can be applied to the coefficients of the two system functions.
+Define now $\vec{\alpha}=\left[ a_{0},\,a_{1},\,a_{2},\,a_{3},\,a_{4}\right] 
+$, $\vec{\beta}=\left[ 1,\,-b_{1},\,-b_{2},\,-b_{3},\,-b_{4}\right] $, $\vec{%
+\delta}=\left[ A_{0},\,\,A_{1},\,\ldots ,\,\,A_{n}\right] $, $\vec{\eta}=%
+\left[ 1,\,-B_{1},\,\ldots ,\,-B_{n}\right] $. Then the coefficients of $%
+H\left( z\right) $ in Eq. (\ref{Cascade_Digital}) are obtained by 
+\begin{eqnarray}
+c_{k} &=&\sum_{i=0}^{n+4}\alpha _{i}\delta _{k-i},\text{ \ \ \ \ }%
+k=0,\,1,\,\,\ldots ,\,n+4, \\
+d_{k} &=&\sum_{i=0}^{n+4}\beta _{i}\eta _{k-i},\text{ \ \ \ \ }%
+k=1,\,\,\ldots ,\,n+2.
+\end{eqnarray}
+
+\begin{remark}
+For a low-pass or a high-pass filter the numerator and denominator of $%
+H_{1}\left( z\right) $ in Eq. (\ref{H_1}) are of order 2, thus $%
+a_{3}=a_{4}=b_{3}=b_{4}=0.$
+\end{remark}
+
+\begin{remark}
+Since we chose a stable analog prototype and the Bilinear Transformation
+preserves the stability property, we are guaranteed the
+unconditional-stability of the resultant digital filter.
+\end{remark}
+
+\subsection{AMPLITUDE NORMALIZATION}
+
+By now we have found the frequency-response of the form 
+\begin{equation}
+H\left( z=e^{j\,\omega }\right) =\frac{\sum_{k=0}^{N}a_{k}e^{-j\,k\,\omega }%
+}{1-\sum_{k=1}^{N}b_{k}e^{-j\,k\,\omega }}.  \label{H_Non_Normal}
+\end{equation}
+Initially, the absolute value of $H$ at $\omega =\omega _{c}$ may be
+obtained by 
+\begin{equation}
+A_{initial}=\left| H\left( \omega =\omega _{c}\right) \right| =\left| \frac{%
+\sum_{k=0}^{N}a_{k}e^{-j\,k\,\omega _{c}}}{1-\sum_{k=1}^{N}b_{k}e^{-j\,k\,%
+\omega _{c}}}\right| .  \label{A_initial}
+\end{equation}
+It is sensible to normalize Eq. (\ref{H_Non_Normal}) such that $H\left(
+\omega =\omega _{c}\right) =$ $H_{a}\left( \Omega =\Omega _{c}\right) $.
+Denote by $A_{desired}$ the desired amplitude for a digital filter at $%
+\omega =\omega _{c}$ and note that for an even $N$%
+\begin{equation}
+A_{desired}=\left| H_{a}\left( \Omega =\Omega _{c}\right) \right| =\left\{ 
+\begin{array}{cc}
+1, & \text{for a Butterworth filter} \\ 
+\frac{1}{\sqrt{1+\epsilon ^{2}}}, & \text{for a Chebyshev-1 filter}%
+\end{array}
+\right.  \label{A_desired}
+\end{equation}
+The amplitude may now be normalized by 
+\begin{equation}
+H_{nornal}=H\left( e^{j\,\omega }\right) \times \frac{A_{desired}}{%
+A_{initial}}.  \label{Amp_normal}
+\end{equation}
+Inserting Eq. (\ref{H_Non_Normal}) into (\ref{Amp_normal}), this is
+equivalent to normalizing the numerator coefficients in Eq. (\ref%
+{H_Non_Normal}). Thus, the normalized coefficients of the digital filter are
+calculated from 
+\begin{eqnarray}
+\vec{a}_{normal} &=&\vec{a}\times \frac{A_{desired}}{A_{initial}}, \\
+\vec{b}_{normal} &=&\vec{b},
+\end{eqnarray}
+where $A_{initial}$ and $A_{desired}$ are obtained from Eqs. (\ref{A_initial}%
+) and (\ref{A_desired}), while $\vec{a}$ and $\vec{b}$ are the previous
+coefficient vectors.
+
+\subsection{IMPULSE-RESPONSE CONSTRUCTION}
+
+Having found the digital filter coefficients, we may obtain the
+impulse-response in one of the two ways:
+
+\begin{itemize}
+\item \textit{Direct or exact method}: Calculate $H\left( e^{j\,\omega
+}\right) $ by inserting $\vec{a}$ and $\vec{b}$ into Eq. (\ref{Freq_Resp}),
+then apply $\mathcal{F}^{-1}$-transform to $H\left( e^{j\,\omega }\right) $, 
+\begin{equation}
+h\left[ n\right] =\mathcal{F}^{-1}\left\{ H\left( e^{j\,\omega }\right)
+\right\} .
+\end{equation}
+
+\item \textit{Backward method}: Send an impulse into the system defined by
+difference Eq. (\ref{LTI_Causal_Filter}) and calculate the output, 
+\begin{equation}
+x\left[ n\right] =\delta \left[ n\right] \Leftrightarrow y\left[ n\right] =h%
+\left[ n\right] .
+\end{equation}
+\end{itemize}
+
+Here, we apply the second method to construct the $h\left[ n\right] $. Then
+we compare its magnitude response with the results of Direct Calculations.
+
+\begin{remark}
+Clearly, to calculate $h\left[ n\right] $ in the second method, we have to
+send a finite length impulse. As we see later this truncation is an error
+source which can be seen when we compare the magnitude responses of the two
+methods. Intuitively, we expect smaller deviation when impulse-response
+length increases.
+\end{remark}
+
+\subsection{SCALING FILTER COEFFICIENTS}
+
+In some cases we are just able to handle integer coefficients, so we must
+find a way to convert all coefficients to integers. Suppose now that $L$ is
+the largest representable integer in the actual processor and $C$ is some
+unknown constant. Denote by $a_{k}$ and $b_{k}$ the normalized coefficients
+obtained above and define a new filter by 
+\begin{eqnarray}
+\acute{a}_{k} &=&C\,a_{k},\;\;\;\;\;\text{for }k=0,\,1,\,2,\ldots ,\,N,
+\label{Scaled_a} \\
+\acute{b}_{k} &=&C\,b_{k},\;\;\;\;\;\text{for }k=0,\,1,\,2,\ldots ,\,N,
+\label{Scaled_B} \\
+\tilde{y}\left[ n\right] &=&\sum_{k=0}^{N}\acute{a}_{k}x\left[ n-k\right]
++\sum_{k=1}^{N}\acute{b}_{k}\tilde{y}\left[ n-k\right] ,\text{ \ \ \ \ }%
+\forall \,n,  \label{Scaled_y} \\
+\acute{y}\left[ n\right] &=&\frac{1}{C}\tilde{y}\left[ n\right] ,\text{\ \ \
+\ \ }\forall \,n\text{.}  \label{Correct_y}
+\end{eqnarray}
+It may be verified that $\acute{y}\left[ n\right] $ found in Eq. (\ref%
+{Correct_y}) is the same as the output of Eq. (\ref{LTI_Causal_Filter}). Our
+goal is now to determine scaling factor $C$. As we see from Eq. (\ref%
+{Correct_y}), we must divide the output found from Eq. (\ref{Scaled_y}) by $%
+C $ in each step. Since the original decimal coefficients $a_{k}$ and $b_{k}$
+may be quite small, we first divide them by the minimum positive magnitude
+coefficient larger than a predefined value $\delta $. Then multiply all new
+coefficients by a positive integer such that the largest coefficient
+obtained is still inside the integer range. Thus 
+\begin{eqnarray}
+m_{1} &=&\max \left[ \min_{k=0,\,1,\,\ldots ,\,N}abs\left( a_{k}\right)
+,\,\delta \right] ,  \label{Min_a_k} \\
+m_{2} &=&\max \left[ \min_{k=1,\,\ldots ,\,N}abs\left( b_{k}\right)
+,\,\delta \right] ,  \label{Min_b_k} \\
+m_{3} &=&\min \left( m_{1},\,m_{2}\right) ,  \label{Min_ab} \\
+M_{1} &=&\max_{k=0,\,1,\,\ldots ,\,N}\left[ abs\left( \frac{a_{k}}{m_{3}}%
+\right) \right] ,  \label{Max_a_k_plus} \\
+M_{2} &=&\max_{k=1,\,\ldots ,\,N}\left[ abs\left( \frac{b_{k}}{m_{3}}\right) %
+\right] ,  \label{Max_b_k_plus} \\
+M_{3} &=&\max \left( M_{1},\,M_{2}\right) ,  \label{Max_ab_plus} \\
+C &=&floor\left( \frac{L}{m_{3}\times M_{3}}\right) ,  \label{Scale_Factor}
+\\
+\acute{a}_{k} &=&floor\left( C\times a_{k}\right)
+,\;\;\;\;\;k=0,\,1,\,\ldots ,\,N,  \label{A_r} \\
+\acute{b}_{k} &=&floor\left( C\times b_{k}\right) ,\;\;\;\;\;k=1,\,\ldots
+,\,N.  \label{B_r}
+\end{eqnarray}
+
+\begin{remark}
+Note that function $floor$ return an integer by truncating all digits after
+the decimal point. The new coefficients obtained from Eqs. (\ref{A_r}) and (%
+\ref{B_r}) are used in the Backward Method to calculate the
+impulse-response. Thus in the Backward Calculations we have two sources of
+numeric error, i.e. the truncation of the impulse-response and the rounding
+effect introduced by Eq. (\ref{Scale_Factor}).
+\end{remark}
+
+\begin{remark}
+We have done more than just finding the magnitude of the smallest
+coefficient in Eqs. (\ref{Min_a_k}) and (\ref{Min_b_k}). The reason is the
+case where dividing by the smallest coefficient is enough to go outside the
+integer range of the actual processor. Furthermore we may do all these
+calculations in a while-loop, where we increase $\delta $ to obtain a value
+for the minimum coefficient, which after division gives a maximum
+coefficient inside the range. If it still is impossible keep the integers
+inside the range we have no choice than stop calculations and give a warning
+message about the problem. In this case we are left with the decimal
+coefficients which will be used as described above.
+\end{remark}
+
+\section{RESULTS}
+
+In this section we present results of the digital filter implementation.
+Because the input data are obtained by sampling a continuous function, it is
+more natural to use the normalized frequency with respect to the sampling
+frequency, i.e. $0\leq f=\frac{\omega }{2\pi }\leq 0.5.$ To be able to
+compare Butterworth with Chebyshev-1 we applied the same input data for
+low-pass, high-pass, band-pass and bans-stop filters. Furthermore we will
+compare the results of the Direct with the Backward calculations. In the
+first method, we find filter coefficients $a_{k}$ and $b_{k}$, then obtain
+the frequency-response from $H\left( e^{j\,\omega }\right) =\frac{%
+\sum_{k=0}^{N}a_{k}\,e^{-j\,\omega \,k}}{1-\sum_{k=1}^{N}b_{k}\,e^{-j\,%
+\omega \,k}}$. In the second method, we begin by reading the data files
+containing integer vectors $\acute{a}_{k}$, $\acute{b}_{k}$ and integer
+scale factor $C$, apply Eq. (\ref{LTI_Causal_Filter}) with $\delta \left[ n%
+\right] $ as the input to construct $h\left[ n\right] $ and finally apply $%
+\mathcal{F}$-operator to obtain its frequency-response. Then we plot both
+magnitude responses and compare them with each other.
+
+\begin{center}
+\FRAME{ftbphFU}{11.2511cm}{8.468cm}{0pt}{\Qcb{Amplitude of a digital
+low-pass Butterworth filter with limiting frequencies and attenuations equal
+to $f_{\lim }=[0.20$ $\ 0.25]$ $Hz$ and $A_{\lim }=[1\,\ 20]$ $dB$. Backward
+calculations are performed on a 16-bits processor.}}{\Qlb{Low_Butt_Res}}{%
+low_butt_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'Low_Butt_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2467cm}{%
+8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital low-pass Butterworth filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\
+0.25]$ $Hz$ and $A_{\lim }=[1\,\ 20]$ $dB$. Backward calculations are
+performed on a 16-bits processor.}}{\Qlb{Low_Butt_dB_Res}}{%
+low_butt_db_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2467cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1.0001";cropright "0.9996";cropbottom
+"0";filename 'Low_Butt_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2511cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and backward
+calculations of the low-pass Butterworth magnitude on a 16-bits processor.}}{%
+\Qlb{Low_Butt_Error}}{low_butt_error.eps}{\special{language "Scientific
+Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file
+"F";width 11.2511cm;height 8.468cm;depth 0pt;original-width
+8.003in;original-height 6.0105in;cropleft "0";croptop "1";cropright
+"1";cropbottom "0";filename 'Low_Butt_Error.eps';file-properties "XNPEU";}}%
+\FRAME{ftbphFU}{11.2511cm}{8.468cm}{0pt}{\Qcb{Amplitude of a digital
+low-pass Chebyshev-1 filter with limiting frequencies and attenuations equal
+to $f_{\lim }=[0.20$ $\ 0.25]$ $Hz$ and $A_{\lim }=[1\,\ 20]$ $dB$. Backward
+calculations are performed on a 16-bits processor.}}{\Qlb{Low_Cheb1_Res}}{%
+low_cheb_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'Low_Cheb_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm}{%
+8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital low-pass Chebyshev-1 filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\
+0.25]$ $Hz$ and $A_{\lim }=[1\,\ 20]$ $dB$. Backward calculations are
+performed on a 16-bits processor.}}{\Qlb{Low_Cheb1_dB_Res}}{%
+low_cheb_db_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'Low_Cheb_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm}{%
+8.468cm}{0pt}{\Qcb{Deviation between direct and backward calculations of the
+low-pass Chebyshev-1 magnitude on a 16-bits processor.}}{\Qlb{Low_Cheb1_Error%
+}}{low_cheb_error.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'Low_Cheb_Error.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm}{%
+8.468cm}{0pt}{\Qcb{Amplitude of a digital high-pass Butterworth filter with
+limiting frequencies and attenuations equal to $f_{\lim }=[0.30$ $\ 0.35]$ $%
+Hz$ and $A_{\lim }=[40\,\ 1]$ $dB$. Backward calculations are performed on a
+32-bits processor.}}{\Qlb{High_Butt_Res}}{high_butt_res.eps}{\special%
+{language "Scientific Word";type "GRAPHIC";maintain-aspect-ratio
+TRUE;display "ICON";valid_file "F";width 11.2511cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'High_Butt_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm}{%
+8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital high-pass Butterworth filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.30$ $\
+0.35]$ $Hz$ and $A_{\lim }=[40\,\ 1]$ $dB$. Backward calculations are
+performed on a 32-bits processor.}}{\Qlb{High_Butt_dB_Res}}{%
+high_butt_db_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'High_Butt_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm}{%
+8.468cm}{0pt}{\Qcb{Deviation between direct and backward calculations of the
+high-pass Butterworth magnitude on a 32-bits processor.}}{\Qlb{%
+High_Butt_Error}}{high_butt_error.eps}{\special{language "Scientific
+Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file
+"F";width 11.2511cm;height 8.468cm;depth 0pt;original-width
+8.003in;original-height 6.0105in;cropleft "0";croptop "1";cropright
+"1";cropbottom "0";filename 'High_Butt_Error.eps';file-properties "XNPEU";}}%
+\FRAME{ftbphFU}{11.2467cm}{8.468cm}{0pt}{\Qcb{Amplitude of a digital
+high-pass Chebyshev-1 filter with limiting frequencies and attenuations
+equal to $f_{\lim }=[0.30$ $\ 0.35]$ $Hz$ and $A_{\lim }=[40\,\ 1]$ $dB$.
+Backward calculations are performed on a 32-bits processor.}}{\Qlb{%
+High_Cheb1_Res}}{high_cheb_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2467cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1.0001";cropright "0.9996";cropbottom
+"0";filename 'High_Cheb_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2511cm}{8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital high-pass
+Chebyshev-1 filter with limiting frequencies and attenuations equal to $%
+f_{\lim }=[0.30$ $\ 0.35]$ $Hz$ and $A_{\lim }=[40\,\ 1]$ $dB$. Backward
+calculations are performed on a 32-bits processor.}}{\Qlb{High_Cheb1_dB_Res}%
+}{high_cheb_db_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'High_Cheb_dB_Res.eps';file-properties "XNPEU";}}
+
+\FRAME{ftbphFU}{11.2511cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and
+backward calculations of the high-pass Chebyshev-1 magnitude on a 32-bits
+processor.}}{\Qlb{High_Cheb1_Error}}{high_cheb_error.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2511cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'High_Cheb_Error.eps';file-properties "XNPEU";}}
+
+\FRAME{ftbphFU}{11.2467cm}{8.468cm}{0pt}{\Qcb{Amplitude of a digital
+band-pass, Butterworth filter with limiting frequencies and attenuations
+equal to $f_{\lim }=[0.20$ $\ 0.25$ $0.35$ $\ 0.4]$ and $A_{\lim }=[20\,\ 1$
+\ $1$ \ $30]$. Backward calculations are performed on a 32-bits processor.}}{%
+\Qlb{BandPass_Butt_Res}}{bandpass_butt_res.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "0.9995";cropbottom "0";filename
+'BandPass_Butt_Res.eps';file-properties "XNPEU";}}
+
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+
+\FRAME{ftbphFU}{11.2467cm}{8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital
+band-pass, Butterworth filter with limiting frequencies and attenuations
+equal to $f_{\lim }=[0.20$ $\ 0.25$ $0.35$ $\ 0.4]$ and $A_{\lim }=[20\,\ 1$
+\ $1$ \ $30]$. Backward calculations are performed on a 32-bits processor.}}{%
+\Qlb{Bandpass_Butt_dB_Res}}{bandpass_butt_db_res.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandPass_Butt_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2467cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and backward
+calculations of the band-pass Butterworth magnitude on a 32-bits processor.}%
+}{\Qlb{BandPass_Butt_Error}}{bandpass_butt_error.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandPass_Butt_Error.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2467cm%
+}{8.468cm}{0pt}{\Qcb{Amplitude of a digital band-pass, Chebyshev-1 filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\
+0.25 $ $0.35$ $\ 0.4]$ and $A_{\lim }=[20\,\ 1$ \ $1$ \ $30]$. Backward
+calculations are performed on a 32-bits processor.}}{\Qlb{BandPass_Cheb1_Res}%
+}{bandpass_cheb_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2467cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1.0001";cropright "0.9996";cropbottom
+"0";filename 'BandPass_Cheb_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU%
+}{11.2511cm}{8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital band-pass,
+Chebyshev-1 filter with limiting frequencies and attenuations equal to $%
+f_{\lim }=[0.20$ $\ 0.25$ $0.35$ $\ 0.4]$ and $A_{\lim }=[20\,\ 1$ \ $1$ \ $%
+30]$. Backward calculations are performed on a 32-bits processor.}}{\Qlb{%
+BandPass_Cheb1_dB_Res}}{bandpass_cheb_db_res.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2511cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "1";cropbottom "0";filename
+'BandPass_Cheb_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2467cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and backward
+calculations of the band-pass Chebyshev-1 magnitude on a 32-bits processor.}%
+}{\Qlb{BandPass_Cheb1_Error}}{bandpass_cheb_error.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandPass_Cheb_Error.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2467cm%
+}{8.468cm}{0pt}{\Qcb{Amplitude of a digital band-stop, Butterworth filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\ 0.3$
+$\ 0.4$ $\ 0.45]$ and $A_{\lim }=[1$ $\ 20\,\ 35$ \ $1]$. Backward
+calculations are performed on a 32-bits processor.}}{\Qlb{BandStop_Butt_Res}%
+}{bandstop_butt_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2467cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1.0001";cropright "0.9996";cropbottom
+"0";filename 'BandStop_Butt_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU%
+}{11.2467cm}{8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital band-stop,
+Butterworth filter with limiting frequencies and attenuations equal to $%
+f_{\lim }=[0.20$ $\ 0.3$ $\ 0.4$ $\ 0.45]$ and $A_{\lim }=[1$ $\ 20\,\ 35$ \ 
+$1]$. Backward calculations are performed on a 32-bits processor.}}{\Qlb{%
+BandStop_Butt_dB_Res}}{bandstop_butt_db_res.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandStop_Butt_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2467cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and backward
+calculations of the band-stop Butterworth magnitude on a 32-bits processor.}%
+}{\Qlb{BandStop_Butt_Error}}{bandstop_butt_error.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandStop_Butt_Error.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2511cm%
+}{8.468cm}{0pt}{\Qcb{Amplitude of a digital band-stop, Chebyshev-1 filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\ 0.3$
+$\ 0.4$ $\ 0.45]$ and $A_{\lim }=[1$ $\ 20\,\ 35$ \ $1]$. Backward
+calculations are performed on a 32-bits processor.}}{\Qlb{BandStop_Cheb1_Res}%
+}{bandstop_cheb_res.eps}{\special{language "Scientific Word";type
+"GRAPHIC";maintain-aspect-ratio TRUE;display "ICON";valid_file "F";width
+11.2511cm;height 8.468cm;depth 0pt;original-width 8.003in;original-height
+6.0105in;cropleft "0";croptop "1";cropright "1";cropbottom "0";filename
+'BandStop_Cheb_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{11.2467cm}{%
+8.468cm}{0pt}{\Qcb{$dB-$amplitude of a digital band-stop, Chebyshev-1 filter
+with limiting frequencies and attenuations equal to $f_{\lim }=[0.20$ $\ 0.3$
+$\ 0.4$ $\ 0.45]$ and $A_{\lim }=[1$ $\ 20\,\ 35$ \ $1]$. Backward
+calculations are performed on a 32-bits processor.}}{\Qlb{%
+BandStop_Cheb1_dB_Res}}{bandstop_cheb_db_res.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2467cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1.0001";cropright "0.9996";cropbottom "0";filename
+'BandStop_Cheb_dB_Res.eps';file-properties "XNPEU";}}\FRAME{ftbphFU}{%
+11.2489cm}{8.468cm}{0pt}{\Qcb{Deviation between direct and backward
+calculations of the band-stop Chebyshev-1 magnitude on a 32-bits processor.}%
+}{\Qlb{BandStop_Cheb1_Error}}{bandstop_cheb_error.eps}{\special{language
+"Scientific Word";type "GRAPHIC";maintain-aspect-ratio TRUE;display
+"ICON";valid_file "F";width 11.2489cm;height 8.468cm;depth
+0pt;original-width 8.003in;original-height 6.0105in;cropleft "0";croptop
+"1";cropright "0.9998";cropbottom "0";filename
+'BandStop_Cheb_Error.eps';file-properties "XNPEU";}} 
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+\end{center}
+
+Figs. \ref{Low_Butt_Res} and \ref{Low_Butt_dB_Res} show the magnitude
+response of a low-pass, Butterworth filter, while Fig. \ref{Low_Butt_Error}
+shows the deviation between the two methods. The filter order in this case
+is $N=10$.
+
+Figs. \ref{Low_Cheb1_Res}, \ref{Low_Cheb1_dB_Res} and \ref{Low_Cheb1_Error}
+show the results of the same input data but for a Chebyshev-1 filter. As we
+see from Fig. \ref{Low_Cheb1_Res}, we manage with $N=6$.
+
+Figs. \ref{High_Butt_Res} and \ref{High_Butt_dB_Res} show the magnitude
+response of a high-pass, Butterworth filter, while Fig \ref{High_Butt_Error}%
+, again, shows the deviation between the two methods. The filter order is $%
+N=16$.
+
+Figs. \ref{High_Cheb1_Res}, \ref{High_Cheb1_dB_Res} and \ref%
+{High_Cheb1_Error} show the results of the same input data but for a
+Chebyshev-1 filter. In this case we are able to reduce the filter order to $%
+N=8$.
+
+Figs. \ref{BandPass_Butt_Res} and \ref{Bandpass_Butt_dB_Res} show the
+magnitude response of a band-pass, Butterworth filter, while Fig. \ref%
+{BandPass_Butt_Error} shows the deviation between the two methods. The
+filter order in this case is $N=20$.
+
+Figs. \ref{BandPass_Cheb1_Res}, \ref{BandPass_Cheb1_dB_Res} and \ref%
+{BandPass_Cheb1_Error} show the results of the same input data but for a
+Chebyshev-1 filter. Filter order in this case is reduced to $N=12$.
+
+Figs. \ref{BandStop_Butt_Res} and \ref{BandStop_Butt_dB_Res} show the
+magnitude response of a band-stop, Butterworth filter, while Fig. \ref%
+{BandStop_Butt_Error} shows the deviation between the two methods. The
+filter order in this case is $N=20$.
+
+Figs. \ref{BandStop_Cheb1_Res}, \ref{BandStop_Cheb1_dB_Res} and \ref%
+{BandStop_Cheb1_Error} show the results of the same input data but for a
+Chebyshev-1 filter. Filter order in this case is reduced to $N=12$.
+
+The input and design parameters of Butterworth and Chebyshev-1 filters are
+gathered in Tabs. \ref{ButterTable} and \ref{Cheb1Table}.
+
+\begin{center}
+%TCIMACRO{\TeXButton{B}{\begin{table}[tbp] \centering}}%
+%BeginExpansion
+\begin{table}[tbp] \centering%
+%EndExpansion
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& $f_{\lim }$ & $A_{\lim }\left( dB\right) $ & Word Length & $N$ & $f_{c}$
+\\ \hline
+Low-pass & $0.2,\,0.25$ & $1,\,20$ & $16$ & $10$ & $0.2103$ \\ \hline
+High-pass & $0.3,\,0.35$ & $40,\,1$ & $32$ & $16$ & $0.3063$ \\ \hline
+Band-pass & $0.2,\,0.25,\,0.35,\,0.4$ & $20,\,1,\,1,\,30$ & $32$ & $20$ & $%
+0.2393,\,0.3585$ \\ \hline
+Band-stop & $0.2,\,0.3,\,0.4,\,0.45$ & $1,\,20,\,35,\,1$ & $32$ & $16$ & $%
+0.2129,\,0.4457$ \\ \hline
+\end{tabular}
+\caption{Input and design parameters for the Butterworth
+filter.\label{ButterTable}} 
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[tbp] \centering}}%
+%BeginExpansion
+\begin{table}[tbp] \centering%
+%EndExpansion
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& $f_{\lim }$ & $A_{\lim }\left( dB\right) $ & Word Length & $N$ & $\epsilon 
+$ \\ \hline
+Low-pass & $0.2,\,0.25$ & $1,\,20$ & $16$ & $6$ & $0.5088$ \\ \hline
+High-pass & $0.3,\,0.35$ & $40,\,1$ & $32$ & $8$ & $0.5088$ \\ \hline
+Band-pass & $0.2,\,0.25,\,0.35,\,0.4$ & $20,\,1,\,1,\,30$ & $32$ & $12$ & $%
+0.5088$ \\ \hline
+Band-stop & $0.2,\,0.3,\,0.4,\,0.45$ & $1,\,20,\,35,\,1$ & $32$ & $12$ & $%
+0.5088$ \\ \hline
+\end{tabular}
+\caption{Input and design parameters for the Chebyshev-1 filter.
+\label{Cheb1Table}} 
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+\end{center}
+
+\section{SUMMARY AND CONCLUSION}
+
+We began this report by describing how a digital low-pass, high-pass,
+band-pass and band-stop filters might be specified. Then we introduced
+Butterworth and Chebyshev-1 analog filters and explained how their
+parameters could be deduced from the design specifications. By applying the
+Bilinear Method we transformed this prototype to a digital filter. The
+results were of course the decimal filter coefficients. We called this
+approach the Direct calculations, scaled and saved both decimal and integer
+coefficients. The Backward method, then applied the integer coefficients to
+construct the impulse-response and $\mathcal{F}$-transform it to obtain the
+frequency-response. The magnitude-responses of both methods were then
+calculated. In the last section, we compared the results and plotted the
+deviation between the two methods for some different set of input
+parameters. We may conclude the following:
+
+\begin{itemize}
+\item All digital filters implemented here are unconditionally stable and
+causal.
+
+\item All filters are implemented by transforming a corresponding analog
+low-pass filter to a digital low-pass using the Bilinear transformation,
+then applying frequency mapping to convert this prototype to a low-pass,
+high-pass, band-pass and band-stop filters with different cut-off
+frequencies.
+
+\item The coefficients of a band-pass filter may also be calculated by
+cascading a high-pass and a low-pass filter. We have not used this approach
+because of two reasons. First, it is not consistent with the high-pass and
+band-stop implementation. Second, it gives less satisfactory results.
+
+\item While a low-pass Butterworth filter has a flat amplitude in both ends,
+the frequency of oscillation in the pass-band side of a low-pass Chebyshev-1
+grows as we approach the $\omega _{1}$, just as their analog counter-parts.
+
+\item Given the same set of specifications, Chebyshev-1 filters are
+advantageous because of lower filter order. The price is, some oscillation
+in the pass-band, as well as a little more complexity of implementing them.
+
+\item For a low-pass Butterworth filter, the deviation between the two
+methods is flat in both ends and reaches its maximum value at $\Omega _{c}$.
+For a low-pass Chebyshev-1 filter, the deviation is flat in the pass-band,
+oscillatory in the stop-band and reaches its maximum value at $\Omega _{1}$.
+
+\item For the low-pass and high-pass filters, the results are quite
+satisfactory, and the deviation could actually be seen just around the
+critical frequencies and in the $dB$-plot for extremely low values of the
+magnitude responses.
+
+\item For the band-pass and band-stop cases we get a little more deviation
+between the two methods, although still quite satisfactory. This is
+specially the case if we require steep transitions near the edges of the
+frequency interval. It comes from the fact that these cases have a filter
+order twice the corresponding low-pass filter, resulting very small
+coefficients and more numeric problems.
+
+\item As we could imagine, the deviation decreases as we increase the
+impulse-response length and the processor capabilities.
+\end{itemize}
+
+\section{REFERENCES}
+
+\begin{thebibliography}{9}
+\bibitem{Mitra} Sanjit K. Mitra and James F. Kaiser: Handbook for Digital
+Signal Processing, 1993, John Wiley \& Sons, NY, Chapter 5, ISBN\ \ \
+0-471-61995-7.
+
+\bibitem{Oppenheim} Alan V. Oppenheim and Roland W. Schafer, Discrete-Time
+Signal Processing, 1989, Prentice-Hall International, Inc., Chapters 2, 3, 4
+and 5, 7 and 8, ISBN\ \ \ 0-13-216771-9.
+
+\bibitem{Smith} The Scientist and Engineer's Guide to Digital Signal
+Processing, 1997, Steven W. Smith, California Technical Publishing, Chapters
+20 and 33, ISBN\ \ \ 0-9660176-3-3
+
+%TCIMACRO{\TeXButton{clearpage}{\clearpage}}%
+%BeginExpansion
+\clearpage%
+%EndExpansion
+\end{thebibliography}
+
+\end{document}
