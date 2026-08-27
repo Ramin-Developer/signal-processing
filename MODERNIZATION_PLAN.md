@@ -54,14 +54,14 @@ This plan covers the current script collection under the repository root, with f
 
 ### Phase 2 — Reliability and readability
 - [x] Rename ambiguous or misspelled functions and variables where safe
-- [ ] Replace repeated magic numbers with named constants or configuration structures
+- [x] Replace repeated magic numbers with named constants or configuration structures
 - [x] Fix inconsistent file I/O patterns and status/error handling
 - [ ] Centralize MATLAB path assumptions and file naming conventions
 
 ### Phase 3 — Performance improvement
 - [ ] Replace repeated nested loops with vectorized MATLAB patterns where practical
 - [x] Reduce duplicated signal extension logic in the initial-period and next-period handlers
-- [ ] Reuse helper functions for common operations instead of inlining repeated logic
+- [x] Reuse helper functions for common operations instead of inlining repeated logic
 
 ### Phase 4 — Maintainability and validation
 - [x] Add small smoke tests or script-level validation for core DSP routines
