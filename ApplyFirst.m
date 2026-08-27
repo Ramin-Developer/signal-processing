@@ -56,4 +56,6 @@ else
     y = yNew(N + 1:end);
 end;
 
-WriteFilterStatus(LogFile, Status);
+if nargin >= 6
+    WriteFilterStatus(LogFile, Status);
+end;
