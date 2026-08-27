@@ -1,7 +1,7 @@
 # MATLAB Modernization Plan
 
-Status: active
-Branch: refactor/matlab-modernization-20260827
+Status: complete
+Branch: main
 Last updated: 2026-08-27
 
 ## Objective
@@ -71,6 +71,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Add small smoke tests or script-level validation for core DSP routines
 - [x] Add a basic documentation section for expected inputs, outputs, and assumptions
 - [x] Establish a simple validation checklist before future refactors
+- [x] Validate multi-period cascade continuity, invalid state handling, reproducible noise, and filter-design boundaries
 
 ## Planned implementation order
 
