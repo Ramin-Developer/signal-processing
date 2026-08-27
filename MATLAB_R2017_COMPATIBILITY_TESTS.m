@@ -61,6 +61,7 @@ assert(length(yFirst) == length(x), 'First-period output should match input leng
 assert(length(yNext) == length(x), 'Next-period output should match input length.');
 assert(isscalar(statusFirst), 'First-period status should be scalar.');
 assert(isscalar(statusNext), 'Next-period status should be scalar.');
+assert(ReadFilterStatus(stateLogPath) == statusNext, 'Persisted status should match output.');
 delete(inputPath);
 delete(outputPath);
 delete(stateLogPath);

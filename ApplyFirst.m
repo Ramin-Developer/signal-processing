@@ -54,6 +54,4 @@ else
     y = yNew(N + 1:end);
 end;
 
-h_log  = fopen(LogFile, 'wt');          % Open the Log file for overwriting.
-Count = fprintf(h_log, '%g', Status);
-Count = fclose(h_log);
+WriteFilterStatus(LogFile, Status);
