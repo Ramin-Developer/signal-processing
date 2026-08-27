@@ -60,6 +60,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Validate persisted filter state before later-period processing
 - [x] Remove unused local variables from the core execution flow
 - [x] Validate filter inputs before recurrence processing
+- [x] Validate filter-state output paths before writing
 
 ### Phase 3 — Performance improvement
 - [x] Replace repeated nested loops with vectorized MATLAB patterns where practical

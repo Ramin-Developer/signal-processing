@@ -105,5 +105,16 @@ catch exception
 end;
 assert(invalidCoefficientsErrorRaised, 'Malformed coefficients should raise a clear error.');
 
+missingStateDirectory = tempname;
+invalidStateWriteErrorRaised = false;
+try
+	WriteFilterState(fullfile(missingStateDirectory, 'input.txt'), ...
+		fullfile(missingStateDirectory, 'output.txt'), 0, 0);
+catch exception
+	invalidStateWriteErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:StateFileOpenFailed');
+end;
+assert(invalidStateWriteErrorRaised, 'Invalid state paths should raise a clear error.');
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
