@@ -15,12 +15,7 @@ else
     if mod(LenMin, Lx) == 0
         M = M - 1;
     end;
-    x_t = zeros(M * Lx, 1);     % Construct the periodic vector
-    for k = 1:M
-        for j = 1:Lx
-            x_t( (k - 1) * Lx + j ) = x(j);
-        end;
-    end;
+    x_t = repmat(x, M, 1);      % Construct the periodic vector.
     x_t = [x_t(end-N+1:end); x_t];
     LenExt = M * Lx + N;
 end;
