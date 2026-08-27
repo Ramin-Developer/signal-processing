@@ -30,11 +30,7 @@ yOld = zeros(LenExt, 1);
 if (Func == 0) || (Func == 3)
     yOld(1:N) = Aver_x;
 end;
-for n = N + 1:1:LenExt
-    for k = 0:1:N
-        yOld(n) = yOld(n) + A(k + 1) * x_t(n - k) + B(k + 1) * yOld(n - k);
-    end;
-end;
+yOld = ApplyDifferenceEquation(A, B, x_t, yOld, N);
 
 % Calculate the output values:
 Status = 3;
@@ -43,11 +39,7 @@ while (Status ~= 0) && (Status ~= 1)
     Iter_no = Iter_no + 1;
     yNew = zeros(LenExt, 1);
     yNew(1:N) = yOld(LenExt - N + 1:end);
-    for n = N + 1:1:LenExt
-        for k = 0:1:N
-            yNew(n) = yNew(n) + A(k + 1) * x_t(n - k) + B(k + 1) * yNew(n - k);
-        end;
-    end;
+    yNew = ApplyDifferenceEquation(A, B, x_t, yNew, N);
     % Convergence test:
     Max_yNew = max( abs(yNew) );
     Max_yOld = max( abs(yOld) );
