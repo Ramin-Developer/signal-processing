@@ -81,5 +81,19 @@ assert(shortStateErrorRaised, 'Short filter state should raise a clear error.');
 delete(shortInputPath);
 delete(shortOutputPath);
 
+invalidStatusPath = [tempname '.txt'];
+invalidStatusHandle = fopen(invalidStatusPath, 'wt');
+fprintf(invalidStatusHandle, 'invalid');
+fclose(invalidStatusHandle);
+invalidStatusErrorRaised = false;
+try
+	ReadFilterStatus(invalidStatusPath);
+catch exception
+	invalidStatusErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterStatus');
+end;
+assert(invalidStatusErrorRaised, 'Malformed status should raise a clear error.');
+delete(invalidStatusPath);
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
