@@ -59,7 +59,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Centralize MATLAB path assumptions and file naming conventions
 
 ### Phase 3 — Performance improvement
-- [ ] Replace repeated nested loops with vectorized MATLAB patterns where practical
+- [x] Replace repeated nested loops with vectorized MATLAB patterns where practical
 - [x] Reduce duplicated signal extension logic in the initial-period and next-period handlers
 - [x] Reuse helper functions for common operations instead of inlining repeated logic
 
