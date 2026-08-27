@@ -30,6 +30,14 @@ elseif (Func == 3)
     f_lim = cfg.bandStopFrequencyLimits;
     A_lim = cfg.bandStopAttenuationLimits;
 end;
+expectedLimitCount = 2 + 2 * (Func > 1);
+if ~isnumeric(f_lim) || ~isvector(f_lim) || any(~isfinite(f_lim)) || ...
+        numel(f_lim) ~= expectedLimitCount || ~isnumeric(A_lim) || ...
+        ~isvector(A_lim) || any(~isfinite(A_lim)) || ...
+        numel(A_lim) ~= expectedLimitCount
+    error('SignalProcessing:InvalidTestConfiguration', ...
+        'Selected test filter limits must be finite numeric vectors of matching length.');
+end;
 
 % Generate the input signal based on the value of Choice:
 Omega = cfg.signalOmega;
