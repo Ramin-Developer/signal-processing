@@ -27,9 +27,7 @@ end;
 [N, w_c, Eps] = DecideParam(Func, Type, N_max, Alpha, w_lim, A_lim);
 
 if N > N_max
-    Status = 2;                     % Status is set to Alarm.
-    h_Out = fopen(LogFile, 'wt');
-    Count = fprintf(h_Out,  '%-16.12g\n', Status);
-    Closed = fclose(h_Out);
-    error(' Sorry, order of the filter is larger than N_max! ');
+    WriteFilterStatus(LogFile, 2);
+    error('SignalProcessing:FilterOrderExceeded', ...
+        'The required filter order is larger than N_max.');
 end;

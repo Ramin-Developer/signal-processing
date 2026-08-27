@@ -116,5 +116,17 @@ catch exception
 end;
 assert(invalidStateWriteErrorRaised, 'Invalid state paths should raise a clear error.');
 
+designLogPath = [tempname '.txt'];
+designOrderErrorRaised = false;
+try
+	DesignParam(Func, Type, f_lim, A_lim, 0, Alpha, designLogPath);
+catch exception
+	designOrderErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:FilterOrderExceeded');
+end;
+assert(designOrderErrorRaised, 'Excessive filter order should raise a clear error.');
+assert(ReadFilterStatus(designLogPath) == 2, 'Filter-order failure should persist alarm status.');
+delete(designLogPath);
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
