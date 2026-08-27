@@ -1,19 +1,24 @@
-# signal-processing
+# Signal Processing
 
-This repository contains a set of MATLAB scripts for signal processing experiments, coefficient calculation, filtering, frequency analysis, and related numerical work.
+MATLAB-based signal processing experiments, filter design utilities, and numerical analysis scripts.
 
-## Contents
+## Overview
 
-The project includes MATLAB source files for:
-- filter application and signal processing steps
-- digital transform and frequency evaluation
-- coefficient generation and parameter selection
-- test/logging utilities for validation
+This repository contains a compact set of MATLAB files for:
+- signal filtering and transformation
+- coefficient and parameter calculation
+- frequency response and evaluation
+- test logging and validation helpers
+
+## Project purpose
+
+The code in this repository is intended for MATLAB-based signal analysis and experimentation, with a focus on practical DSP routines and reproducible processing workflows.
 
 ## Usage
 
-Open the MATLAB files in MATLAB and run the main entry points as needed for your signal-processing workflow.
+Open the MATLAB files in MATLAB and run the relevant entry point for the task you want to evaluate or test.
 
-## Notes
+## Repository notes
 
-This repository is intended for MATLAB-based experimentation and analysis. The files are kept as source assets for processing tasks and test scripts.
+- Source files are stored as MATLAB scripts and data files.
+- Temporary outputs, log artifacts, and generated files are ignored through the repository's configuration.
