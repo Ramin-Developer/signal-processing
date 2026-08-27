@@ -43,3 +43,5 @@ The system is built around a mix of:
 
 The in-memory cascade preserves full double precision between periods. The compatibility writer also uses 17 significant digits so persisted state can round-trip without precision loss.
 
+See `MATLAB_INTERFACE_GUIDE.md` for callable APIs and status semantics.
+
