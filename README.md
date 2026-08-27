@@ -18,7 +18,7 @@ The code in this repository is intended for MATLAB-based signal analysis and exp
 
 Run `Main_Check.m` for the demonstration flow. Use `Calc_OutputWithState` when integrating the filter into an application that owns its state explicitly.
 
-`MakeInputFile.m` remains available to generate legacy example input files, including reproducible noise with an optional nonnegative integer seed: `MakeInputFile('InputFile.txt', 3, 42)`. `InputFile.txt` is not consumed by the modern filter pipeline.
+`MakeInputFile.m` remains available to generate legacy example input files, including reproducible noise with an optional nonnegative integer seed: `MakeInputFile('InputFile.txt', 3, 42)`. The generated `InputFile.txt` is not tracked and is not consumed by the modern filter pipeline.
 
 Run `MATLAB_R2017_COMPATIBILITY_TESTS.m` to execute the full MATLAB R2017a compatibility suite.
 

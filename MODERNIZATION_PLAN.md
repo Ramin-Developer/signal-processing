@@ -72,6 +72,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Add a basic documentation section for expected inputs, outputs, and assumptions
 - [x] Establish a simple validation checklist before future refactors
 - [x] Validate multi-period cascade continuity, invalid state handling, reproducible noise, and filter-design boundaries
+- [x] Remove unreferenced development log helpers and checked-in generated input data
 
 ## Planned implementation order
 
