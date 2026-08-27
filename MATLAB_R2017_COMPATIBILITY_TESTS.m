@@ -186,6 +186,33 @@ assert(isequal(filterState.inputSignal, x), 'In-memory state should retain the c
 assert(isequal(filterState.outputSignal, yStateNext), ...
 	'In-memory state should retain the current output.');
 
+bandPassConfig = cfg;
+bandPassConfig.testFilterFunction = 2;
+bandPassConfig.testFilterType = 0;
+[~, ~, bandPassFrequencyLimits, bandPassAttenuationLimits, bandPassSignal] = ...
+	MakeTestFile(sampleTime, bandPassConfig);
+bandPassLogPath = [tempname '.txt'];
+[bandPassOrder, bandPassCutoff, bandPassEpsilon] = DesignParam(2, 0, ...
+	bandPassFrequencyLimits, bandPassAttenuationLimits, cfg.filterOrderMax, ...
+	cfg.alpha, bandPassLogPath);
+bandPassSections = CalculateFilterSections(2, 0, bandPassOrder, cfg.alpha, ...
+	bandPassCutoff, bandPassEpsilon);
+[bandPassFirstOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, struct(), 1);
+[bandPassNextOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, bandPassState, 0);
+assert(all(isfinite(bandPassFirstOutput)) && all(isfinite(bandPassNextOutput)), ...
+	'Cascaded band-pass output should remain finite across periods.');
+if exist(bandPassLogPath, 'file')
+	delete(bandPassLogPath);
+end;
+
+[calculatedInput, calculatedOutput, calculatedStatus] = Calc_Output(sampleTime, 1);
+assert(isequal(size(calculatedInput), size(sampleTime)), ...
+	'Calc_Output should preserve the input signal shape.');
+assert(all(isfinite(calculatedOutput)), 'Calc_Output cascaded output should remain finite.');
+assert(isscalar(calculatedStatus), 'Calc_Output should return a scalar status.');
+
 shortInputPath = [tempname '.txt'];
 shortOutputPath = [tempname '.txt'];
 shortLogPath = [tempname '.txt'];
