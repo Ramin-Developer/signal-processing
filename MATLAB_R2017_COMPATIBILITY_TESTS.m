@@ -220,5 +220,7 @@ assert(designOrderErrorRaised, 'Excessive filter order should raise a clear erro
 assert(ReadFilterStatus(designLogPath) == 2, 'Filter-order failure should persist alarm status.');
 delete(designLogPath);
 
+MATLAB_FILTER_DESIGN_STRESS_TESTS();
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
