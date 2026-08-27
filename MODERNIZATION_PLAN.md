@@ -66,7 +66,7 @@ This plan covers the current script collection under the repository root, with f
 ### Phase 4 — Maintainability and validation
 - [x] Add small smoke tests or script-level validation for core DSP routines
 - [x] Add a basic documentation section for expected inputs, outputs, and assumptions
-- [ ] Establish a simple validation checklist before future refactors
+- [x] Establish a simple validation checklist before future refactors
 
 ## Planned implementation order
 
