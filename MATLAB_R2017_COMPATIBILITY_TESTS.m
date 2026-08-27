@@ -38,10 +38,12 @@ assert(size(Coeff, 2) >= 2, 'Coefficient matrix should contain at least 2 coeffi
 
 A = [1 0.25 0.1];
 B = [1 -0.2 0.05];
+testOrder = 2;
 logPath = 'compatibility_log.txt';
-[y, status] = ApplyFirst(Func, N, A, B, x(1:10), logPath);
+[y, status] = ApplyFirst(Func, testOrder, A, B, x(1:10), logPath);
 assert(isnumeric(y), 'ApplyFirst should return numeric output.');
 assert(isscalar(status), 'ApplyFirst status should be scalar.');
+delete(logPath);
 
 inputPath = [tempname '.txt'];
 outputPath = [tempname '.txt'];

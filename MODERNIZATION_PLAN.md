@@ -64,7 +64,7 @@ This plan covers the current script collection under the repository root, with f
 - [ ] Reuse helper functions for common operations instead of inlining repeated logic
 
 ### Phase 4 — Maintainability and validation
-- [ ] Add small smoke tests or script-level validation for core DSP routines
+- [x] Add small smoke tests or script-level validation for core DSP routines
 - [ ] Add a basic documentation section for expected inputs, outputs, and assumptions
 - [ ] Establish a simple validation checklist before future refactors
 
