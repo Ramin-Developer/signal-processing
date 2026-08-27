@@ -61,6 +61,21 @@ assert(all(legacyInputValues(11 + cfg.defaultSignalLength / 2:end) == 1), ...
 	'Legacy step input should end with one values.');
 delete(legacyInputPath);
 
+seededNoisePath = [tempname '.txt'];
+repeatSeededNoisePath = [tempname '.txt'];
+MakeInputFile(seededNoisePath, 3, 42);
+MakeInputFile(repeatSeededNoisePath, 3, 42);
+seededNoiseHandle = fopen(seededNoisePath, 'rt');
+seededNoiseValues = fscanf(seededNoiseHandle, '%g');
+fclose(seededNoiseHandle);
+repeatSeededNoiseHandle = fopen(repeatSeededNoisePath, 'rt');
+repeatSeededNoiseValues = fscanf(repeatSeededNoiseHandle, '%g');
+fclose(repeatSeededNoiseHandle);
+assert(isequal(seededNoiseValues, repeatSeededNoiseValues), ...
+	'Seeded legacy noise input should be reproducible.');
+delete(seededNoisePath);
+delete(repeatSeededNoisePath);
+
 invalidTestConfig = cfg;
 invalidTestConfig.testFilterFunction = 4;
 invalidTestConfigErrorRaised = false;
@@ -195,14 +210,41 @@ bandPassLogPath = [tempname '.txt'];
 [bandPassOrder, bandPassCutoff, bandPassEpsilon] = DesignParam(2, 0, ...
 	bandPassFrequencyLimits, bandPassAttenuationLimits, cfg.filterOrderMax, ...
 	cfg.alpha, bandPassLogPath);
+assert(bandPassOrder <= cfg.filterOrderMax && ...
+	bandPassOrder >= 0.75 * cfg.filterOrderMax, ...
+	'Band-pass fixture should exercise a design near the configured order limit.');
 bandPassSections = CalculateFilterSections(2, 0, bandPassOrder, cfg.alpha, ...
 	bandPassCutoff, bandPassEpsilon);
 [bandPassFirstOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
 	bandPassSignal, struct(), 1);
 [bandPassNextOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
 	bandPassSignal, bandPassState, 0);
-assert(all(isfinite(bandPassFirstOutput)) && all(isfinite(bandPassNextOutput)), ...
-	'Cascaded band-pass output should remain finite across periods.');
+[bandPassThirdOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, bandPassState, 0);
+[bandPassFourthOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, bandPassState, 0);
+assert(all(isfinite(bandPassFirstOutput)) && all(isfinite(bandPassNextOutput)) && ...
+	all(isfinite(bandPassThirdOutput)) && all(isfinite(bandPassFourthOutput)), ...
+	'Cascaded band-pass output should remain finite across four periods.');
+
+invalidSectionStateErrorRaised = false;
+try
+	ApplyFilterSections(2, bandPassSections, bandPassSignal, struct(), 0);
+catch exception
+	invalidSectionStateErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterState');
+end;
+assert(invalidSectionStateErrorRaised, 'Missing section state should raise a clear error.');
+
+invalidSectionStateErrorRaised = false;
+try
+	ApplyFilterSections(2, bandPassSections, bandPassSignal, ...
+		struct('sections', {{struct()}}), 0);
+catch exception
+	invalidSectionStateErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterState');
+end;
+assert(invalidSectionStateErrorRaised, 'Mis-sized section state should raise a clear error.');
 if exist(bandPassLogPath, 'file')
 	delete(bandPassLogPath);
 end;
