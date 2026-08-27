@@ -1,0 +1,23 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.xdv
+*.pdf
+_minted*/
+latex.out/
+
+# MATLAB generated artifacts used by documentation examples
+*.asv
+*.autosave
+*.fig
+*.mat
+*.m~
+*.mex*
