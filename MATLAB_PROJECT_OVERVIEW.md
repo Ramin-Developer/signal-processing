@@ -2,12 +2,22 @@
 
 ## Entry points
 
+When the repository is the MATLAB current folder, `startup.m` adds the implementation and test directories to the MATLAB path.
+
 The current workflow is driven by the following MATLAB entry points:
 
-- `Main_Check.m` — top-level script that creates several time vectors, invokes the filter calculation for each set, and plots the input-output signal pairs.
-- `Calc_Output.m` — core filtering function used by the plotting script. It initializes the filter model, builds a test signal, computes design parameters, and applies the filter.
-- `Calc_OutputWithState.m` — preferred callable pipeline for applications that own their section state explicitly.
-- `MakeInputFile.m` — legacy standalone utility that can generate an untracked `InputFile.txt`; it is not read by the modern filtering pipeline.
+- `src/runtime/Main_Check.m` — top-level script that creates several time vectors, invokes the filter calculation for each set, and plots the input-output signal pairs.
+- `src/runtime/Calc_Output.m` — compatibility wrapper used by the plotting script.
+- `src/runtime/Calc_OutputWithState.m` — preferred callable pipeline for applications that own their section state explicitly.
+- `src/runtime/MakeInputFile.m` — legacy standalone utility that can generate an untracked `InputFile.txt`; it is not read by the modern filtering pipeline.
+
+## Directory layout
+
+- `src/design/` contains filter specification, parameter calculation, and section design.
+- `src/runtime/` contains sample processing, session state, and demonstration entry points.
+- `src/support/` contains configuration, validation, frequency-response, and persistence helpers.
+- `tests/` contains the MATLAB compatibility and filter-design test scripts.
+- `legacy/` is reserved for explicitly retained compatibility code.
 
 ## Execution flow
 
@@ -33,19 +43,5 @@ The system is built around a mix of:
 
 The in-memory cascade preserves full double precision between periods. The compatibility writer also uses 17 significant digits so persisted state can round-trip without precision loss.
 
-## Refactor target for this phase
+See `MATLAB_INTERFACE_GUIDE.md` for callable APIs and status semantics.
 
-The first modernization pass should keep behavior the same while improving clarity of the execution path and reducing hidden file-based coupling. The main targets are:
-
-- document the current execution path clearly
-- isolate shared configuration constants
-- reduce reliance on implicit file state
-- make naming and function boundaries easier to follow
-
-## Recommended next change
-
-Before deeper refactoring, the code should be reorganized so that:
-- configuration values are centralized
-- state persistence is explicit
-- filter calculation and persistence are separated more cleanly
-- the same logic is easier to validate with small MATLAB smoke tests

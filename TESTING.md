@@ -10,7 +10,7 @@ In MATLAB, run:
 MATLAB_R2017_COMPATIBILITY_TESTS
 ```
 
-The test must finish without assertion failures. It covers configuration, signal generation, filter design, coefficient calculation, and consecutive filter periods.
+The root `startup.m` configures the MATLAB path. The test must finish without assertion failures. It covers configuration, signal generation, filter design, coefficient calculation, and consecutive filter periods.
 
 ## Manual pipeline check
 

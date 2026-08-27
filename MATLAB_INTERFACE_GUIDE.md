@@ -4,9 +4,11 @@
 
 The code and its smoke-test suite target MATLAB R2017a-compatible syntax.
 
+Start MATLAB with the repository as its current folder. The root `startup.m` adds `src/design`, `src/runtime`, `src/support`, and `tests` to the MATLAB path.
+
 ## Primary entry point
 
-`Main_Check.m` is the top-level demonstration script. It creates six input signal periods, calls `Calc_Output` for each period, and plots the input and filtered output.
+`src/runtime/Main_Check.m` is the top-level demonstration script. It creates six input signal periods, calls `Calc_Output` for each period, and plots the input and filtered output.
 
 ## Core pipeline
 
@@ -62,4 +64,4 @@ Every cascaded section is checked before its recurrence is evaluated. A finite, 
 
 ## Validation
 
-Run `MATLAB_R2017_COMPATIBILITY_TESTS` from the repository root to execute the compatibility smoke tests. The suite validates configuration, signal generation, filter design, section stability, two-period cascaded filtering, and top-level pipeline execution.
+Run `MATLAB_R2017_COMPATIBILITY_TESTS` from the repository root to execute the compatibility smoke tests. The suite validates configuration, signal generation, filter design, section stability, multi-period cascaded filtering, state error handling, and top-level pipeline execution.
