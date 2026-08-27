@@ -3,10 +3,10 @@ function [InputFile, LastInSignal, LastOutSignal, LogFile, N_max, f_n, Alpha] = 
 
 cfg = SignalConfig();
 
-InputFile     = 'InputFile.txt';        % File containing all input parameters
-LastOutSignal = 'LastOutSignal.txt';    % File containing last output signal
-LastInSignal  = 'LastInSignal.txt';     % File containing last input signal
-LogFile       = 'LogFile.txt';          % File containing status.
+InputFile     = cfg.inputFilePath;          % File containing all input parameters
+LastOutSignal = cfg.lastOutputSignalPath;   % File containing last output signal
+LastInSignal  = cfg.lastInputSignalPath;    % File containing last input signal
+LogFile       = cfg.logFilePath;            % File containing status.
 
 % Problem constants:
 N_max = cfg.filterOrderMax;             % Maximum accepted order of filter.

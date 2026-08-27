@@ -10,10 +10,15 @@ assert(isstruct(cfg), 'SignalConfig should return a struct.');
 assert(isfield(cfg, 'filterOrderMax'), 'SignalConfig missing filterOrderMax.');
 assert(isfield(cfg, 'alpha'), 'SignalConfig missing alpha.');
 assert(isfield(cfg, 'signalOmega'), 'SignalConfig missing signalOmega.');
+assert(isfield(cfg, 'lastInputSignalPath'), 'SignalConfig missing lastInputSignalPath.');
+assert(isfield(cfg, 'lastOutputSignalPath'), 'SignalConfig missing lastOutputSignalPath.');
 assert(cfg.filterOrderMax > 0, 'filterOrderMax should be positive.');
 
 [InputFile, LastInSignal, LastOutSignal, LogFile, N_max, f_n, Alpha] = Initialize();
 assert(ischar(InputFile), 'Initialize should return a filename string.');
+assert(strcmp(LastInSignal, cfg.lastInputSignalPath), 'Unexpected input state path.');
+assert(strcmp(LastOutSignal, cfg.lastOutputSignalPath), 'Unexpected output state path.');
+assert(strcmp(LogFile, cfg.logFilePath), 'Unexpected log path.');
 assert(isnumeric(f_n), 'Initialize should return a numeric frequency vector.');
 assert(length(f_n) > 1, 'Frequency vector should contain more than one point.');
 assert(isnumeric(Alpha) && isscalar(Alpha), 'Alpha should be a scalar.');

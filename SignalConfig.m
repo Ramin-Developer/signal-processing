@@ -16,3 +16,7 @@ cfg.minPeriodicSignalLength = 1000;
 cfg.maxIterations = 10;
 cfg.signalOmega = [1 50 100] * pi;
 cfg.signalAmplitude = [1 0.05 0.05];
+cfg.inputFilePath = 'InputFile.txt';
+cfg.lastInputSignalPath = 'LastInSignal.txt';
+cfg.lastOutputSignalPath = 'LastOutSignal.txt';
+cfg.logFilePath = 'LogFile.txt';

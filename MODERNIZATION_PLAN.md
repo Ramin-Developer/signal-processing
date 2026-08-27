@@ -56,7 +56,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Rename ambiguous or misspelled functions and variables where safe
 - [x] Replace repeated magic numbers with named constants or configuration structures
 - [x] Fix inconsistent file I/O patterns and status/error handling
-- [ ] Centralize MATLAB path assumptions and file naming conventions
+- [x] Centralize MATLAB path assumptions and file naming conventions
 
 ### Phase 3 — Performance improvement
 - [ ] Replace repeated nested loops with vectorized MATLAB patterns where practical
