@@ -8,3 +8,7 @@ if logHandle == -1
 end;
 status = fscanf(logHandle, '%g', 1);
 fclose(logHandle);
+if ~isscalar(status) || ~isfinite(status)
+    error('SignalProcessing:InvalidFilterStatus', ...
+        'The filter status file must contain one finite numeric value.');
+end;
