@@ -201,8 +201,32 @@ bandPassSections = CalculateFilterSections(2, 0, bandPassOrder, cfg.alpha, ...
 	bandPassSignal, struct(), 1);
 [bandPassNextOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
 	bandPassSignal, bandPassState, 0);
-assert(all(isfinite(bandPassFirstOutput)) && all(isfinite(bandPassNextOutput)), ...
-	'Cascaded band-pass output should remain finite across periods.');
+[bandPassThirdOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, bandPassState, 0);
+[bandPassFourthOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...
+	bandPassSignal, bandPassState, 0);
+assert(all(isfinite(bandPassFirstOutput)) && all(isfinite(bandPassNextOutput)) && ...
+	all(isfinite(bandPassThirdOutput)) && all(isfinite(bandPassFourthOutput)), ...
+	'Cascaded band-pass output should remain finite across four periods.');
+
+invalidSectionStateErrorRaised = false;
+try
+	ApplyFilterSections(2, bandPassSections, bandPassSignal, struct(), 0);
+catch exception
+	invalidSectionStateErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterState');
+end;
+assert(invalidSectionStateErrorRaised, 'Missing section state should raise a clear error.');
+
+invalidSectionStateErrorRaised = false;
+try
+	ApplyFilterSections(2, bandPassSections, bandPassSignal, ...
+		struct('sections', {{struct()}}), 0);
+catch exception
+	invalidSectionStateErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterState');
+end;
+assert(invalidSectionStateErrorRaised, 'Mis-sized section state should raise a clear error.');
 if exist(bandPassLogPath, 'file')
 	delete(bandPassLogPath);
 end;
