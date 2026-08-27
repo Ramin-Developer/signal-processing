@@ -34,6 +34,18 @@ assert(isnumeric(A_lim), 'Attenuation limits should be numeric.');
 assert(isequal(f_lim, cfg.lowPassFrequencyLimits), 'Unexpected default filter limits.');
 assert(isequal(A_lim, cfg.lowPassAttenuationLimits), 'Unexpected default attenuation limits.');
 
+[~, ~, ~, ~, rowTimeSignal] = MakeTestFile(sampleTime');
+assert(isequal(size(rowTimeSignal), size(sampleTime)), ...
+	'Row time input should produce a column signal.');
+
+invalidTestTimeErrorRaised = false;
+try
+	MakeTestFile([0 NaN]);
+catch exception
+	invalidTestTimeErrorRaised = strcmp(exception.identifier, 'SignalProcessing:InvalidTestTime');
+end;
+assert(invalidTestTimeErrorRaised, 'Invalid test time input should raise a clear error.');
+
 invalidTestConfig = cfg;
 invalidTestConfig.testFilterFunction = 4;
 invalidTestConfigErrorRaised = false;
