@@ -14,11 +14,7 @@ y_t = [y_last(end - N + 1:end);   y];
 LenExt = Lx + N;
 
 % Calcualate the new output and throw away the first N values:
-for n = N + 1:1:LenExt
-    for k = 0:1:N
-        y_t(n) = y_t(n) + A(k + 1) * x_t(n - k) + B(k + 1) * y_t(n - k);
-    end;
-end;
+y_t = ApplyDifferenceEquation(A, B, x_t, y_t, N);
 y = y_t(N + 1:end);
 
 h_log  = fopen(LogFile, 'rt');                    % Open the Log file for reading.

@@ -60,7 +60,7 @@ This plan covers the current script collection under the repository root, with f
 
 ### Phase 3 — Performance improvement
 - [ ] Replace repeated nested loops with vectorized MATLAB patterns where practical
-- [ ] Reduce duplicated signal extension logic in the initial-period and next-period handlers
+- [x] Reduce duplicated signal extension logic in the initial-period and next-period handlers
 - [ ] Reuse helper functions for common operations instead of inlining repeated logic
 
 ### Phase 4 — Maintainability and validation
