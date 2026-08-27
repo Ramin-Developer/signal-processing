@@ -2,7 +2,6 @@ function [Func, Type, f_lim, A_lim, x] = MakeTestFile(t)
 
 cfg = SignalConfig();
 Len = length(t);
-Ts = 1/Len;
 x = zeros(Len, 1);
 Func = 0;
 Type = 0;

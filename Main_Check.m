@@ -5,7 +5,6 @@ cfg = SignalConfig();
 NoOfSets = cfg.defaultSignalSets;
 Len = cfg.defaultSignalLength;
 Ts = 1/Len;
-T = zeros(Len, NoOfSets);
 X = zeros(Len, NoOfSets);
 Y = zeros(Len, NoOfSets);
 for Count = 1:1:NoOfSets

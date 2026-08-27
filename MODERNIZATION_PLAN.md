@@ -58,6 +58,7 @@ This plan covers the current script collection under the repository root, with f
 - [x] Fix inconsistent file I/O patterns and status/error handling
 - [x] Centralize MATLAB path assumptions and file naming conventions
 - [x] Validate persisted filter state before later-period processing
+- [x] Remove unused local variables from the core execution flow
 
 ### Phase 3 — Performance improvement
 - [x] Replace repeated nested loops with vectorized MATLAB patterns where practical
