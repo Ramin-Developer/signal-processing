@@ -34,6 +34,17 @@ assert(isnumeric(A_lim), 'Attenuation limits should be numeric.');
 assert(isequal(f_lim, cfg.lowPassFrequencyLimits), 'Unexpected default filter limits.');
 assert(isequal(A_lim, cfg.lowPassAttenuationLimits), 'Unexpected default attenuation limits.');
 
+invalidTestConfig = cfg;
+invalidTestConfig.testFilterFunction = 4;
+invalidTestConfigErrorRaised = false;
+try
+	MakeTestFile(sampleTime, invalidTestConfig);
+catch exception
+	invalidTestConfigErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidTestConfiguration');
+end;
+assert(invalidTestConfigErrorRaised, 'Invalid test configuration should raise a clear error.');
+
 w_lim = 2 * pi * f_lim(1:2);
 A_lim_short = A_lim(1:2);
 [N, w_c, Eps] = DecideParam(Func, Type, N_max, Alpha, w_lim, A_lim_short);
