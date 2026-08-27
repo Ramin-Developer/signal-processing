@@ -43,5 +43,20 @@ logPath = 'compatibility_log.txt';
 assert(isnumeric(y), 'ApplyFirst should return numeric output.');
 assert(isscalar(status), 'ApplyFirst status should be scalar.');
 
+inputPath = [tempname '.txt'];
+outputPath = [tempname '.txt'];
+stateLogPath = [tempname '.txt'];
+[yFirst, statusFirst] = ApplyFilter(Func, N, Coeff, x, inputPath, outputPath, ...
+	stateLogPath, 1);
+[yNext, statusNext] = ApplyFilter(Func, N, Coeff, x, inputPath, outputPath, ...
+	stateLogPath, 0);
+assert(length(yFirst) == length(x), 'First-period output should match input length.');
+assert(length(yNext) == length(x), 'Next-period output should match input length.');
+assert(isscalar(statusFirst), 'First-period status should be scalar.');
+assert(isscalar(statusNext), 'Next-period status should be scalar.');
+delete(inputPath);
+delete(outputPath);
+delete(stateLogPath);
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end

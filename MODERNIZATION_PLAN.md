@@ -50,12 +50,12 @@ This plan covers the current script collection under the repository root, with f
 ### Phase 1 — Baseline and structure
 - [ ] Document the project entry points and expected data flow
 - [ ] Capture the current execution path for the main filter pipeline
-- [ ] Identify all shared file-based state and isolate it behind explicit config objects or helpers
+- [x] Identify all shared file-based state and isolate it behind explicit config objects or helpers
 
 ### Phase 2 — Reliability and readability
 - [ ] Rename ambiguous or misspelled functions and variables where safe
 - [ ] Replace repeated magic numbers with named constants or configuration structures
-- [ ] Fix inconsistent file I/O patterns and status/error handling
+- [x] Fix inconsistent file I/O patterns and status/error handling
 - [ ] Centralize MATLAB path assumptions and file naming conventions
 
 ### Phase 3 — Performance improvement

@@ -3,11 +3,7 @@ function [y, Status] = ApplyNext(Func, N, A, B, x, LastInSignal, LastOutSignal, 
 % Update the first N values of input and output signals from the last calculations:
 Lx = length(x);
 y = zeros(Lx, 1);
-h_in  = fopen(LastInSignal,  'rt');
-h_out = fopen(LastOutSignal, 'rt');
-[x_last, Count] = fscanf(h_in,  '%g', inf);
-[y_last, Count] = fscanf(h_out, '%g', inf);
-fclose('all');
+[x_last, y_last] = ReadFilterState(LastInSignal, LastOutSignal);
 
 x_t = [x_last(end - N + 1:end);   x];
 y_t = [y_last(end - N + 1:end);   y];
