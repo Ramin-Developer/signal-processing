@@ -1,0 +1,56 @@
+function [Func, Type, Max_int, f_lim, A_lim] = ReadInput
+% Load the file "inputParam.txt" and initialize variables:
+% 1) Func, function of the filter:
+%       0 for Low-Pass, 1 for High-Pass,
+%       2 for band-pass, 3 for band-stop.
+% 2) Type, type of the filter:
+%       0 for Butterworth, 1 for Chebyshev.
+% 3) Frequency limits 2, or 4 parameters:
+%   0 < f_lim(1) < f_lim(2) < 0.5,                       Func = 0, 1
+%   0 < f_lim(1) < f_lim(2) < f_lim(3) < f_lim(4) < 0.5, Func = 2, 3.
+% 4) dB amplitudes at the points specified by f_lim, 2 or 4 parameters:
+%   0 < A_lim(1) <= Lim_Ap < Lim_As <= A_lim(2),         Func = 0, 2 
+%   0 < A_lim(4) <= Lim_Ap < Lim_As <= A_lim(3),         Func = 2
+%   0 < A_lim(2) <= Lim_Ap < Lim_As <= A_lim(1),         Func = 1, 3
+%   0 < A_lim(3) <= Lim_Ap < Lim_As <= A_lim(4),         Func = 3.
+% 5) RegLen, number of bits in a register,  8, 16, 32, 64 or 128
+% 6) RegNo, number of registers in a word, 1, 2, 4 or 8.
+% Furthermore it returns the maximum representable integer.
+
+Lim_Ap = 1;
+Lim_As = 7;
+Max_Word = 128*2 - 1;
+
+h = fopen('InputParam.txt', 'rt');
+Func = fgetl( h );
+status = fclose( h );
+
+h = fopen('InputParam.txt', 'rt');
+if ( Func == '0' | Func == '1' )
+    [Inp, Count] = fscanf(h, '%g', [8, 1]);
+elseif Func == '2' | Func == '3'
+    [Inp, Count] = fscanf(h, '%g', [12, 1]);
+end;
+status = fclose( h );
+
+Func = Inp( 1 );
+Type = Inp( 2 );
+
+if Func == 0 | Func == 1
+    f_lim = [Inp( 3 ) Inp( 4 )];
+    A_lim = [Inp( 5 ) Inp( 6 )];
+    RegLen = Inp( 7 );
+    RegNo  = Inp( 8 );
+elseif Func == 2 | Func == 3
+    f_lim = [Inp( 3 ) Inp( 4 ) Inp( 5 ) Inp( 6 )];
+    A_lim = [Inp( 7 ) Inp( 8 ) Inp( 9 ) Inp( 10 )];
+    RegLen = Inp( 11 );
+    RegNo  = Inp( 12 );
+end;
+
+% Calculate and return Max_int
+Pot = RegLen * RegNo - 1;
+if Pot > Max_Word
+    Pot = Max_Word;
+end;
+Max_int = 2^Pot - 1;
