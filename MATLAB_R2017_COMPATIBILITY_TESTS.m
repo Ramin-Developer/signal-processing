@@ -100,6 +100,7 @@ assert(isnumeric(Eps), 'DecideParam should return numeric epsilon.');
 Coeff = CalculateCoeff(Func, Type, N_max, N, Alpha, w_c, Eps);
 assert(size(Coeff, 1) == 2, 'Coefficient matrix should have 2 rows.');
 assert(size(Coeff, 2) >= 2, 'Coefficient matrix should contain at least 2 coefficients.');
+ValidateFilterStability(Coeff, N);
 
 A = [1 0.25 0.1];
 B = [1 -0.2 0.05];
@@ -120,6 +121,16 @@ delete(slowConvergenceLogPath);
 inputPath = [tempname '.txt'];
 outputPath = [tempname '.txt'];
 stateLogPath = [tempname '.txt'];
+unstableFilterErrorRaised = false;
+try
+	ApplyFilter(Func, 1, [1 0; 0 1.01], x(1:2), inputPath, outputPath, ...
+		stateLogPath, 1);
+catch exception
+	unstableFilterErrorRaised = strcmp(exception.identifier, 'SignalProcessing:UnstableFilter');
+end;
+assert(unstableFilterErrorRaised, 'Unstable coefficients should raise a clear error.');
+assert(ReadFilterStatus(stateLogPath) == 2, ...
+	'Unstable coefficients should persist an alarm status before filtering.');
 [yFirst, statusFirst] = ApplyFilter(Func, N, Coeff, x, inputPath, outputPath, ...
 	stateLogPath, 1);
 [yNext, statusNext] = ApplyFilter(Func, N, Coeff, x, inputPath, outputPath, ...

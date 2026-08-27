@@ -17,6 +17,12 @@ if size(Coeff, 1) < 2 || size(Coeff, 2) < N + 1
     error('SignalProcessing:InvalidFilterCoefficients', ...
         'Coefficient matrix must contain two rows and at least N + 1 columns.');
 end;
+try
+    ValidateFilterStability(Coeff, N);
+catch exception
+    WriteFilterStatus(LogFile, 2);
+    rethrow(exception);
+end;
 if ~isvector(x) || size(x, 2) ~= 1 || length(x) < N
     error('SignalProcessing:InvalidInputSignal', ...
         'Input signal must be a column vector with at least N samples.');
