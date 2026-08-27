@@ -19,20 +19,30 @@ Inputs:
 Outputs:
 - `x`: generated input signal
 - `y`: filtered output signal
-- `Status`: `0` for normal operation, `1` for a convergence warning, or `2` when the required filter order exceeds the configured maximum
+- `Status`: `0` for normal operation, `1` for a convergence warning, or `2` for an alarm.
+
+The pipeline uses cascaded low-order sections rather than one high-order direct-form polynomial. Each section has independent in-memory history, which avoids the numerical conditioning failure that can make a high-order combined polynomial appear unstable.
+
+For later-period calls, use `firstPeriod = 1` once at the beginning of the MATLAB session, then use `0` for subsequent periods. A new session must begin with `1` because section state is intentionally held in memory.
 
 The pipeline constructs the test signal, derives the filter parameters, calculates coefficients, and applies the filter.
 
 ## Filter state
 
-`ApplyFilter` persists the current input and output signals after each run. For later periods, `ApplyNext` reads these files to obtain the required history.
+`ApplyFilterWithState` and `ApplyFilterSections` expose the preferred explicit in-memory state APIs. They retain full MATLAB double precision between periods.
+
+`ApplyFilter` remains available as a compatibility adapter. Its state files use 17 significant digits, allowing double-precision samples to round-trip without the continuation drift caused by the former 12-digit format.
 
 The default file names are configured in `SignalConfig.m`:
 - `LastInSignal.txt`
 - `LastOutSignal.txt`
 - `LogFile.txt`
 
-Call the pipeline with `firstPeriod = 1` before any later-period call. This initializes the persisted filter state.
+The text files remain compatibility artifacts; `Calc_Output` uses in-memory section state for continuation.
+
+## Stability protection
+
+Every cascaded section is checked before its recurrence is evaluated. A finite, real coefficient set with poles strictly inside the unit circle is required. If a section fails that check, processing stops with `SignalProcessing:UnstableFilter`; `Calc_Output` writes alarm status `2` to `LogFile.txt` before propagating the error. This is an alarm and exception, not a recoverable status `1` warning.
 
 ## Configuration
 
@@ -46,4 +56,4 @@ Call the pipeline with `firstPeriod = 1` before any later-period call. This init
 
 ## Validation
 
-Run `MATLAB_R2017_COMPATIBILITY_TESTS` from the repository root to execute the compatibility smoke tests. The suite validates configuration, signal generation, filter design, coefficient calculation, and consecutive filter periods.
+Run `MATLAB_R2017_COMPATIBILITY_TESTS` from the repository root to execute the compatibility smoke tests. The suite validates configuration, signal generation, filter design, section stability, two-period cascaded filtering, and top-level pipeline execution.

@@ -15,18 +15,19 @@ The current workflow is driven by the following MATLAB entry points:
    - `Initialize` for file names and filter constants
    - `MakeTestFile` to construct the input waveform and design limits
    - `DesignParam` to deduce filter order and cutoff parameters
-   - `CalculateCoeff` to generate the digital filter coefficients
-   - `ApplyFilter` to compute the output signal and persist state
-4. `ApplyFilter.m` reads or writes `LastInSignal.txt`, `LastOutSignal.txt`, and `LogFile.txt` depending on whether the first period or a later period is being processed.
+   - `CalculateFilterSections` to generate stable 2nd- or 4th-order filter sections
+   - `ApplyFilterSections` to compute the output through the section cascade
+4. `Calc_Output.m` retains one explicit state value for each section during the MATLAB session and writes `LastInSignal.txt`, `LastOutSignal.txt`, and `LogFile.txt` as compatibility artifacts.
 
 ## Data and state model
 
-The system is currently built around a mix of:
+The system is built around a mix of:
 - function arguments passed explicitly
-- file-based persistence for the previous input and output vectors
+- in-memory state for each cascaded filter section
+- file-based compatibility artifacts for the previous input and output vectors
 - status values stored in text logs
 
-This is useful for a small script-oriented workflow, but it makes the code harder to test and reason about as the project grows.
+The in-memory cascade preserves full double precision between periods. The compatibility writer also uses 17 significant digits so persisted state can round-trip without precision loss.
 
 ## Refactor target for this phase
 

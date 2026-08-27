@@ -25,6 +25,11 @@ elseif isempty(filterState)
 end;
 
 % Calculate the cascaded filter output and preserve legacy artifacts:
-[y, Status, filterState] = ApplyFilterSections(Func, sections, x, filterState, FirstPeriod);
+try
+    [y, Status, filterState] = ApplyFilterSections(Func, sections, x, filterState, FirstPeriod);
+catch exception
+    WriteFilterStatus(LogFile, 2);
+    rethrow(exception);
+end;
 WriteFilterState(LastInSignal, LastOutSignal, x, y);
 WriteFilterStatus(LogFile, Status);
