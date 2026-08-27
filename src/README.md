@@ -4,4 +4,4 @@
 - `runtime/` contains sample processing and caller-owned filter state code.
 - `support/` contains configuration, validation, and persistence helpers.
 
-MATLAB source remains at the repository root until a path bootstrap is introduced and the migration can be verified incrementally.
+The root `startup.m` adds these directories to the MATLAB path when the repository is the current folder.
