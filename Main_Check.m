@@ -1,8 +1,9 @@
 
 clear;
 clf;
-NoOfSets = 6;
-Len = 1000;
+cfg = SignalConfig();
+NoOfSets = cfg.defaultSignalSets;
+Len = cfg.defaultSignalLength;
 Ts = 1/Len;
 T = zeros(Len, NoOfSets);
 X = zeros(Len, NoOfSets);

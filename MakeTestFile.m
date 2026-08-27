@@ -1,5 +1,6 @@
 function [Func, Type, f_lim, A_lim, x] = MakeTestFile(t)
 
+cfg = SignalConfig();
 Len = length(t);
 Ts = 1/Len;
 x = zeros(Len, 1);
@@ -22,8 +23,8 @@ elseif (Func == 3)
 end;
 
 % Generate the input signal based on the value of Choice:
-Omega = [1    50      100]*pi;
-Amp   = [1    0.05    0.05];
+Omega = cfg.signalOmega;
+Amp   = cfg.signalAmplitude;
 for k = 1:1:length(Omega)
     x = x + Amp(k) * sin( Omega(k)*t );
 end;
