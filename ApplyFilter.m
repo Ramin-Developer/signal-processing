@@ -9,6 +9,19 @@ function [y, Status] = ApplyFilter(Func, N, Coeff, x, LastInSignal, LastOutSigna
 % If (FirstPeriod == 0), then the first N values of the input and output signal are
 % read from the last input and output signal.
 
+if ~isscalar(N) || N < 1 || N ~= floor(N)
+    error('SignalProcessing:InvalidFilterOrder', ...
+        'Filter order N must be a positive integer.');
+end;
+if size(Coeff, 1) < 2 || size(Coeff, 2) < N + 1
+    error('SignalProcessing:InvalidFilterCoefficients', ...
+        'Coefficient matrix must contain two rows and at least N + 1 columns.');
+end;
+if ~isvector(x) || size(x, 2) ~= 1 || length(x) < N
+    error('SignalProcessing:InvalidInputSignal', ...
+        'Input signal must be a column vector with at least N samples.');
+end;
+
 A = Coeff(1, :);
 B = Coeff(2, :);
 

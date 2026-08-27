@@ -95,5 +95,15 @@ end;
 assert(invalidStatusErrorRaised, 'Malformed status should raise a clear error.');
 delete(invalidStatusPath);
 
+invalidCoefficientsErrorRaised = false;
+try
+	ApplyFilter(Func, testOrder, [1 0; 1 0], x(1:2), inputPath, outputPath, ...
+		stateLogPath, 1);
+catch exception
+	invalidCoefficientsErrorRaised = strcmp(exception.identifier, ...
+		'SignalProcessing:InvalidFilterCoefficients');
+end;
+assert(invalidCoefficientsErrorRaised, 'Malformed coefficients should raise a clear error.');
+
 fprintf('All MATLAB 2017 compatibility checks passed.\n');
 end
