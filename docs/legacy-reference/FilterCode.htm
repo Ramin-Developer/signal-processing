@@ -1,0 +1,777 @@
+<html>
+
+<head>
+<meta name="generator" content="Corel WordPerfect 10">
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+
+<style>
+p
+{
+	margin-top: 0px;
+	margin-bottom: 1px
+}
+
+body
+{
+	font-family: "Times New Roman", serif;
+	font-size: 12pt;
+	font-weight: normal;
+	font-style: normal
+}
+</style>
+
+</head>
+
+<body>
+<p>% ************************** FilterDesign1.m **************************</p>
+<br>
+<p>% *****************************************************************</p>
+<p style="text-indent: -5.5in; margin-left: 5.5in">% Main program to design a normalized digital filter by applying <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>*</p>
+<p style="text-indent: -5.5in; margin-left: 5.5in">% The Bi-linear Transformation Method. Function of the filter may<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>*</p>
+<p style="text-indent: -5.5in; margin-left: 5.5in">% be low-pass, high-pass, band-pass or band-stop, while type of <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>*</p>
+<p style="text-indent: -5.5in; margin-left: 5.5in">% the filter is either Butterworth or Chebyshev-1.<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>*</p>
+<p>% *****************************************************************</p>
+<br>
+<p>% Check the input parameters:</p>
+<p>[Func, Type, Max_int, f_lim, A_lim] = FileInput;</p>
+<br>
+<p>% Deduce design parameters for the digital filter.</p>
+<p>[N_max, N, Len_f, f_n, alpha, w_c, Eps] = ...</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;DesignParam(Func, Type, f_lim, A_lim);</p>
+<br>
+<p>% Caculate decimal filter coefficients by Direct or Exact Method:</p>
+<p>Coeff = Coefficients(Func, Type, N_max, N, alpha, w_c, Eps);</p>
+<br>
+<p>% Convert the coefficients to integers:</p>
+<p>[Coeff_r, Scale, Flag] = Convert2Int(Coeff, N, Max_int);</p>
+<br>
+<p>% Save both coefficient types and the Scale parameters into text files:</p>
+<p>[Done] = Write2File(Coeff, Coeff_r, Scale, Flag);</p>
+<br>
+<p>% Amplitude of the Direct Method:</p>
+<p>[Mag, Phase] = FreqRes(N, f_n, Coeff);</p>
+<br>
+<p>% Check if the design specifications are satisfied:</p>
+<p>Amp_lim = -20*log10( abs( FreqEval(N, f_lim, Coeff) ) )</p>
+<br>
+<p>% Calculate the amplitude by using the integer coefficients:</p>
+<p>if Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;Mag_r = Backward(N, Len_f, Coeff_r, Scale);</p>
+<p>end;</p>
+<br>
+<p>% Compare the results of the two methods:</p>
+<p>[Deviation] = Compare(f_n, Mag, Mag_r, Flag)</p>
+<br>
+<br>
+<p>% ************************** FileInput.m **************************</p>
+<br>
+<p>function [Func, Type, Max_int, f_lim, A_lim] = FileInput</p>
+<p>% Load the file "inputParam.txt" and check if the input data are correct:</p>
+<p>% 1) Func, function of the filter:</p>
+<p>%       0 for Low-Pass, 1 for High-Pass,</p>
+<p>%       2 for band-pass, 3 for band-stop.</p>
+<p>% 2) Type, type of the filter:</p>
+<p>%       0 for Butterworth, 1 for Chebyshev.</p>
+<p>% 3) Frequency limits 2, or 4 parameters:</p>
+<p>%   0 &lt; f_lim(1) &lt; f_lim(2) &lt; 0.5,                       Func = 0, 1</p>
+<p>%   0 &lt; f_lim(1) &lt; f_lim(2) &lt; f_lim(3) &lt; f_lim(4) &lt; 0.5, Func = 2, 3.</p>
+<p>% 4) dB amplitudes at the points specified by f_lim, 2 or 4 parameters:</p>
+<p>%   0 &lt; A_lim(1) &lt;= Lim_Ap &lt; Lim_As &lt;= A_lim(2),         Func = 0, 2 </p>
+<p>%   0 &lt; A_lim(4) &lt;= Lim_Ap &lt; Lim_As &lt;= A_lim(3),         Func = 2</p>
+<p>%   0 &lt; A_lim(2) &lt;= Lim_Ap &lt; Lim_As &lt;= A_lim(1),         Func = 1, 3</p>
+<p>%   0 &lt; A_lim(3) &lt;= Lim_Ap &lt; Lim_As &lt;= A_lim(4),         Func = 3.</p>
+<p>% 5) RegLen, number of bits in a register,  8, 16, 32, 64 or 128</p>
+<p>% 6) RegNo, number of registers in a word, 1, 2, 4 or 8.</p>
+<p>% Furthermore it returns the maximum representable integer.</p>
+<br>
+<p>Lim_Ap = 1;</p>
+<p>Lim_As = 7;</p>
+<p>Max_Word = 128*2 - 1;</p>
+<br>
+<p>h = fopen('InputParam.txt', 'rt');</p>
+<p>Func = fgetl( h );</p>
+<p>status = fclose( h );</p>
+<p>if ( Func ~= '0' &amp; Func ~= '1' &amp; Func ~= '2' &amp; Func ~= '3' )</p>
+<p>&#160;&#160;&#160;&#160;error('Func must be 0, 1, 2 or 3!');</p>
+<p>end;</p>
+<br>
+<p>h = fopen('InputParam.txt', 'rt');</p>
+<p>if ( Func == '0' | Func == '1' )</p>
+<p>&#160;&#160;&#160;&#160;[Inp, Count] = fscanf(h, '%g', [8, 1]);</p>
+<p>elseif Func == '2' | Func == '3'</p>
+<p>&#160;&#160;&#160;&#160;[Inp, Count] = fscanf(h, '%g', [12, 1]);</p>
+<p>end;</p>
+<p>status = fclose( h );</p>
+<br>
+<p>Func = Inp( 1 );</p>
+<p>Type  = Inp( 2 );</p>
+<p>if Type ~= 0 &amp; Type ~= 1</p>
+<p>&#160;&#160;&#160;&#160;error('Type must be 0 or 1!');</p>
+<p>end;</p>
+<br>
+<p>if Func == 0 | Func == 1</p>
+<p>&#160;&#160;&#160;&#160;f_lim = [Inp( 3 ) Inp( 4 )];</p>
+<p>&#160;&#160;&#160;&#160;A_lim = [Inp( 5 ) Inp( 6 )];</p>
+<p>&#160;&#160;&#160;&#160;RegLen = Inp( 7 );</p>
+<p>&#160;&#160;&#160;&#160;RegNo  = Inp( 8 );</p>
+<p>elseif Func == 2 | Func == 3</p>
+<p>&#160;&#160;&#160;&#160;f_lim = [Inp( 3 ) Inp( 4 ) Inp( 5 ) Inp( 6 )];</p>
+<p>&#160;&#160;&#160;&#160;A_lim = [Inp( 7 ) Inp( 8 ) Inp( 9 ) Inp( 10 )];</p>
+<p>&#160;&#160;&#160;&#160;RegLen = Inp( 11 );</p>
+<p>&#160;&#160;&#160;&#160;RegNo  = Inp( 12 );</p>
+<p>end;</p>
+<br>
+<p>% Check if the input data are in the range:</p>
+<p>Len_Freq = length( f_lim );</p>
+<p>Len_Amp  = length( A_lim );</p>
+<br>
+<p>if (Func == 0 | Func == 1 ) &amp; (Len_Freq ~= 2 | Len_Amp ~= 2 )</p>
+<p>&#160;&#160;&#160;&#160;error('Length of critical frequencies and amplitudes must be 2.');</p>
+<p>end;</p>
+<p>if (Func == 2 | Func == 3 ) &amp; (Len_Freq ~= 4 | Len_Amp ~= 4 )</p>
+<p>&#160;&#160;&#160;&#160;error('Length of critical frequencies and amplitudes must be 4.');</p>
+<p>end;</p>
+<br>
+<p>% Check if f_lim values are in the range:</p>
+<p>for k = 1:1:Len_Freq</p>
+<p>&#160;&#160;&#160;&#160;if 0 &gt;= f_lim( k ) | f_lim( k ) &gt;= 0.5</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;error('Allowed Limiting frequency range: 0 &lt; f_lim(i) &lt; 0.5!');</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<p>for k = 1:1:Len_Freq-1</p>
+<p>&#160;&#160;&#160;&#160;for m = k+1:1:Len_Freq</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if f_lim( k ) &gt;= f_lim( m )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;error('Limiting frequencies must be ordered ascendingly!');</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;end;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<br>
+<p>% Check if attenuations are positive: </p>
+<p>for k = 1:1:Len_Amp-1</p>
+<p>&#160;&#160;&#160;&#160;if 0 &gt;= A_lim( k )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;error('Limiting dB-amplitudes must be positive numbers!');</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<br>
+<p>% Check if A_lim values are in the range for Func == 0:</p>
+<p>if (Func == 0 &amp; A_lim(1) &gt; Lim_Ap )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed range of pass-band attenuation: 0 &lt; A_lim(1) &lt;= 1!');</p>
+<p>end;</p>
+<p>if ( Func == 0 &amp; A_lim(2) &lt; Lim_As )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed range of stop-band attenuation: 7 &lt;= A_lim(2)!');</p>
+<p>end;</p>
+<br>
+<p>% Check if A_lim values are in the range for Func == 1:</p>
+<p>if ( Func == 1 &amp; A_lim(2) &gt; Lim_Ap )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed range of pass-band attenuation: 0 &lt; A_lim(2) &lt;= 1!');</p>
+<p>end;</p>
+<p>if ( Func == 1 &amp; A_lim(1) &lt; Lim_As )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed range of stop-band attenuation: 7 &lt;= A_lim(2)!');</p>
+<p>end;</p>
+<br>
+<p>% Check if A_lim are in the range for Func == 2:</p>
+<p>if ( Func == 2 &amp; ( A_lim(2) &gt; Lim_Ap | A_lim(3) &gt; Lim_Ap ) )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed pass-band attenuation: 0 &lt; A_lim(i), for i = 2, 3!');</p>
+<p>end;</p>
+<p>if ( Func == 2 &amp; ( A_lim(1) &lt; Lim_As | A_lim(4) &lt; Lim_As ) )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed stop-band attenuation: 7 &lt;= A_lim(i), for i = 1, 4!');</p>
+<p>end;</p>
+<br>
+<p>% Check if A_lim are in the range for Func == 3:</p>
+<p>if ( Func == 3 &amp; ( A_lim(1) &gt; Lim_Ap | A_lim(4) &gt; Lim_Ap ) )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed pass-band attenuation: 0 &lt; A_lim(i), for i = 1, 4!');</p>
+<p>end;</p>
+<p>if (Func == 3 &amp; (A_lim(2) &lt; Lim_As | A_lim(3) &lt; Lim_As) )</p>
+<p>&#160;&#160;&#160;&#160;error('Allowed stop-band attenuation: 7 &lt;= A_lim(i), for i = 2, 3!');</p>
+<p>end;</p>
+<br>
+<p>% Check if RegLen and RegNo are in the range:</p>
+<p>if RegLen~=8 &amp; RegLen~=16 &amp; RegLen~=32 &amp; RegLen~=64 &amp; RegLen~=128</p>
+<p>&#160;&#160;&#160;&#160;error('RegLen must be 8, 16 or 32, 64 or 128!');</p>
+<p>end;</p>
+<p>if RegNo ~= 1 &amp; RegNo ~= 2 &amp; RegNo ~= 4 &amp; RegNo ~= 8 &amp; RegLen ~= 16</p>
+<p>&#160;&#160;&#160;&#160;error('RegNo must be 1, 2, 8 or 16!');</p>
+<p>end;</p>
+<br>
+<p>% Calculate and return Max_int</p>
+<p>Pot = RegLen * RegNo - 1;</p>
+<p>if Pot &gt; Max_Word</p>
+<p>&#160;&#160;&#160;&#160;Pot = Max_Word;</p>
+<p>end;</p>
+<p>Max_int = 2^Pot - 1;</p>
+<br>
+<p>% ************************** DesignParam.m **************************</p>
+<br>
+<p>function [N_max, N, Len_f, f_n, alpha, w_c, Eps] = DesignParam(Func, Type, f_lim, A_lim)</p>
+<p>% Given the filter function, type, limiting frequencies and attenuations</p>
+<p>% in "Func", "Type", "f_lim" and "A_lim", respectively, obtain the</p>
+<p>% filter order and cut-off frequency for a Butterworth and the filter</p>
+<p>% order, cut-off frequency and Epsilon for a Chebyshev-1 filter.</p>
+<p>% The filter order satisfies 2 &lt;= N &lt;= N_max, "alpha" is the constant</p>
+<p>% in the Bilinear Transformation and "Len_f" is the length of the</p>
+<p>% digital frequency vector.</p>
+<br>
+<p>N_max = 20;</p>
+<br>
+<p>% Construct a frequency vector of length Len_f from Start to End:</p>
+<p>Len_f = 2001;</p>
+<p>Start = 0;</p>
+<p>End = 0.5;</p>
+<p>delta = (End - Start) / (Len_f - 1);</p>
+<p>f_n = Start:delta:End;</p>
+<p>w_lim = 2*pi*f_lim;</p>
+<br>
+<p>% With this choice of alpha, the Bilinear Transformation maps Omega = 1 to w = 1:</p>
+<p>alpha = 1 / tan(0.5);</p>
+<br>
+<p>% Transform limiting frequencies and db_amplitudes to a LP filter:</p>
+<p>if Func == 1</p>
+<p>&#160;&#160;&#160;&#160;w_lim = pi - [w_lim(2)      w_lim(1)];</p>
+<p>&#160;&#160;&#160;&#160;A_lim = [A_lim(2)           A_lim(1)];</p>
+<p>elseif Func == 2</p>
+<p>&#160;&#160;&#160;&#160;w_lim = [pi - w_lim(2)     pi - w_lim(1)</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;w_lim( 3 )        w_lim( 4 )];</p>
+<p>&#160;&#160;&#160;&#160;A_lim = [A_lim(2)          A_lim(1)</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A_lim(3)          A_lim(4)]; </p>
+<p>elseif Func == 3</p>
+<p>&#160;&#160;&#160;&#160;w_lim = [w_lim(1)          w_lim(2)</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pi - w_lim(4)     pi - w_lim(3)];</p>
+<p>&#160;&#160;&#160;&#160;A_lim = [A_lim(1)          A_lim(2)</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A_lim(4)          A_lim(3)];</p>
+<p>end;</p>
+<br>
+<p>% Calculate the filter parameters: </p>
+<p>[N, w_c, Eps] = DecideParam(Func, Type, N_max, alpha, w_lim, A_lim);</p>
+<p>if N &gt; N_max</p>
+<p>&#160;&#160;&#160;&#160;error(' Sorry, order of the filter is larger than N_max! ');</p>
+<p>end;</p>
+<br>
+<p>% ************************** DecideParam.m **************************</p>
+<br>
+<p>function [N, w_c, Eps] = DecideParam(Func, Type, N_max, alpha, w_lim, A_lim)</p>
+<p>% Given the type, limiting frequencies and attenuations in "Type",</p>
+<p>% "f_lim" and "A_lim", for a low-pass filter, obtain the design</p>
+<p>% parameters for a filter with function "Func" in the output</p>
+<p>% variables N, w_c, Eps.</p>
+<br>
+<p>if Func == 0 | Func == 1</p>
+<p>&#160;&#160;&#160;&#160;Len = 1;</p>
+<p>elseif Func == 2 | Func == 3</p>
+<p>&#160;&#160;&#160;&#160;Len = 2;</p>
+<p>end;</p>
+<p>N = zeros(Len, 1);</p>
+<p>Eps = zeros(Len, 1);</p>
+<p>w_c = zeros(Len, 1);</p>
+<br>
+<p>% Prewarping the digital frequencies:</p>
+<p>Omega_lim = alpha * tan( w_lim/2 );</p>
+<br>
+<p>% Constants for a low-pass filter:</p>
+<p>C_lim = 10.^( A_lim/10 ) - 1;</p>
+<p>den = Omega_lim(:, 2) ./ Omega_lim(:, 1);</p>
+<br>
+<p>% Calculate the Filter order:</p>
+<p>if Type == 0</p>
+<p>&#160;&#160;&#160;&#160;N = 0.5 * log10( C_lim(:, 2) ./ C_lim(:, 1) ) ./ log10( den );</p>
+<p>elseif Type == 1</p>
+<p>&#160;&#160;&#160;&#160;Eps = sqrt( C_lim(:, 1) );</p>
+<p>&#160;&#160;&#160;&#160;N = acosh( sqrt( C_lim(:, 2) ) ./ Eps ) ./ acosh( den );</p>
+<p>end;</p>
+<br>
+<p>% Filter order must be an even integer 2 &lt;= N &lt;= N_max:</p>
+<p>N = ceil( max( N ) );</p>
+<p>if ( mod(N, 2) ~= 0 )</p>
+<p>&#160;&#160;&#160;&#160;N = N + 1;</p>
+<p>end;</p>
+<br>
+<p>% Calculate the digital cut-off frequencies:</p>
+<p>if Type == 0</p>
+<p>&#160;&#160;&#160;&#160;Omega_c = Omega_lim(:, 1) .* C_lim(:, 1) .^ ( -1 ./ (2*N) );</p>
+<p>&#160;&#160;&#160;&#160;w_c = 2 * atan(Omega_c / alpha);</p>
+<p>elseif Type == 1</p>
+<p>&#160;&#160;&#160;&#160;% For a Chebyshev-1 filter the cut-off frequency is equal to w_p:</p>
+<p>&#160;&#160;&#160;&#160;w_c = w_lim(:, 1);</p>
+<p>end;</p>
+<br>
+<p>% Decide N and Eps for a band-pass or band-stop filter:</p>
+<p>if (Func == 2 | Func == 3)</p>
+<p>&#160;&#160;&#160;&#160;N = 2*N;</p>
+<p>end;</p>
+<p>Eps = min( Eps );</p>
+<br>
+<p>% Transform the cut-off frequencies for the actual filter:</p>
+<p>if Func == 1</p>
+<p>&#160;&#160;&#160;&#160;w_c = pi - w_c;    </p>
+<p>elseif Func == 2</p>
+<p>&#160;&#160;&#160;&#160;w_c = [pi - w_c( 1 )       w_c(2)];    </p>
+<p>elseif Func == 3</p>
+<p>&#160;&#160;&#160;&#160;w_c = [w_c( 1 )            pi - w_c( 2 )];    </p>
+<p>end;</p>
+<br>
+<br>
+<p>% ************************** Coefficients.m **************************</p>
+<br>
+<p>function Coeff = Coefficients(Func, Type, N_max, N, alpha, w_c, Eps)</p>
+<p>% Calculate the coefficients of a normalized digital N-th order</p>
+<p>% system function with cut-off frequency w_c given by:</p>
+<p>%   H( z ) = ( a0 + a1*z^(-1) + ... + a(N)*z^(-N) ) / ...</p>
+<p>%            ( 1  - b1*z^(-1) - ... - b(N)*z^(-N) ).</p>
+<p>% The filter order N must be an even integer,  2 &lt;= N &lt;= N_max.</p>
+<p>% "alpha" is the constant in the bilinear transformation.</p>
+<br>
+<p>Start = 5;</p>
+<p>% Obtain the order of a corresponding low-pass filter, N_lp:</p>
+<p>if (Func == 0 | Func == 1)</p>
+<p>&#160;&#160;&#160;&#160;N_lp = N;</p>
+<p>elseif Func == 2 | Func == 3</p>
+<p>&#160;&#160;&#160;&#160;N_lp = N/2;</p>
+<p>end;</p>
+<br>
+<p>Coeff = zeros(2, N_max + 1);</p>
+<p>A = zeros(1, N_max+Start);</p>
+<p>B = zeros(1, N_max+Start);</p>
+<p>A( Start ) = 1;</p>
+<p>B( Start ) = 1;</p>
+<br>
+<p>for k = 1:1:N_lp/2</p>
+<p>&#160;&#160;&#160;&#160;[a, b] = CoeffStep(Func, Type, k-1, N_lp, alpha, w_c, Eps);</p>
+<p>&#160;&#160;&#160;&#160;Atemp = A;</p>
+<p>&#160;&#160;&#160;&#160;Btemp = B;</p>
+<p>&#160;&#160;&#160;&#160;for i = Start:1:N_max + Start</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A( i ) =  a(1) * Atemp(i) + a(2) * Atemp(i - 1) ...</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;+ a(3) * Atemp(i - 2) + a(4) * Atemp(i - 3) ...</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;+ a(5) * Atemp(i - 4);</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B( i ) =  b(1) * Btemp(i) - b(2) * Btemp(i - 1) ...</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;- b(3) * Btemp(i - 2) - b(4) * Btemp(i - 3) ...</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;- b(5) * Btemp(i - 4);</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<p>B( Start ) = 0;</p>
+<p>Coeff(1, :) =  A(Start:1:N_max + Start);</p>
+<p>Coeff(2, :) = -B(Start:1:N_max + Start);</p>
+<br>
+<p>% Find the normilizing factor and scale the coefficients accordingly:</p>
+<p>NormFactor = Normilize(Func, Type, N, w_c, Eps, Coeff);</p>
+<p>Coeff(1, :) = Coeff(1, :) * NormFactor;</p>
+<br>
+<br>
+<p>% **************************** CoeffStep.m ****************************</p>
+<br>
+<p>function [a, b] = CoeffStep(Func, Type, k, N, alpha, w_c, Eps)</p>
+<p>% For Func = 0,1 / 2,3 determines the coefficients of a 2nd / 4th</p>
+<p>% order digital filter. Index 0 &lt;= "k" &lt;= N/2 - 1 denotes the</p>
+<p>% ordered number of the root for a corresponding low-pass filter.</p>
+<p>% "w_c" is the Cut-off Frequency, "Eps" is the parameter in the</p>
+<p>% Chebyshev filter Design.</p>
+<br>
+<p>% Calculate real and imaginary parts of the root:    </p>
+<p>theta = (2*k + 1)*pi / ( 2*N );</p>
+<p>x = cos( theta );</p>
+<p>y = sin( theta );</p>
+<br>
+<p>if (Type == 0)</p>
+<p>&#160;&#160;&#160;&#160;Re_part = -y;</p>
+<p>&#160;&#160;&#160;&#160;Im_part =  x;</p>
+<p>elseif (Type == 1)</p>
+<p>&#160;&#160;&#160;&#160;gamma = ( ( 1 + sqrt( 1 + Eps^2 ) ) / Eps )^( 1/N );</p>
+<p>&#160;&#160;&#160;&#160;mu = 0.5 *( gamma - 1/gamma );</p>
+<p>&#160;&#160;&#160;&#160;ny = 0.5 *( gamma + 1/gamma );</p>
+<p>&#160;&#160;&#160;&#160;Re_part = -mu * y;</p>
+<p>&#160;&#160;&#160;&#160;Im_part =  ny * x;</p>
+<p>end;</p>
+<br>
+<p>% Obtain the coefficients corresponding to a second order</p>
+<p>% digital low-pass filter with cut-off frequency equal to 1:</p>
+<p>M = Re_part^2 + Im_part^2;</p>
+<p>D = alpha^2 - 2 * alpha * Re_part + M;</p>
+<p>X0 = 1/D;</p>
+<p>X1 = 2/D;</p>
+<p>X2 = 1/D;</p>
+<p>Y1 = 2*(alpha^2 - M) / D;</p>
+<p>Y2 = -(alpha^2 + 2 * alpha * Re_part + M) / D;</p>
+<p>X = [X0 X1 X2];</p>
+<p>Y = [0 Y1 Y2];</p>
+<br>
+<p>% Low-pass to the desired filter transformation:</p>
+<p>[a, b] = DigitalTransform(Func, w_c, X, Y);</p>
+<br>
+<br>
+<p>% ************************* DigitalTransform.m *************************</p>
+<br>
+<p>function [a, b] = DigitalTransform(Func, w_c, X, Y)</p>
+<p>% Given X and Y as coefficients of a low-pass digital filter with</p>
+<p>% 1 as cut-off frequency, apply the following transformations:</p>
+<p>% a) Func == 0:     Low-pass to low-pass</p>
+<p>% b) Func == 1:     Low-pass to high-pass</p>
+<p>% c) Func == 2:     Low-pass to band-pass</p>
+<p>% d) Func == 3:     Low-pass to band-stop.</p>
+<p style="text-indent: -2in; margin-left: 2in">&#160;</p>
+<p style="text-indent: -2in; margin-left: 2in">X0 = X(1); <span>&#160;&#160;&#160;&#160;&#160;</span>X1 = X(2); <span>&#160;&#160;&#160;&#160;&#160;</span>X2 = X(3);</p>
+<p style="text-indent: -1in; margin-left: 1in">Y1 = Y(2); <span>&#160;&#160;&#160;&#160;&#160;</span>Y2 = Y(3);</p>
+<br>
+<p>% Define the parameters in the digital frequency transformations:</p>
+<p>if ( Func == 0 )</p>
+<p>&#160;&#160;&#160;&#160;beta = sin(0.5 - 0.5 * w_c) / sin(0.5 + 0.5 * w_c);</p>
+<p>&#160;&#160;&#160;&#160;beta2 = beta^2;</p>
+<p>elseif ( Func == 1 )</p>
+<p>&#160;&#160;&#160;&#160;beta = -cos(0.5 + 0.5 * w_c) / cos(0.5 - 0.5 * w_c);</p>
+<p>&#160;&#160;&#160;&#160;beta2 = beta^2;</p>
+<p>end;</p>
+<p>if ( Func == 2 | Func == 3 )</p>
+<p>&#160;&#160;&#160;&#160;w1 = w_c( 1 );</p>
+<p>&#160;&#160;&#160;&#160;w2 = w_c( 2 );    </p>
+<p>&#160;&#160;&#160;&#160;eta = cos(0.5*w2 + 0.5*w1) / cos(0.5*w2 - 0.5*w1);</p>
+<p>&#160;&#160;&#160;&#160;if ( Func == 2 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ksi = cot(0.5*w2 - 0.5*w1) * tan( 0.5 );</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;beta = (ksi - 1) / (ksi + 1);</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;delta = -2*eta*ksi / (ksi + 1);</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>&#160;&#160;&#160;&#160;if ( Func == 3 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ksi = tan(0.5*w2 - 0.5*w1) * tan( 0.5 );</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;beta = (1 - ksi) / (1 + ksi);</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;delta = -2*eta / (1 + ksi);</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<br>
+<p>% Low-pass to low-pass or low-pass to high-pass:</p>
+<p>if ( Func == 0 | Func == 1 )</p>
+<p>&#160;&#160;&#160;&#160;D = 1 + beta*Y1 - beta2*Y2;</p>
+<p>&#160;&#160;&#160;&#160;A0 = (X0 - X1*beta + beta2*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;A1 = (X1 - 2*beta*X0 + beta2*X1 - 2*beta*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;A2 = (beta2*X0 - beta*X1 + X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;B1 = (2*beta + Y1 + beta2*Y1 - 2*beta*Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;B2 = (-beta2 - Y1 * beta + Y2) / D;</p>
+<p style="text-indent: -3in; margin-left: 3in">&#160;&#160;&#160;&#160;A3 = 0;<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>A4 = 0;<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>B3 = 0;<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>B4 = 0;</p>
+<p>&#160;&#160;&#160;&#160;if ( Func == 1 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;% Adjustment of coefficients in a high-pass filter:</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A1 = -A1;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B1 = -B1;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<br>
+<p>% Low-pass to band-pass or low-pass to band-stop:</p>
+<p>if ( Func == 2 | Func == 3 )</p>
+<p>&#160;&#160;&#160;&#160;beta2 = beta^2;</p>
+<p>&#160;&#160;&#160;&#160;t1 = (1 + beta)*delta;</p>
+<p>&#160;&#160;&#160;&#160;t2 = 1 + beta2 + delta^2;</p>
+<p>&#160;&#160;&#160;&#160;t3 = 2*beta + delta^2;</p>
+<p>&#160;&#160;&#160;&#160;t4 = 2*beta*delta;</p>
+<p>&#160;&#160;&#160;&#160;if ( Func == 2 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;D = 1 + beta*Y1 - beta2*Y2;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A0 = (X0 - beta*X1 + beta2*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A1 = (2*delta*X0 - t1*X1 + t4*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A2 = (t3*(X0 + X2) - t2*X1) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A3 = (t4*X0 - t1*X1 + 2*delta*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A4 = (beta2*X0 - beta*X1 + X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B1 = -(2*delta + t1*Y1 - t4*Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B2 = -(t3*(1 - Y2) + t2*Y1) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B3 = -(t4 + t1*Y1 - 2*delta*Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B4 = -(beta2 + beta*Y1 - Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>&#160;&#160;&#160;&#160;if ( Func == 3 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;D = 1 - beta*Y1 - beta2*Y2;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A0 = (X0 + beta*X1 + beta2*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A1 = (2*delta*X0 + t1*X1 + t4*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A2 = (t3*(X0 + X2) + t2*X1) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A3 = (t4*X0 + t1*X1 + 2*delta*X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A4 = (beta2*X0 + beta*X1 + X2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B1 = -(2*delta - t1*Y1 - t4*Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B2 = -(t3*(1 - Y2) - t2*Y1) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B3 = -(t4 - t1*Y1 - 2*delta*Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;B4 = -(beta2 - beta*Y1 - Y2) / D;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<br>
+<p>% Establish the coefficient vectors:</p>
+<p>a = [A0 A1 A2 A3 A4];</p>
+<p>b = [1  B1 B2 B3 B4];</p>
+<br>
+<p>% **************************** Nornalize.m ****************************</p>
+<br>
+<p>function NormFactor = Normilize(Func, Type, N, w_c, Eps, Coeff)</p>
+<p>% Obtain the normalizing factor by calculating the value of the system</p>
+<p>% function at w_c. The magnitude response of a normalized Butterworth</p>
+<p>% and Chebyshev-1 at this point is equal to:</p>
+<p>% 1/sqrt(2) and 1/( sqrt(1 + Eps^2) ), respectively.</p>
+<br>
+<p>f_known = w_c( 1 ) / (2 * pi);</p>
+<p>H_known = abs( FreqEval(N, f_known, Coeff) );</p>
+<br>
+<p>if (Type == 0)</p>
+<p>&#160;&#160;&#160;&#160;H_d = 2^(-0.5);</p>
+<p>elseif Type == 1</p>
+<p>&#160;&#160;&#160;&#160;H_d = (1 + Eps^2)^(-0.5);</p>
+<p>end;</p>
+<br>
+<p>% Normalizing factor;</p>
+<p>NormFactor = H_d / H_known;</p>
+<br>
+<br>
+<p>% **************************** Convert2Int.m **************************** </p>
+<br>
+<p>function [Coeff_r, Scale, Flag] = Convert2Int(Coeff, N, Max_int)</p>
+<p>% Convert all coefficients to integers, round and return them as "Coeff_r" with the highest
+precision available. "Scale" is the factor that the coefficients are multiplied by.</p>
+<br>
+<p>Coeff_r = zeros( size(Coeff) );</p>
+<p>Min_Prec = 6;</p>
+<p>Max_Prec = 12;</p>
+<p>Pot = -Max_Prec:1:-Min_Prec;</p>
+<p>Delta = 10.^Pot;</p>
+<p>Len = length( Delta );</p>
+<p>Abs_A = abs( Coeff( 1, 1:1:N+1 ) );</p>
+<p>Abs_B = abs( Coeff( 2, 2:1:N+1 ) );</p>
+<p>ind = 1;</p>
+<br>
+<p>for k = 1:1:Len</p>
+<p>&#160;&#160;&#160;&#160;% Find Min_Coeff, maximum of the smallest coeeficient and Delta.</p>
+<p>&#160;&#160;&#160;&#160;Min_A = max( min( Abs_A ), Delta( k ) );</p>
+<p>&#160;&#160;&#160;&#160;Min_B = max( min( Abs_B ), Delta( k ) );</p>
+<p>&#160;&#160;&#160;&#160;Min_Coeff = min( Min_A, Min_B );</p>
+<br>
+<p>&#160;&#160;&#160;&#160;% Find the largest coefficient obtained by dividing all decimal</p>
+<p>&#160;&#160;&#160;&#160;% coefficients by Min_Coeff:</p>
+<p>&#160;&#160;&#160;&#160;Max_Ar = max( Abs_A / Min_Coeff );</p>
+<p>&#160;&#160;&#160;&#160;Max_Br = max( Abs_B / Min_Coeff );</p>
+<p>&#160;&#160;&#160;&#160;Max_Coeff = max( Max_Ar, Max_Br );</p>
+<br>
+<p>&#160;&#160;&#160;&#160;% Check if Max_Coeff is inside the integer range:</p>
+<p>&#160;&#160;&#160;&#160;Scale = floor( Max_int / (Max_Coeff * Min_Coeff ) );</p>
+<p>&#160;&#160;&#160;&#160;if Scale &gt;= 1000</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ind = k;</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;break;</p>
+<p>&#160;&#160;&#160;&#160;else</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ind = ind + 1;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<p style="text-indent: -1.5in; margin-left: 1.5in">if ind &lt;= Len<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>Flag = 1;</p>
+<p style="text-indent: -1.5in; margin-left: 1.5in">else<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span>Flag = 0;</p>
+<p>end;</p>
+<br>
+<p>% Construct the new coefficients:</p>
+<p>if Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;Coeff_r = floor( Coeff * Scale );</p>
+<p>end;</p>
+<br>
+<p>% ***************************** Write2File.m *****************************</p>
+<br>
+<p>function [Done] = Write2File(Coeff, Coeff_r, Scale, Flag)</p>
+<p>% Write the results of both methods into text files "Coeff.txt" and</p>
+<p>% "Coeff_r.txt".</p>
+<br>
+<p>% Write the decimal coefficients into the text file:</p>
+<p>h_C  = fopen('Coeff.txt', 'wt');</p>
+<p>Sz_C  = fprintf(h_C,  '%-16.12g\t %-16.12g\n', Coeff);</p>
+<br>
+<p>% If the decimal coefficients are converted to integers successfully</p>
+<p>% write also the integer coefficients into the file:</p>
+<p>if Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;h_Cr = fopen('Coeff_r.txt', 'wt');</p>
+<p>&#160;&#160;&#160;&#160;h_Scale = fopen('Scale.txt', 'wt');</p>
+<p>&#160;&#160;&#160;&#160;Sz_Cr = fprintf(h_Cr, '%-16.12g\t %-16.12g\n', Coeff_r);</p>
+<p>&#160;&#160;&#160;&#160;Sz_Scale = fprintf(h_Scale, '%-16.12g\n', Scale);</p>
+<p>end;</p>
+<br>
+<p>if Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;disp('Both types of coefficients are saved!');</p>
+<p>else</p>
+<p>&#160;&#160;&#160;&#160;disp('Just the decimal coefficients are saved!');</p>
+<p>end;</p>
+<br>
+<p>Done = fclose('all');</p>
+<br>
+<br>
+<p>% ****************************** FreqRes.m ******************************</p>
+<br>
+<p>function [Mag, Phase] = FreqRes(N, f, Coeff)</p>
+<p>% Given the decimal coefficients as A = Coeff(1, 1:N+1) and</p>
+<p>% B = Coeff(2, 1:N+1), calculate the phase and the magnitude</p>
+<p>% (amplitude and dB-amplitude) of the frequency response given by:</p>
+<p>%        N                                  N</p>
+<p>% H(z) = Sum( A(k+1)*exp^(-k*j*w) ) / (1 - Sum( B(k+1)*z^(-k*j*w) )),</p>
+<p>%        k=0                               k = 0</p>
+<p>% where w = 2*pi*f.</p>
+<br>
+<p>Len_f = length( f );</p>
+<p>H = FreqEval(N, f, Coeff);</p>
+<br>
+<p>Real_H = real( H );</p>
+<p>Imag_H = imag( H );</p>
+<p>Mag(1, :) = abs( H );</p>
+<p>Mag(2, :) = 20*log10( Mag(1, :) );</p>
+<p>Phase = atan( Imag_H ./ Real_H );</p>
+<p>for k = 1:1:Len_f</p>
+<p>&#160;&#160;&#160;&#160;if ( Real_H( k ) &lt;= 0 &amp; Imag_H( k ) &lt;= 0 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Phase( k ) = Phase( k ) - pi;</p>
+<p>&#160;&#160;&#160;&#160;elseif ( Real_H( k ) &lt; 0 &amp; Imag_H( k ) &gt; 0 )</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Phase( k ) = Phase( k ) + pi;</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<p>Phase = (180 / pi) * Phase;</p>
+<br>
+<br>
+<p>% *************************** FreqEval.m ***************************</p>
+<br>
+<p>function Res = FreqEval(N, f, Coeff)</p>
+<p>% Given the decimal coefficients as A = Coeff(1, 1:N+1) and</p>
+<p>% B = Coeff(2, 1:N+1), evaluate the frequency response at </p>
+<p>% the points given by the normalized frequency variable f.</p>
+<br>
+<p>Len = length( f );</p>
+<p>w = 2*pi*f;</p>
+<p>Res = zeros(1, Len);</p>
+<p>A = Coeff(1, 1:N+1);</p>
+<p>B = Coeff(2, 1:N+1);</p>
+<br>
+<p>% Construct the exponentials:</p>
+<p>Exponent = zeros(N+1, Len);</p>
+<p>Exponent(1, :) = ones(1, Len);</p>
+<br>
+<p>for k = 1:1:N</p>
+<p>&#160;&#160;&#160;&#160;for m = 1:1:Len</p>
+<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Exponent(k + 1, m) = Exponent(k, m) * exp(-j * w(m) );</p>
+<p>&#160;&#160;&#160;&#160;end;</p>
+<p>end;</p>
+<p>% Construct the magnitude of system function:</p>
+<p>num = A * Exponent;</p>
+<p>den = B * Exponent;</p>
+<p>Res = num ./ (1 - den);</p>
+<br>
+<p>% ***************************** Backward.m *****************************</p>
+<br>
+<p>function Mag = Backward(N, Len_f, Coeff, Scale)</p>
+<p>% Send an impule into the system and calculate the magnitude</p>
+<p>% response using the integer coefficients of the Backward Method.</p>
+<br>
+<p>A = Coeff(1, 1:N+1);</p>
+<p>B = Coeff(2, 1:N+1);</p>
+<br>
+<p>Lx = 2*Len_f + 1;</p>
+<p>x = zeros(1, Lx);</p>
+<p>Mid = Len_f + 1;</p>
+<p>x( Mid ) = 1;</p>
+<p>Mag = zeros(2, Len_f);</p>
+<p>h = zeros(1, Lx);</p>
+<br>
+<p>for n = Len_f + 1:1:Lx</p>
+<p>&#160;&#160;&#160;&#160;hTemp = h(n:-1:n - N);</p>
+<p>&#160;&#160;&#160;&#160;xTemp = x(n:-1:n - N);</p>
+<p>&#160;&#160;&#160;&#160;h1 = sum( A .* xTemp ) / Scale;</p>
+<p>&#160;&#160;&#160;&#160;h2 = sum( B .* hTemp ) / Scale;</p>
+<p>&#160;&#160;&#160;&#160;h( n ) = h1 + h2;</p>
+<p>end;</p>
+<br>
+<p>% Construct the amplitude and dB_amplitude of the Backward Method.</p>
+<p>H = fft( h );</p>
+<p>Mag(1, :) = abs( H( 1:1:Len_f ) );</p>
+<p>Mag(2, :) = 20*log10( Mag(1, :) );</p>
+<br>
+<br>
+<p>% ************************** Compare.m **************************</p>
+<br>
+<p>function [Deviation] = Compare(f_n, Mag, Mag_r, Flag)</p>
+<p>% Compare the results of the two methods by sketching the amplitudes and the dB-amplitudes in
+% the same plot and finding the deviation between the amplitudes.</p>
+<br>
+<p>Error = 0;</p>
+<p>if Flag == 0</p>
+<p>&#160;&#160;&#160;&#160;plot(f_n, Mag(1, :), 'r');</p>
+<p>&#160;&#160;&#160;&#160;legend('Direct Method');</p>
+<p>elseif Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;plot(f_n, Mag(1, :), 'r', f_n, Mag_r(1, :), 'm.-.');</p>
+<p>&#160;&#160;&#160;&#160;legend('Direct Method', 'Backward Method', 0);</p>
+<p>end;</p>
+<p>xlabel('\it f [ Hz ]');</p>
+<p>ylabel('\it Amplitude');</p>
+<p>title('Amplitude of the frequency response');</p>
+<p>grid;</p>
+<p>pause;</p>
+<br>
+<p>% dB-amplitudes:</p>
+<p>if Flag == 0</p>
+<p>&#160;&#160;&#160;&#160;plot(f_n, Mag(2, :));</p>
+<p>&#160;&#160;&#160;&#160;legend('Direct Method');</p>
+<p>elseif Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;plot(f_n, Mag(2, :), 'r', f_n, Mag_r(2, :), 'm.-.');</p>
+<p>&#160;&#160;&#160;&#160;legend('Direct Method', 'Backward Method', 0);</p>
+<p>end;</p>
+<p>xlabel('\it f [ Hz ]');</p>
+<p>ylabel('\it dB-Amplitude');</p>
+<p>title('dB-Amplitude of the frequency response');</p>
+<p>grid;</p>
+<p>pause;</p>
+<br>
+<p>% The error in dB-amplitude:</p>
+<p>if Flag == 1</p>
+<p>&#160;&#160;&#160;&#160;Diff = abs( Mag(1, :) - Mag_r(1, :) );</p>
+<p>&#160;&#160;&#160;&#160;plot(f_n, Diff, 'r');</p>
+<p>&#160;&#160;&#160;&#160;xlabel('\it f [ Hz ]');</p>
+<p>&#160;&#160;&#160;&#160;ylabel('\it Amplitude');</p>
+<p>&#160;&#160;&#160;&#160;title('Error between the Direct and the Backward methods');</p>
+<p>&#160;&#160;&#160;&#160;grid;</p>
+<p>&#160;&#160;&#160;&#160;Error = norm(Diff, 2);</p>
+<p>end;</p>
+<br>
+<br>
+<p style="text-align: center"><span style="font-size: 20pt">A test Example</span></p>
+<br>
+<p>% *************************** InputParam.txt ***************************</p>
+<p>2</p>
+<p>1</p>
+<p>0.1     0.15      0.35       0.4</p>
+<p>30      1         1          30      </p>
+<p>32</p>
+<p>1</p>
+<br>
+<br>
+<p>% ****************************** Coeff.txt ******************************</p>
+<p>0.00258919230436<span>&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>-7.18874127445e-036<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 6.68971768792e-016</p>
+<p>-0.0155351538262<span>&#160;&#160;&#160;&#160;&#160;</span> -2.83862236992  </p>
+<p>2.87549650978e-035<span>&#160;&#160;</span> 1.77589059034e-015</p>
+<p>0.0388378845654 <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> -4.63519945753  </p>
+<p>-4.31324476467e-035<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 2.49460738689e-015</p>
+<p>-0.0517838460872<span>&#160;&#160;&#160;&#160;&#160;</span> -4.80619301875  </p>
+<p>2.87549650978e-035<span>&#160;&#160;</span> 2.09545797267e-015</p>
+<p>0.0388378845654 <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> -3.31678397797  </p>
+<p>-7.18874127445e-036<span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 1.04500912979e-015</p>
+<p>-0.0155351538262<span>&#160;&#160;&#160;&#160;&#160;</span> -1.4346708206   </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 2.50922749203e-016</p>
+<p>0.00258919230436<span>&#160;&#160;&#160;&#160;&#160;</span> -0.313430552783 </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0 </p>
+<br>
+<p>% ***************************** Coeff_r.txt *****************************</p>
+<p>1156892         <span>&#160;</span> 0               </p>
+<p>-1              <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>-6941355        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> -1268341720     </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>17353385        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> -2071080999     </p>
+<p>-1              <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>-23137848       <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> -2147483647     </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>17353385        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> -1481991948     </p>
+<p>-1              <span>&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>-6941355        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> -641033790      </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>1156892         <span>&#160;</span> -140045767      </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0               </p>
+<p>0               <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span> 0</p>
+<br>
+<p>% ****************************** Scale.txt ******************************</p>
+<p>446815939</p>
+</body>
+
+</html>
