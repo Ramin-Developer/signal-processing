@@ -25,7 +25,13 @@ The pipeline uses cascaded low-order sections rather than one high-order direct-
 
 For later-period calls, use `firstPeriod = 1` once at the beginning of the MATLAB session, then use `0` for subsequent periods. A new session must begin with `1` because section state is intentionally held in memory.
 
-The pipeline constructs the test signal, derives the filter parameters, calculates coefficients, and applies the filter.
+The pipeline constructs the test signal, derives the filter parameters, creates stable sections, and applies the section cascade.
+
+## Legacy Input File
+
+`MakeInputFile` and `InputFile.txt` are retained as a standalone compatibility utility for generating example input data. The modern `Calc_Output` and `Calc_OutputWithState` pipelines generate their test signal through `MakeTestFile` and do not read `InputFile.txt`.
+
+Use `MakeInputFile(path, choice)` for a repeatable generated input file, where `choice` is `0` (impulse), `1` (step), `2` (sine), or `3` (noise). Omitting `choice` retains the interactive prompt.
 
 ## Filter state
 

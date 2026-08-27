@@ -16,7 +16,9 @@ The code in this repository is intended for MATLAB-based signal analysis and exp
 
 ## Usage
 
-Open the MATLAB files in MATLAB and run the relevant entry point for the task you want to evaluate or test.
+Run `Main_Check.m` for the demonstration flow. Use `Calc_OutputWithState` when integrating the filter into an application that owns its state explicitly.
+
+`MakeInputFile.m` remains available to generate legacy example input files, but `InputFile.txt` is not consumed by the modern filter pipeline.
 
 ## Repository notes
 
