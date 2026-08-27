@@ -13,7 +13,7 @@ if inputHandle == -1 || outputHandle == -1
 	error('SignalProcessing:StateFileOpenFailed', ...
 		'Unable to open the persisted filter state files for writing.');
 end;
-fprintf(inputHandle, '%-16.12g\n', inputSignal);
-fprintf(outputHandle, '%-16.12g\n', outputSignal);
+fprintf(inputHandle, '%.17g\n', inputSignal);
+fprintf(outputHandle, '%.17g\n', outputSignal);
 fclose(inputHandle);
 fclose(outputHandle);

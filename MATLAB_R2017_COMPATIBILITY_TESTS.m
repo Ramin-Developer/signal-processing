@@ -173,6 +173,19 @@ delete(inputPath);
 delete(outputPath);
 delete(stateLogPath);
 
+[yStateFirst, statusStateFirst, filterState] = ApplyFilterWithState(Func, N, Coeff, ...
+	x, struct(), 1);
+[yStateNext, statusStateNext, filterState] = ApplyFilterWithState(Func, N, Coeff, ...
+	x, filterState, 0);
+assert(isequal(yStateFirst, yFirst), 'In-memory first-period output should match file filtering.');
+assert(isequal(yStateNext, yNext), ...
+	'In-memory next-period output should match double-precision file filtering.');
+assert(statusStateFirst == statusFirst, 'In-memory first-period status should match file filtering.');
+assert(statusStateNext == statusNext, 'In-memory next-period status should match file filtering.');
+assert(isequal(filterState.inputSignal, x), 'In-memory state should retain the current input.');
+assert(isequal(filterState.outputSignal, yStateNext), ...
+	'In-memory state should retain the current output.');
+
 shortInputPath = [tempname '.txt'];
 shortOutputPath = [tempname '.txt'];
 shortLogPath = [tempname '.txt'];
