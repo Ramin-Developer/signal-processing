@@ -4,6 +4,10 @@ function [y, Status] = ApplyNext(Func, N, A, B, x, LastInSignal, LastOutSignal, 
 Lx = length(x);
 y = zeros(Lx, 1);
 [x_last, y_last] = ReadFilterState(LastInSignal, LastOutSignal);
+if length(x_last) < N || length(y_last) < N
+    error('SignalProcessing:InsufficientFilterState', ...
+        'Persisted filter state must contain at least N input and output samples.');
+end;
 
 x_t = [x_last(end - N + 1:end);   x];
 y_t = [y_last(end - N + 1:end);   y];
