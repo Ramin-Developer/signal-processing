@@ -27,7 +27,7 @@ The pipeline constructs the test signal, derives the filter parameters, calculat
 
 `ApplyFilter` persists the current input and output signals after each run. For later periods, `ApplyNext` reads these files to obtain the required history.
 
-The default file names are configured in `Initialize.m`:
+The default file names are configured in `SignalConfig.m`:
 - `LastInSignal.txt`
 - `LastOutSignal.txt`
 - `LogFile.txt`
