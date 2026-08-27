@@ -17,14 +17,10 @@ LenExt = Lx + N;
 y_t = ApplyDifferenceEquation(A, B, x_t, y_t, N);
 y = y_t(N + 1:end);
 
-h_log  = fopen(LogFile, 'rt');                    % Open the Log file for reading.
-LastStatus = fscanf(h_log, '%g');
-Count = fclose(h_log);
+LastStatus = ReadFilterStatus(LogFile);
 Status = 0;
 if (LastStatus == 1)                              % If LastStatus is equal to warning
     Status = 1;                                   % set Status equal to warning.
 end;
 
-h_log  = fopen(LogFile, 'wt');                    % Open the Log file for overwriting.
-Count = fprintf(h_log,  '%-16.12g\n', Status);    % Write the new status into the file.
-Count = fclose(h_log);
+WriteFilterStatus(LogFile, Status);
