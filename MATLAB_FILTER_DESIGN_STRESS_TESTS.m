@@ -64,4 +64,14 @@ for Func = 0:3
         end;
     end;
 end;
+
+nearNyquistLogPath = [tempname '.txt'];
+[nearNyquistOrder, nearNyquistCutoff, nearNyquistEpsilon] = DesignParam(0, 0, ...
+    [0.45 0.49], [0.1 20], cfg.filterOrderMax, cfg.alpha, nearNyquistLogPath);
+nearNyquistSections = CalculateFilterSections(0, 0, nearNyquistOrder, cfg.alpha, ...
+    nearNyquistCutoff, nearNyquistEpsilon);
+for sectionIndex = 1:length(nearNyquistSections)
+    ValidateFilterStability(nearNyquistSections{sectionIndex}, 2);
+end;
+delete(nearNyquistLogPath);
 end

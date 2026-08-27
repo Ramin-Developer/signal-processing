@@ -61,6 +61,21 @@ assert(all(legacyInputValues(11 + cfg.defaultSignalLength / 2:end) == 1), ...
 	'Legacy step input should end with one values.');
 delete(legacyInputPath);
 
+seededNoisePath = [tempname '.txt'];
+repeatSeededNoisePath = [tempname '.txt'];
+MakeInputFile(seededNoisePath, 3, 42);
+MakeInputFile(repeatSeededNoisePath, 3, 42);
+seededNoiseHandle = fopen(seededNoisePath, 'rt');
+seededNoiseValues = fscanf(seededNoiseHandle, '%g');
+fclose(seededNoiseHandle);
+repeatSeededNoiseHandle = fopen(repeatSeededNoisePath, 'rt');
+repeatSeededNoiseValues = fscanf(repeatSeededNoiseHandle, '%g');
+fclose(repeatSeededNoiseHandle);
+assert(isequal(seededNoiseValues, repeatSeededNoiseValues), ...
+	'Seeded legacy noise input should be reproducible.');
+delete(seededNoisePath);
+delete(repeatSeededNoisePath);
+
 invalidTestConfig = cfg;
 invalidTestConfig.testFilterFunction = 4;
 invalidTestConfigErrorRaised = false;
@@ -195,6 +210,9 @@ bandPassLogPath = [tempname '.txt'];
 [bandPassOrder, bandPassCutoff, bandPassEpsilon] = DesignParam(2, 0, ...
 	bandPassFrequencyLimits, bandPassAttenuationLimits, cfg.filterOrderMax, ...
 	cfg.alpha, bandPassLogPath);
+assert(bandPassOrder <= cfg.filterOrderMax && ...
+	bandPassOrder >= 0.75 * cfg.filterOrderMax, ...
+	'Band-pass fixture should exercise a design near the configured order limit.');
 bandPassSections = CalculateFilterSections(2, 0, bandPassOrder, cfg.alpha, ...
 	bandPassCutoff, bandPassEpsilon);
 [bandPassFirstOutput, ~, bandPassState] = ApplyFilterSections(2, bandPassSections, ...

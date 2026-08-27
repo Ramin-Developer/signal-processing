@@ -1,4 +1,4 @@
-function Made = MakeInputFile(InputFile, Choice)
+function Made = MakeInputFile(InputFile, Choice, RandomSeed)
 
 cfg = SignalConfig();
 Len = cfg.defaultSignalLength;
@@ -20,6 +20,11 @@ if ~isnumeric(Choice) || ~isscalar(Choice) || Choice ~= floor(Choice) || ...
     error('SignalProcessing:InvalidInputSignalChoice', ...
         'Choice must be an integer from 0 through 3.');
 end;
+if nargin >= 3 && (~isnumeric(RandomSeed) || ~isscalar(RandomSeed) || ...
+        ~isfinite(RandomSeed) || RandomSeed ~= floor(RandomSeed) || RandomSeed < 0)
+    error('SignalProcessing:InvalidRandomSeed', ...
+        'RandomSeed must be a nonnegative integer.');
+end;
 
 if Choice == 0
     x(mid) = 1;
@@ -28,6 +33,11 @@ elseif Choice == 1
 elseif Choice == 2
     x = sineSignal;
 else
+    if nargin >= 3
+        previousRandomState = rng;
+        cleanupRandomState = onCleanup(@() rng(previousRandomState));
+        rng(RandomSeed);
+    end;
     x = rand(Len, 1);
 end;
 
