@@ -1,7 +1,7 @@
 function [y, Status] = ApplyFilter(Func, N, Coeff, x, LastInSignal, LastOutSignal, ...
                        LogFile, FirstPeriod)
 % Construct the filter output given the filter coefficients and order in Coeff and N.
-% If (FirstPeriod == 1) we assume periodicity in the time domain to extend the input 
+% If (FirstPeriod == 1) we assume periodicity in the time domain to extend the input
 % signal. Iterations are made to satisfy the convergence (at most 10 times).
 % For the output values two different initializations are used:
 % 1) Mean value of the input for low-pass and band-stop.
